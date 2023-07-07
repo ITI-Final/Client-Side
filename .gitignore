@@ -40,7 +40,22 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+<<<<<<< HEAD
 /.vs/Client-Side/config
 /.vs/Client-Side/FileContentIndex
 *.json
+=======
+.vs/Client-Side/FileContentIndex/read.lock
+.gitignore
+.vs/ProjectSettings.json
+.angulardoc.json
+.angulardoc.json
+.vs/Client-Side/FileContentIndex/fb956f18-fced-4c09-92fa-b3c6202a8b91.vsidx
+/.angulardoc.json
+/.vs/Client-Side/FileContentIndex/eac3b0da-0cb8-4ca9-8462-2a0fa27f5350.vsidx
+/.vs/Client-Side/FileContentIndex/merges
+/.vs/Client-Side/FileContentIndex/20090e3e-7b3b-4a04-ab33-77e9a8a5eeab.vsidx
+*.vsidx
+/.vs/Client-Side/FileContentIndex
+>>>>>>> 284561eb0b8e5736853d83ae9d34907fd3188b41
 /.vs
