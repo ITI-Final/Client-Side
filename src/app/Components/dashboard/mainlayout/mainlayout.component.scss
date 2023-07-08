@@ -1,0 +1,22 @@
+
+.sidebar {
+   position: fixed;
+   top: 0;
+   width: var(--sidebar-width);
+   background: #FFF;
+   height: 100vh;
+   box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+   z-index: 9999;
+   padding: 0;
+   overflow: hidden;
+}
+
+
+.sidebar.hide {
+   display: none;
+}
+
+.content {
+   width: calc(100% - var(--sidebar-width));
+   background-color: #EEE;
+}

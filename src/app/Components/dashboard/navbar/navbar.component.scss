@@ -1,0 +1,8 @@
+.navbar .navbar-brand {
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+.navbar .navbar-brand:hover {
+   color: var(--primary-color);
+}

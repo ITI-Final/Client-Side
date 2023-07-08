@@ -1,0 +1,389 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
+    <li class="breadcrumb-item">
+      <a [routerLink]="'/dashboard/category'">Category</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Add Cateogry</li>
+  </ol>
+</nav>
+<div class="bg-white p-3 p-md-5 rounded-4">
+  <h1 class="mb-4">Add Category</h1>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <form
+          class="row g-3 needs-validation"
+          [formGroup]="addForm"
+          (ngSubmit)="formOperation($event)"
+          novalidate
+        >
+          <div class="col-md-6">
+            <label for="name" class="form-label">Category Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              formControlName="name"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid': Name.invalid && (Name.dirty || Name.touched),
+                'is-valid': !Name.invalid
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("name") }}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="label" class="form-label">Label (English)</label>
+            <input
+              type="text"
+              class="form-control"
+              name="label"
+              id="label"
+              formControlName="label"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid': Label.invalid && (Label.dirty || Label.touched),
+                'is-valid': !Label.invalid
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("label") }}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="labelAr" class="form-label">Label (Arabic)</label>
+            <input
+              type="text"
+              class="form-control"
+              name="labelAr"
+              id="labelAr"
+              formControlName="labelAr"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid':
+                  LabelAr.invalid && (LabelAr.dirty || LabelAr.touched),
+                'is-valid': !LabelAr.invalid
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("labelAr") }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Slug</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              formControlName="email"
+            />
+            <div class="invalid-feedback">
+              <!-- {{ getErrorMsg("email") }} -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="usrPass" class="form-label">Category Parent</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected disabled>Select Parent Category</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <div class="invalid-feedback">
+              <!-- {{ getErrorMsg("password") }} -->
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="email" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="4"
+            ></textarea>
+            <div class="invalid-feedback">
+              <!-- {{ getErrorMsg("email") }} -->
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label for="email" class="form-label">Tags</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              formControlName="email"
+            />
+            <div class="invalid-feedback">
+              <!-- {{ getErrorMsg("email") }} -->
+            </div>
+          </div>
+          <!-- Extra Fields -->
+          <div class="col-md-12">
+            <div
+              class="col-md-12 d-flex justify-content-between align-items-center"
+            >
+              <h3 class="mb-0">Extra Fields</h3>
+              <button
+                type="submit"
+                class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4"
+              >
+                <i class="isax isax-add"></i> Add Field
+              </button>
+            </div>
+          </div>
+          <div class="accordion" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header d-flex align-items-center gap-2">
+                <button
+                  class="accordion-button collapsed shadow-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >
+                  Extra Field #1
+                </button>
+                <button
+                  class="btn border-0 text-danger me-2 d-flex align-items-center"
+                >
+                  <i class="isax isax-trash"></i>
+                </button>
+              </h2>
+              <div
+                id="flush-collapseOne"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("email") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label for="email" class="form-label"
+                        >Label (English)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("email") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <label for="email" class="form-label"
+                        >Label (Arabic)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("email") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label">Value Type</label>
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                      >
+                        <option selected disabled>Value Type</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label"
+                        >Choice Type</label
+                      >
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                      >
+                        <option selected disabled>Value Type</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label">Min Length</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label">Max Length</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label">Min Value</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2 mt-2">
+                      <label for="usrPass" class="form-label">Max Value</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="email"
+                        id="email"
+                        formControlName="email"
+                      />
+                      <div class="invalid-feedback">
+                        <!-- {{ getErrorMsg("password") }} -->
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-md-12 mt-3 d-flex justify-content-between align-items-center"
+                    >
+                      <h4 class="mb-0">Field Choices</h4>
+                      <button
+                        type="submit"
+                        class="btn btn-outline-secondary d-flex align-items-center gap-2"
+                      >
+                        <i class="isax isax-add"></i> Add Choice
+                      </button>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-6 col-md-3">
+                        <label for="email" class="form-label"
+                          >Label (English)</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="email"
+                          id="email"
+                          formControlName="email"
+                        />
+                        <div class="invalid-feedback">
+                          <!-- {{ getErrorMsg("email") }} -->
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <label for="email" class="form-label"
+                          >Label (Arabic)</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="email"
+                          id="email"
+                          formControlName="email"
+                        />
+                        <div class="invalid-feedback">
+                          <!-- {{ getErrorMsg("email") }} -->
+                        </div>
+                      </div>
+                      <div class="col-4 col-md-2">
+                        <label for="email" class="form-label">Slug</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="email"
+                          id="email"
+                          formControlName="email"
+                        />
+                        <div class="invalid-feedback">
+                          <!-- {{ getErrorMsg("email") }} -->
+                        </div>
+                      </div>
+                      <div class="col-5 col-md-3">
+                        <label for="email" class="form-label">icon</label>
+                        <input
+                          type="url"
+                          class="form-control"
+                          name="email"
+                          id="email"
+                          formControlName="email"
+                        />
+                        <div class="invalid-feedback">
+                          <!-- {{ getErrorMsg("email") }} -->
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-1">
+                        <label for="email" class="form-label">Delete</label>
+                        <button
+                          class="btn border-0 text-danger me-2 d-flex align-items-center"
+                        >
+                          <i class="isax isax-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              class="btn btn-primary py-2 d-flex align-items-center gap-2"
+            >
+              <i class="isax isax-add"></i> Add Category
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
