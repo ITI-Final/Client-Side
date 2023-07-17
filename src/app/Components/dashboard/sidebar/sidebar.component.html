@@ -1,0 +1,187 @@
+<div class="p-3">
+  <a href="#" class="text-body-emphasis text-decoration-none"
+    ><h1 class="site-logo">O<span>L</span>X</h1></a
+  >
+  <ul class="items-list list-unstyled">
+    <li>
+      <a
+        class="nav-link"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          src="https://lh3.google.com/u/0/d/1pRAY6ii0lkw9-IMY2Es9X1ulRZKo-MK1=w1920-h937-iv1"
+          class="object-fit-cover rounded-circle"
+          height="40"
+          width="40"
+        />
+        <div class="text-start">
+          <span class="fw-semibold p-0">Hello, Yasmin</span>
+          <div style="font-size: 11px; font-weight: 500">Personal Page</div>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div class="side-menu">
+    <ul class="items-list list-unstyled">
+      <li
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a [routerLink]="'/dashboard'">
+          <i class="isax isax-home"></i><span>Overview</span>
+        </a>
+      </li>
+      <li
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a
+          data-bs-toggle="collapse"
+          href="#admins-collapse"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="isax isax-crown-1"></i><span>Admins</span>
+          <div class="d-flex align-items-center ms-auto gap-1">
+            <i class="isax isax-arrow-right-3 fw-bold"></i></div
+        ></a>
+        <div class="collapse" id="admins-collapse">
+          <ul class="list-unstyled fw-normal ps-2 small">
+            <li>
+              <a
+                class="gap-1"
+                [routerLink]="'/dashboard/admin'"
+                [routerLinkActive]="'text-primary'"
+                [routerLinkActiveOptions]="{ exact: true }"
+                ><i class="isax isax-minus"></i>All Admins</a
+              >
+            </li>
+            <li>
+              <a
+                class="gap-1"
+                [routerLink]="'/dashboard/admin/add'"
+                [routerLinkActive]="'text-primary'"
+                [routerLinkActiveOptions]="{ exact: true }"
+                ><i class="isax isax-minus"></i>Add New Admin</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a
+          data-bs-toggle="collapse"
+          href="#users-collapse"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="isax isax-user"></i><span>Users</span>
+          <div class="d-flex align-items-center ms-auto gap-1" >
+            <i class="isax isax-arrow-right-3 fw-bold"></i></div
+        ></a>
+        <div class="collapse" id="users-collapse">
+          <ul class="list-unstyled fw-normal ps-2 small">
+            <li>
+              <a href="#" class="gap-1"  [routerLink]="'/dashboard/user'">
+                <i class="isax isax-minus"></i>All Users</a>
+            </li>
+            <li>
+              <a href="#" class="gap-1"  [routerLink]="'/dashboard/user/add'"
+                ><i class="isax isax-minus"></i>Add New User</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a
+          data-bs-toggle="collapse"
+          href="#category-collapse"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="isax isax-category-2"></i><span>Category</span>
+          <div class="d-flex align-items-center ms-auto gap-1">
+            <i class="isax isax-arrow-right-3 fw-bold"></i></div
+        ></a>
+        <div class="collapse" id="category-collapse">
+          <ul class="list-unstyled fw-normal ps-2 small">
+            <li>
+              <a
+                [routerLink]="'/dashboard/category'"
+                [routerLinkActive]="'text-primary'"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="gap-1"
+                ><i class="isax isax-minus"></i>All Category</a
+              >
+            </li>
+            <li>
+              <a
+                [routerLink]="'/dashboard/category/add'"
+                [routerLinkActive]="'text-primary'"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="gap-1"
+                ><i class="isax isax-minus"></i>Add Category</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a
+          data-bs-toggle="collapse"
+          href="#posts-collapse"
+          role="button"
+          aria-expanded="false"
+        >
+          <i class="isax isax-shop-add"></i><span>Posts</span>
+          <div class="d-flex align-items-center ms-auto gap-1">
+            <span class="badge text-bg-warning rounded-3">10</span>
+            <i class="isax isax-arrow-right-3 fw-bold"></i>
+          </div>
+        </a>
+        <div class="collapse" id="posts-collapse">
+          <ul class="list-unstyled fw-normal ps-2 small">
+            <li>
+              <a href="#" class="gap-1"
+                ><i class="isax isax-minus"></i>All Posts</a
+              >
+            </li>
+            <li>
+              <a href="#" class="gap-1"
+                ><i class="isax isax-minus"></i>Reported Posts</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="#">
+          <i class="isax isax-warning-2"></i><span>Reports</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="isax isax-setting-3"></i><span>Site Settings</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="sidebar-footer">
+    <a
+      href="#"
+      class=""
+      [hidden]="!isAdminLogged"
+      (click)="logout()"
+      routerLink="Logout"
+    >
+      <i class="isax isax-logout"></i><span>Logout</span>
+    </a>
+  </div>
+</div>

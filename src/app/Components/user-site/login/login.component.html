@@ -1,0 +1,38 @@
+<form [formGroup]="usrFormGroup" (ngSubmit)="login()" class="m-2">
+
+    <div class="mb-3">
+      <label for="userName" class="form-label">userName</label>
+      <input type="type" class="form-control" name="userName" id="userName" formControlName="userName">
+      <div class="alert alert-warning" [hidden]="userName?.valid || userName?.untouched">
+  
+        <small *ngIf="userName?.errors?.['required']">
+            userName is required
+  
+        </small>
+  
+      </div>
+  
+    </div>
+  
+
+  
+  
+    <div class="mb-3">
+      <label for="usrPass" class="form-label">Password</label>
+      <input type="password" class="form-control" name="usrPass" id="usrPass" formControlName="password">
+      <div class="alert alert-warning" [hidden]="password?.valid || password?.untouched">
+  
+        <small *ngIf="password?.errors?.['required']">
+            password is required
+  
+        </small>
+  
+      </div>
+  
+    </div>
+  
+  
+  <br>
+    <button type="submit" class="btn btn-success"[disabled]="isUserLogged" >Submit</button>
+  </form>
+  <button [disabled]="!isUserLogged"  class="btn btn-danger"(click)="logout()">logout</button>

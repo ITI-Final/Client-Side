@@ -1,0 +1,175 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="'/dashboard/admin'">User</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+    </ol>
+  </nav>
+  <div class="bg-white p-3 p-md-5 rounded-4">
+    <h1 class="mb-4">Add User</h1>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <form
+            class="row g-3 needs-validation"
+            [formGroup]="addForm"
+            (ngSubmit)="formOperation($event)"
+            novalidate
+          >
+            <div class="col-md-6">
+              <label for="name" class="form-label">Admin Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                formControlName="name"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Name?.invalid && (Name?.dirty || Name?.touched),
+                  'is-valid': !Name?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("name") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                formControlName="email"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Email?.invalid && (Email?.dirty || Email?.touched),
+                  'is-valid': !Email?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("email") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                id="password"
+                formControlName="password"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                    Password?.invalid && (Password?.dirty || Password?.touched),
+                  'is-valid': !Password?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("password") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                id="phone"
+                formControlName="phone"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Phone?.invalid && (Phone?.dirty || Phone?.touched),
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("phone") }}
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <label for="bio" class="form-label">Bio</label>
+              <input
+                type="text"
+                class="form-control"
+                name="bio"
+                id="bio"
+                formControlName="bio"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                  Bio?.invalid && (Bio?.dirty || Bio?.touched),
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("address") }}
+              </div>
+            </div>
+  
+         
+  
+     
+  
+            <div class="col-md-6">
+              <label class="form-label">Gender</label>
+              <div class="row">
+
+              <div class="col-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="true"
+                  formControlName="gender"
+                  [ngClass]="{
+                    'is-invalid':
+                      Gender?.invalid && (Gender?.dirty || Gender?.touched),
+                  }"
+                />
+                <label class="form-check-label" for="male"> Male </label>
+            </div> 
+            </div>
+            <div class="col-4">
+
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="false"
+                  formControlName="gender"
+                  [ngClass]="{
+                    'is-invalid':
+                      Gender?.invalid && (Gender?.dirty || Gender?.touched),
+                  }"
+                />
+                <label class="form-check-label" for="female"> Female </label>
+              </div>
+            </div>
+        </div>
+    </div>
+
+            <hr />
+
+        
+            <div>
+              <button
+                type="submit"
+                class="btn btn-primary py-2 d-flex align-items-center gap-2"
+              >
+                <i class="isax isax-add"></i> Add Admin
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
