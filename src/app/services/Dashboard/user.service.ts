@@ -32,7 +32,7 @@ export class UserService {
     return this.http.put<User>(environment.User() + '/id?id=' + id,entity); 
   }
   delete(id: number):Observable<User>  {
-    return this.http.delete<User>(environment.User() + '/' + id);
+    return this.http.delete<User>(environment.User() + '/id?id=' + id);
   }
   
   //////////company//////////

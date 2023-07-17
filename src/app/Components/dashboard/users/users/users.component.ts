@@ -12,7 +12,7 @@ export class UsersComponent {
   allUsers : User[] = []
   userArry: User[] = []
   pages= 1;
-  pageSize: number = 2; 
+  pageSize: number = 10; 
   // defaultIMG = environment.DefaultIMG
   buttonRemove : number = 0;
   searchTerm: string='';
@@ -29,16 +29,17 @@ console.log(res.data)
 
 
   changeRemove(id :number) {
-    this.buttonRemove = id;
-  }
-  remove(id:number) {
     this.userService.delete(id).subscribe((res:any) => {
       this.userService.getAll().subscribe((res:any) => {
         this.userArry = res.data;
          this.allUsers=this.userArry
   
       });    });
-    
+  }
+  remove(id:number) {
+   
+      this.buttonRemove = id;
+
   }
   // getGender(gender : boolean) {
   //   return environment.Gender(gender);
