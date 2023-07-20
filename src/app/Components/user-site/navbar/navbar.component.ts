@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/services/Dashboard/user.service';
 import { AuthService } from 'src/app/services/UserSite/auth.service';
 
 
@@ -18,7 +19,7 @@ export class NavbarComponent {
   areaExpanded:boolean = false;
   activeMenu : number = 0;
 
-
+  userDetials:any
   menus : MainMenu[] = [
     {icon:"https://www.dubizzle.com.eg/assets/vehicles_noinline.f0509d15f4ed1cd4cb243005f067d354.svg",title:"Vehicles",url:"",items: 
       [
@@ -112,7 +113,7 @@ export class NavbarComponent {
     // ,"Properties","Mobile&Tablets"
   ]
 
-  constructor(private AuthServices:AuthService) {
+  constructor(private AuthServices:AuthService,private userService:UserService) {
     // this.isUserLogged=AuthServices.isUserLogged
   }
   ngOnInit(): void {
@@ -120,8 +121,17 @@ export class NavbarComponent {
     this.AuthServices.getUserloggedStatus().
     subscribe(status=>{this.isUserLogged=status
       console.log(`"user"${this.isUserLogged}`)
+      
  })
-  }
+ let id =Number(localStorage.getItem("userId"))
+
+
+ this.userService.getById(id).subscribe((result:any)=>
+   {
+     this.userDetials =result.data
+     console.log(result) })
+   }
+  
   logout(){
     this.AuthServices.logout()
     this.isUserLogged=this.AuthServices.isUserLogged

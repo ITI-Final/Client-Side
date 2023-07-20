@@ -142,7 +142,7 @@
                   routerLinkActive="active"
                   routerLink="User/profile"
                 >
-                  <span class="d-block fw-bold">Hesham Mohamed</span>
+                  <span class="d-block fw-bold">{{userDetials?.name}}</span>
                   <span style="font-size: 14px">Profile Page</span>
                 </a>
               </li>
@@ -161,7 +161,7 @@
                   class="dropdown-item"
                   [hidden]="!isUserLogged"
                   (click)="logout()"
-                  routerLink="logout"
+                  routerLink="/Logout"
                   >Logout</a
                 >
               </li>

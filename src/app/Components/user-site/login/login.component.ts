@@ -51,7 +51,21 @@ export class LoginComponent {
     
       this.AuthServices.login(formData).subscribe(result=>{
           this.isUserLogged=this.AuthServices.isUserLogged
-          localStorage.setItem("userId","15")
+          //////
+          console.log(result.response.token);
+          let token=result.response.token
+            // Split the token by the dots to access the payload (second part)
+            const payload = token.split('.')[1];
+            // Decode the base64 encoded payload
+            const decodedPayload = atob(payload);
+            // Parse the decoded payload as JSON to access its properties
+            const payloadObj = JSON.parse(decodedPayload);
+
+       
+            
+        
+//////
+          localStorage.setItem("userId", payloadObj.Id)
           this.router.navigate([""])
 
           console.log(result);

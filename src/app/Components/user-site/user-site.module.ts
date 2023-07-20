@@ -63,6 +63,7 @@ SlideshowComponent
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ]
 })
 export class UserSiteModule { }

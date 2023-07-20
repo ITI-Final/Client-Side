@@ -40,9 +40,10 @@ export class AuthService {
    
   
       localStorage.setItem("UserName", "login");
+      this.isUserSubject.next(true);
+
       return this.httpclient.post<any>(environment.User() + '/login' ,entity); 
 
-       this.isUserSubject.next(true);
       
     }
 
