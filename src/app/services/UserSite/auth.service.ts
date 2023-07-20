@@ -29,13 +29,23 @@ export class AuthService {
       return this.httpclient.get<any>(`${environment.APIURL}/users`);
     }
   
-    login(userName:string,Password:string){
+    login1(userName:string,Password:string){
    
   
       localStorage.setItem("UserName", userName);
        this.isUserSubject.next(true);
       
     }
+    login(entity: any):Observable<any> {
+   
+  
+      localStorage.setItem("UserName", "login");
+      return this.httpclient.post<any>(environment.User() + '/login' ,entity); 
+
+       this.isUserSubject.next(true);
+      
+    }
+
     logout(){
       localStorage.removeItem("UserName")
        this.isUserSubject.next(false);

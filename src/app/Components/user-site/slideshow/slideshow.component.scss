@@ -1,0 +1,27 @@
+.slideshow {
+   height: 400px;
+}
+
+.slideshow img{
+   object-fit: cover;
+   height: 100%;
+}
+
+.carousel-indicators {
+
+}
+
+.carousel-indicators button {
+   width: 8px;
+   height: 8px;
+   border-radius: 15px;
+   border:2px solid #FFF;
+   background-color: transparent;
+   transition: 0.3s;
+}
+
+.carousel-indicators button.active {
+   width: 35px;
+   border-color:var(--primary-color);
+   background-color: var(--primary-color);
+}

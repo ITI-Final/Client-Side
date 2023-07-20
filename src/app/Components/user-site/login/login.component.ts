@@ -9,45 +9,91 @@ import { AuthService } from 'src/app/services/UserSite/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
+
   isUserLogged:boolean|undefined
   usrFormGroup: FormGroup;
   user:object|undefined
   constructor( private AuthServices:AuthService,private fb: FormBuilder,private router:Router) {
     this.usrFormGroup=this.fb.group({
-      userName:['',[Validators.required]],
-
-     password:['',[Validators.required]],
+      email:['',[Validators.required,Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/)]],
+      password:['',[Validators.required]],
     })
   }
-  get userName(){
+  get Email(){
     return this.usrFormGroup.get('email');
   }
-  get password(){
+  get Password(){
     return this.usrFormGroup.get('password');
   }
   ngOnInit(): void {
     this.isUserLogged=this.AuthServices.isUserLogged
   }
-  login(){
-    if(this.usrFormGroup.valid){
-    this.AuthServices.getalluser().subscribe(result=>{
-      let user=result.find((a:any)=>{ 
-         return   a.userName==this.usrFormGroup.value.userName&&a.password==this.usrFormGroup.value.password})
-      if(user){
-        this.AuthServices.login(this.usrFormGroup.value.userName,this.usrFormGroup.value.password)
-        this.isUserLogged=this.AuthServices.isUserLogged
-        alert("you are User")
-   
-        this.router.navigate([""])
+  login(e:any){
 
-      }else{
-        alert("you not user")
-      }
-    })
-  }
+
+    this.usrFormGroup.markAllAsTouched();
+    if (this.usrFormGroup.valid === false) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      Object.keys(this.usrFormGroup.controls).forEach((key: string) => {
+        const control = this.usrFormGroup.get(key);
+        if (control) {
+          control.markAsDirty();
+          control.markAsTouched();
+        }
+      });
+    } else {
+      const formData = new FormData();
+      formData.append('email', this.usrFormGroup.value.email);
+      formData.append('password', this.usrFormGroup.value.password);
     
+      this.AuthServices.login(formData).subscribe(result=>{
+          this.isUserLogged=this.AuthServices.isUserLogged
+          localStorage.setItem("userId","15")
+          this.router.navigate([""])
 
+          console.log(result);
+
+      } ,(error: any) => {
+        console.error(error.error?.statusMessage);
+        if (error.error.statusMessage == "Password Is Invalid") {
+         this.Password?.setErrors({ InvaildPassword: error.error.statusMessage });
+        }
+      })
+
+    }
   }
+
+  //#region Handle Errors
+  getErrorMsg( controlName : string) : string {
+    const control = this.usrFormGroup.get(controlName);
+    if (control?.errors){
+      if (control.errors && control.errors['required']) {
+        return 'Required Field';
+      } else if (control.errors && control.errors['minlength']) {
+        return `Min ${control.errors['minlength']['requiredLength']} Character.`;
+      } else if (control.errors && control.errors['min']) { 
+        return `Min ${control.errors['min']['min']} Number.`;
+      } else if (control.errors && control.errors['max']) { 
+        return `Max ${control.errors['max']['max']} Number.`;
+      } else if (control.errors && control.errors['pattern']) {
+        if (controlName === 'email') {
+          return 'Please enter valid Email Adress.';
+        } else if (controlName === 'avatar') {
+          return 'Please Enter Valid Format , Accepted : PNG, JPEG, JPG.';
+        } else if (controlName === 'password') {
+          return 'At least 6 characters mixed with numbers and symbols.';
+        } else if (control.errors && control.errors['InvaildPassword'] != undefined) {            
+          return control.errors['InvaildPassword'];
+        }
+          }
+        }
+    return '';
+  }
+  //#endregion
+  
   logout(){
     this.AuthServices.logout()
     this.isUserLogged=this.AuthServices.isUserLogged
@@ -55,5 +101,3 @@ export class LoginComponent {
   }
 
 }
-
-

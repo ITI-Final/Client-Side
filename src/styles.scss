@@ -241,9 +241,9 @@
 
 /*********************************************************************************************/
 :root {
-   --primary-r: 110;
-   --primary-g: 0;
-   --primary-b: 255;
+   --primary-r: 255;
+   --primary-g: 56;
+   --primary-b: 92;
    --bs-primary-rgb: var(--primary-r), var(--primary-g), var(--primary-b);
    --primary-color: rgb(var(--bs-primary-rgb));
    --primary-color-light: rgb(var(--primary-r) var(--primary-g) var(--primary-b) / 15%);
@@ -297,7 +297,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-   background-color: var(--primary-color);
+   background-color: #DDD;
    border-radius: 5px;
    -webkit-border-radius: 5px;
    -moz-border-radius: 5px;
@@ -347,15 +347,32 @@ section {
 }
 
 .dropdown-menu {
-   --bs-dropdown-bg: rgba(var(--bs-body-bg-rgb), 0.6);
-   backdrop-filter: blur(50px);
    border: 1px solid rgba(0, 0, 0, 0.05);
    box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.15);
+   padding: 10px 0;
+   border-radius: 20px;
+   overflow: hidden;
+}
+
+.dropdown-item {
+   display: block;
+   width: 100%;
+   padding: 0.50rem 1.2rem !important;
+   clear: both;
+   font-weight: 400;
+   color: var(--bs-dropdown-link-color);
+   text-align: inherit;
+   text-decoration: none;
+   white-space: nowrap;
+   background-color: transparent;
+   border: 0;
+   border-radius: var(--bs-dropdown-item-border-radius,0);
+   padding: 5px ;
 }
 
 .dropdown-item:hover {
    color: var(--bs-dropdown-link-hover-color);
-   background-color: rgba(var(--bs-primary-rgb), 0.3);
+   background-color: #EEE;
 }
 
 .dropdown-item:focus {
@@ -506,5 +523,18 @@ section {
    -o-transform: translateX(18px);
 }
 
+.navbar-brand {
+   font-weight: 900;
+   font-size: 35px;
+   letter-spacing: 2px;
+}
 
+.navbar-brand span{
+   color: var(--primary-color);
+}
 
+.align-center-embact{
+   display: flex;
+   align-items:center;
+   gap: 0.5rem;
+}

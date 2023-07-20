@@ -59,6 +59,8 @@ login(e:any){
 
     this.AuthServices.login(formData).subscribe((response: any) => {
       console.log(response.response.token);
+      console.log(response);
+
       this.AuthServices.token=response.response.token
       localStorage.setItem("id",response.response.id)
       this.isAdminLogged=this.AuthServices.isAdminLogged

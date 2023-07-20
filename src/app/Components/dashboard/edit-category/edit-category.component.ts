@@ -174,7 +174,8 @@ if(result.data!=null){
 
     }
 
-  }  }}))
+  }  }
+}))
 
 }
   //#endregion

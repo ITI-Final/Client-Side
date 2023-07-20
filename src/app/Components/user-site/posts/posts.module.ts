@@ -5,10 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { authUserGuard } from 'src/app/Guards/UserSite/auth-user.guard';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 const routes: Routes =[
-  {path:'Add', component: AddPostComponent,canActivate:[authUserGuard]},
+  {path:'add/:id', component: AddPostComponent},
 
   
 
@@ -16,9 +17,10 @@ const routes: Routes =[
 
 @NgModule({
   declarations: [
-    AddPostComponent
+    AddPostComponent,
   ],
   imports: [
+CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     HttpClientModule,
