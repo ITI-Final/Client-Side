@@ -1,0 +1,323 @@
+<div class="container">
+    <div class="row">
+      <nav aria-label="breadcrumb">
+        <!-- <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/dashboard/user'">
+                <i class="fa fa-user-circle" aria-hidden="true"></i>
+            User</a>
+          </li>
+        
+        </ol> -->
+      </nav>
+      <div class="bg-white p-3 p-md-5 rounded-4" >
+        <h3 class="mb-4">Edite <span class="text-primary">User</span></h3>
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <form
+                class="row g-3 needs-validation"
+                [formGroup]="addForm"
+                (ngSubmit)="formOperation($event)"
+                novalidate
+              >
+                <div class="col-md-6">
+                  <label for="name" class="form-label">User Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    id="name"
+                    formControlName="name"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': Name?.invalid && (Name?.dirty || Name?.touched),
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    {{ getErrorMsg("name") }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    formControlName="email"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid': Email?.invalid && (Email?.dirty || Email?.touched),
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    {{ getErrorMsg("email") }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    formControlName="password"
+                    [ngClass]="{
+                      'form-control': true,
+                      'is-invalid':
+                        Password?.invalid && (Password?.dirty || Password?.touched),
+                    }"
+                  />
+                  <div class="form-text" id="basic-addon4">
+                    <b>Note:</b> Leave it empty if you don`t need to change it
+                  </div>
+                  <div class="invalid-feedback">
+                    {{ getErrorMsg("password") }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    id="phone"
+                    formControlName="phone"
+                    [ngClass]="{
+                       'form-control': true,
+                       'is-invalid': Phone?.invalid && (Phone?.dirty || Phone?.touched),
+                     }"
+                  />
+                  <div class="invalid-feedback">
+                    {{ getErrorMsg("phone") }}
+                  </div>
+                </div>
+      
+                <div class="col-md-12">
+                  <label for="bio" class="form-label">Bio</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="bio"
+                    id="bio"
+                    formControlName="bio"
+                    [ngClass]="{
+                       'form-control': true,
+                       'is-invalid':
+                         Bio?.invalid && (Bio?.dirty || Bio?.touched),
+                     }"
+                  />
+                  <div class="invalid-feedback">
+                    {{ getErrorMsg("address") }}
+                  </div>
+                </div>
+      
+      
+      
+              
+      
+                <div class="col-md-8">
+                  <label class="form-label">Gender</label>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="male"
+                      [value]=true
+                      formControlName="gender"
+                      [ngClass]="{
+                         'is-invalid':
+                           Gender?.invalid && (Gender?.dirty || Gender?.touched),
+                       }"
+                    />
+                    <label class="form-check-label" for="male"> Male </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="female"
+                      [value]=false
+                      formControlName="gender"
+                      [ngClass]="{
+                         'is-invalid':
+                           Gender?.invalid && (Gender?.dirty || Gender?.touched),
+                       }"
+                    />
+                    <label class="form-check-label" for="female"> Female </label>
+                  </div>
+                </div>
+      
+                <div class="col-md-12">
+                  <div
+                    class="col-md-12 d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="mb-0"></h3>
+                    <a (click)="AddCompany()"   *ngIf="hasCompany; else hasCompanyTemplate"
+                      class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4"
+                    >
+                      <i class="isax isax-add"></i>  Show Company
+                      
+                </a>
+                    <ng-template #hasCompanyTemplate>
+                      <a  (click)="AddCompany()"class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4" > <i class="isax isax-add"></i>Add Company</a>
+                    </ng-template>
+                  </div>
+                  <div *ngIf="showFiled">
+                    <div class="mt-4" formArrayName="companies"  >
+                      <div class="mb-3 ms-4" *ngFor="let Company of Companies.controls; let i=index" [formGroupName]="i">
+    
+                    <div class="accordion" id="accordionFlushExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header d-flex align-items-center gap-2">
+                          <button
+                            class="accordion-button collapsed shadow-none"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne"
+                            aria-expanded="false"
+                            aria-controls="flush-collapseOne"
+                          >
+                          Company
+                          </button>
+                     
+                     
+                        </h2>
+                        <div
+                          id="flush-collapseOne"
+                          class="accordion-collapse collapse"
+                          data-bs-parent="#accordionFlushExample"
+                        >
+                          <div class="accordion-body">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <label for="name{{i+1}}" class="form-label">Logo</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="logo_Url{{i+1}}"
+                                  [id]="'logo_Url'+(i+1)"
+                                  formControlName="logo_Url"
+                                  [ngClass]="{
+                                    'form-control': true,
+                                    'is-invalid':
+                                    Company.get('logo_Url')?.invalid && (Company.get('logo_Url')?.dirty || Company.get('logo_Url')?.touched),
+                                  }"/>
+                                <div class="invalid-feedback">
+                                  {{ getErrorMsg("logo_Url") }}
+                                </div>
+                              </div>
+                              <div class="col-4 col-md-4">
+                                <label for="cover_Url{{i+1}}" class="form-label"
+                                  >Cover image</label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="cover_Url{{i+1}}"
+                                  [id]="'cover_Url'+(i+1)"
+                                  formControlName="cover_Url"
+                                  [ngClass]="{
+                                    'form-control': true,
+                                    'is-invalid':
+                                    Company.get('cover_Url')?.invalid && (Company.get('cover_Url')?.dirty || Company.get('cover_Url')?.touched),
+                                  }"
+                                />
+                                <div class="invalid-feedback">
+                                  {{ getErrorMsg('cover_Url') }}
+                                </div>
+                              </div>
+                              <div class="col-4 col-md-4">
+                                <label for="tax_Number{{i+1}}" class="form-label"
+                                  >Tax Number</label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="tax_Number{{i+1}}"
+                                  id="tax_Number1{{i+1}}"
+                                  formControlName="tax_Number"
+                                  [ngClass]="{
+                                    'form-control': true,
+                                    'is-invalid':
+                                    Company.get('tax_Number')?.invalid && (Company.get('tax_Number')?.dirty || Company.get('tax_Number')?.touched),
+                                  }"
+                                />
+                                <div class="invalid-feedback">
+                                  {{ getErrorMsg("tax_Number") }}
+                                </div>
+                              </div>
+                         
+                             
+                              
+                             
+              
+                              
+                         
+                              <!-- add choies -->
+    
+             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                </div>
+    <!-- 
+                <div class="col-md-12" *ngIf="!hasCompany">
+                  <div
+                    class="col-md-12 d-flex justify-content-between align-items-center"
+                  >
+                    <h3 class="mb-0"></h3>
+                    <button (click)="AddCompany()" type="button"
+                      class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4"
+                    >
+                      <i class="isax isax-add"></i> show Company
+                    </button>
+                  </div>
+                </div> -->
+                <hr />
+    
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary py-2 d-flex align-items-center gap-2"
+                  >
+                    <i class="isax isax-send-2"></i> Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <ng-template #loading>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <div
+              class="d-flex flex-column align-items-center justify-content-center gap-2"
+            >
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Loading ...
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      
+      <ng-template #loading2>
+        <li class="breadcrumb-item active" aria-current="page">Loading ...</li>
+      </ng-template>
+      
+    </div>
+</div>

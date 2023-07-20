@@ -1,0 +1,26 @@
+.controls {
+   display: flex;
+   gap: 5px;
+}
+.controls a{
+   display: inline-block;
+   height: 35px;
+   width: 35px;
+   line-height: 38px;
+   padding: 0 !important;
+}
+tr td img {
+   height:35px;
+   width: 35px;
+   margin-right: 10px;
+   border-radius: 50%;
+   object-fit: cover;
+}
+ngb-pagination-number {
+   background-color: rgb(116, 47, 47);
+   /* Add any other desired styles */
+ }
+.current{
+   background-color: rgb(116, 47, 47);
+
+ }
