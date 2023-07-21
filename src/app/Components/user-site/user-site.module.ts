@@ -16,14 +16,23 @@ import { PostSectionComponent } from './post-section/post-section.component';
 import { RegisterComponent } from './register/register.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
 
+import { PostViewComponent } from './post-view/post-view.component';
+import { ChatComponent } from './chat/chat.component';
+
 const routes: Routes =[
   {path:"",component:MainlayoutComponent,
   children:[
-     {path:"",component:HomeComponent},
-     {path:"categories",component:CategoriesComponent},
 
-     {
-      path: 'User',
+    {path:"",component:HomeComponent},
+    {path:'register', component:RegisterComponent},
+    {path:'login', component:LoginComponent},
+    {path:'Logout', component:LoginComponent},
+    {path:"categories",component:CategoriesComponent},
+    {path:"chat",component:ChatComponent},
+    {path:"chat/:id",component:ChatComponent},
+    {
+      path: 'user',
+
       loadChildren: () => import('src/app/Components/user-site/user/user.module')
                             .then(m=>m.UserModule)
     },
@@ -32,15 +41,15 @@ const routes: Routes =[
       loadChildren: () => import('src/app/Components/user-site/posts/posts.module')
                             .then(m=>m.PostsModule)
     },
-    {path:'register', component:RegisterComponent},
+    {path:":category",component:PostViewComponent},
+    {path:":category/:sub",component:PostViewComponent},
+    {path:":category/:sub/:id",component:PostViewComponent},
 
-    {path:'login', component:LoginComponent},
-    {path:'Logout', component:LoginComponent},
+  
 //////// must be last  Path/////////////
- {path: '**', component:NotFoundComponent}
+{path: '**', component:NotFoundComponent}
 /////////////////////////////////////////
   ]}
- 
 ]
 
 @NgModule({
@@ -55,7 +64,10 @@ const routes: Routes =[
     PostItemComponent,
 PostSectionComponent,
 RegisterComponent,
-SlideshowComponent
+SlideshowComponent,
+PostViewComponent,
+ChatComponent
+
   ],
   imports: [
     CommonModule,

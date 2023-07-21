@@ -10,10 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Routes =[
   {path:'add/:id', component: AddPostComponent},
-
-  
-
 ]
+
 
 @NgModule({
   declarations: [

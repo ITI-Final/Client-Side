@@ -52,3 +52,4 @@ export class CategoryService {
     return this.httpclient.post<any>(`${environment.endPoint}Posts`,post);
   }
 }
+
