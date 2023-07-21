@@ -35,13 +35,13 @@ userID:any
   // Id: [""],
   Title: ["",[Validators.required,Validators.minLength(3)]],
   Description: ["",[Validators.required,Validators.minLength(3)]],
-  Price: ["",[Validators.required,Validators.minLength(3)]],
-  Price_Type: ["",[Validators.required,Validators.minLength(3)]],
-  Contact_Method: ["",[Validators.required,Validators.minLength(3)]],
-  Post_Location: ["",[Validators.required,Validators.minLength(3)]],
-  Location: ["",[Validators.required,Validators.minLength(3)]],
+  Price: ["",[Validators.required]],
+  Price_Type: ["",[Validators.required]],
+  Contact_Method: ["",[Validators.required]],
+  Post_Location: ["",[Validators.required]],
+  Location: ["",[Validators.required]],
 
-  Fields: this.fb.array([this.AddFieldsFormGroup()]),
+  // Fields: this.fb.array([this.AddFieldsFormGroup()]),
   Post_Images:[''],
   
   arryRadio:this.fb.array([this.AddFieldsFormGroup()]),
@@ -109,9 +109,9 @@ console.log(event.target)
     get Post_Location() {return this.addForm.get('Post_Location');
 
   }
-    get Fields() {
-      return this.addForm.get('fields') as FormArray;
-    }
+  get Location() {return this.addForm.get('Location');
+
+}
     get ArryRadio() {
       return this.addForm.get('arryRadio') as FormArray;
     } get ArryChexkBox() {
@@ -161,7 +161,7 @@ console.log(event.target)
     this.currentidCat = Number(paramMap.get('id'));
   console.log(this.currentidCat);
       })
-      this.categoryService.getCategoryByID(this.currentidCat).subscribe((result=>
+       this.categoryService.getCategoryByID(this.currentidCat).subscribe((result=>
         { if(result.data!=null){
           this.categoryDetials =result.data
   
@@ -202,12 +202,13 @@ console.log(event.target)
       this.city=res.data.cities
       
     })  })
+    this.addForm.get('Price_Type')?.valueChanges.subscribe(res=>{
+if(res==1){
+  this.Price?.setValue(0.00)
+}
+    })
   }
-    //#endregion
-       //#region add field toggel
-      //  AddFieldstoggel1(){
-      //   this.hasField=!this.hasField
-      //  }
+ 
     //#endregion
     onFileChange(event: Event) {
       const inputElement = event.target as HTMLInputElement;
@@ -219,22 +220,7 @@ console.log(event.target)
     //#region On Form Submit
     formOperation(e:any) {
      this.userID=localStorage.getItem('userId')
-console.log("/////////////////////")
-console.log(this.userID)
-console.log( this.currentidCat.toString())
-console.log(this.Title?.value)
-console.log(this.Description?.value)
-console.log(this.Price?.value)
-console.log(this.Price_Type?.value)
-console.log(this.Contact_Method?.value)
-console.log(this.Post_Location?.value)
-console.log(this.testArry)
-console.log(this.Post_Location?.value)
 
-
-
-
-console.log("/////////////////////")
 
       const formData = new FormData();
       formData.append('User_Id',this.userID);
@@ -246,74 +232,28 @@ console.log("/////////////////////")
         formData.append('Contact_Method',this.Contact_Method?.value);
         formData.append('Post_Location',this.Post_Location?.value);
         formData.append('Fields',JSON.stringify( this.testArry));
-        const Post_ImagesArry: any[] = [];
+        // const Post_ImagesArry: any[] = [];
 
   for (let i = 0; i < this.selectedImages.length; i++) {
     const file = this.selectedImages[i];
-    const postImageObj: any = {
-      ImageFile: file,
-      Image: file.name
-    };
-    Post_ImagesArry.push(postImageObj);
-    formData.append(`Post_Images[${i}].ImageFile`, file, file.name);
+  
+    formData.append(`Post_Images[${i}].ImageFile`, file);
     formData.append(`Post_Images[${i}].Image`, file.name);
   }
 
-  // Append the Post_ImagesArry to formData (if needed for your backend)
-  formData.append('Post_Images', JSON.stringify(Post_ImagesArry));
-
-      //   let Post_ImagesArry:any=[
-      //     {"ImageFile":'',"Image":''}
-      //   ]
-      // for (let i = 0; i < this.selectedImages.length; i++) {
-      //   const file = this.selectedImages[i];
-      //   Post_ImagesArry[i].ImageFile=file
-      //   Post_ImagesArry[i].Image=file.name
-
-      //   // formData.append('Post_Images', file, file.name);
-      //   // formData.append('Post_Images[0].ImageFile', file, file.name);
-      //   // formData.append('Post_Images', file, file.name);
-      //   // console.log(file,file.name)
-      // }
-      // this.Post_Images.setValue(Post_ImagesArry)
-      // formData.append('Post_Images',this.Post_Images);
+  
 
       this.categoryService.addPost(formData).subscribe(val=>{
-        console.log(val)
+this.router.navigate([''])
       })
-      // console.log(this.addForm.get('Price_Type')?.value)
-      // this.addForm.get('Post_Location')
-  //     this.addForm.get('admin_Id')?.setValue( localStorage.getItem('id') );
-  //     console.log(localStorage.getItem('id'))
-  //     const formControls = this.addForm.controls;
-  // let isAllValidExceptName = true;
-  
-  // for (const key in formControls) {
-  //   if (key !== 'fields' && !formControls[key].valid) {
-  //     isAllValidExceptName = false;
-  //     break;
-  //   }
-  // }
-  //     // console.log( this.addForm.value)
-  //     if( this.addForm.get("parent_Id")?.value=='null'&&isAllValidExceptName&&this.hasField==false||this.addForm.get("parent_Id")?.value!='null'&&isAllValidExceptName&&this.hasField==false){
-  //       if(this.addForm.get("parent_Id")?.value=='null'){
-  //         this.addForm.get('parent_Id')?.setValue(null);
-  //       }
-  //       const { fields, ...formDataValue } = this.addForm.value;
-  //       console.log(formDataValue)
-  // this.categoryService.addMainCategory(formDataValue).subscribe(result=>{
-  //   console.log(result)
-  
-  // })
-  //     }
-  //     else if((this.addForm.valid)){
+
+  //    if((this.addForm.valid)){
       
   //  console.log( this.addForm.value)
       
-  //       this.categoryService.addCategory(this.addForm.value).subscribe(result=>{
-  //         console.log(result)
+       
   
-  //       })
+        
   //     }else{
       
   //           Object.keys(this.addForm.controls).forEach((key: string) => {
