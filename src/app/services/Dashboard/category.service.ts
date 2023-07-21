@@ -41,4 +41,14 @@ export class CategoryService {
   }
   getCategoryByID(id:number): Observable<any>{
     return this.httpclient.get<any>(`${environment.endPoint}Categories/${id}`);
-  }}
+  }
+  getallGovernorates(): Observable<any>{
+    return this.httpclient.get<any>(`${environment.endPoint}Governorates`);
+  }
+  getGovernorateById(id:number): Observable<any>{
+    return this.httpclient.get<any>(`${environment.endPoint}Governorates/${id}`);
+  }
+  addPost(post:any): Observable<any>{
+    return this.httpclient.post<any>(`${environment.endPoint}Posts`,post);
+  }
+}
