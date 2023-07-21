@@ -1,0 +1,322 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
+    <li class="breadcrumb-item">
+      <a [routerLink]="'/dashboard/admin'">Admin</a>
+    </li>
+    <li
+      class="breadcrumb-item active"
+      aria-current="page"
+      *ngIf="admin != null; else loading2"
+    >
+      {{ admin.name }}
+    </li>
+  </ol>
+</nav>
+<div class="bg-white p-3 p-md-5 rounded-4" *ngIf="admin != null; else loading">
+  <h1 class="mb-4">Edit <span class="text-primary">Admin</span></h1>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <form
+          class="row g-3 needs-validation"
+          [formGroup]="addForm"
+          (ngSubmit)="formOperation($event)"
+          novalidate
+        >
+          <div class="col-md-6">
+            <label for="name" class="form-label">Admin Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              formControlName="name"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid': Name.invalid && (Name.dirty || Name.touched),
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("name") }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              formControlName="email"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid': Email.invalid && (Email.dirty || Email.touched),
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("email") }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="password"
+              formControlName="password"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid':
+                  Password.invalid && (Password.dirty || Password.touched),
+              }"
+            />
+            <div class="form-text" id="basic-addon4">
+              <b>Note:</b> Leave it empty if you don`t need to change it
+            </div>
+            <div class="invalid-feedback">
+              {{ getErrorMsg("password") }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              id="phone"
+              formControlName="phone"
+              [ngClass]="{
+                 'form-control': true,
+                 'is-invalid': Phone.invalid && (Phone.dirty || Phone.touched),
+               }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("phone") }}
+            </div>
+          </div>
+
+          <div class="col-md-9">
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+              formControlName="address"
+              [ngClass]="{
+                 'form-control': true,
+                 'is-invalid':
+                   Address.invalid && (Address.dirty || Address.touched),
+               }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("address") }}
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="birthdate" class="form-label">Birthdate</label>
+            <input
+              type="date"
+              class="form-control"
+              name="birthdate"
+              id="birthdate"
+              formControlName="birthdate"
+              [ngClass]="{
+                 'form-control': true,
+                 'is-invalid':
+                   Birthdate.invalid && (Birthdate.dirty || Birthdate.touched),
+               }"
+              Birthdate
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("birthdate") }}
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="avatar" class="form-label">Avatar Url</label>
+            <input
+              type="url"
+              class="form-control"
+              name="avatar"
+              id="avatar"
+              formControlName="avatar"
+              [ngClass]="{
+                 'form-control': true,
+                 'is-invalid':
+                   Avatar.invalid && (Avatar.dirty || Avatar.touched),
+               }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("avatar") }}
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Gender</label>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="true"
+                formControlName="gender"
+                [ngClass]="{
+                   'is-invalid':
+                     Gender.invalid && (Gender.dirty || Gender.touched),
+                 }"
+              />
+              <label class="form-check-label" for="male"> Male </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="false"
+                formControlName="gender"
+                [ngClass]="{
+                   'is-invalid':
+                     Gender.invalid && (Gender.dirty || Gender.touched),
+                 }"
+              />
+              <label class="form-check-label" for="female"> Female </label>
+            </div>
+          </div>
+          <hr />
+          <div
+            class="col-md-12 mt-3 d-flex justify-content-between align-items-center"
+          >
+            <h4 class="mb-0">Admin Permissions</h4>
+            <div class="form-check d-flex gap-2 align-items-top">
+              <div>
+                <input
+                  class="form-control switchEmbact"
+                  id="all"
+                  type="checkbox"
+                  value=""
+                  (change)="allPermissionsChanged()"
+                />
+                <label for="all"></label>
+              </div>
+              <label class="form-check-label" for="all">
+                All Permissions
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4"><b>Section</b></div>
+              <div class="col-3 col-md-2">View</div>
+              <div class="col-3 col-md-2">Add</div>
+              <div class="col-3 col-md-2">Edit</div>
+              <div class="col-3 col-md-2">Delete</div>
+            </div>
+            <div
+              class="row mt-2"
+              *ngFor="let group of formArray.controls; let i = index"
+              [formGroup]="group"
+            >
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control shadow-none border-0 text-primary p-0"
+                  formControlName="section"
+                  readonly
+                />
+                <div class="invalid-feedback">
+                  {{ getErrorMsg("section") }}
+                </div>
+              </div>
+              <div class="col-3 col-md-2">
+                <div class="form-check p-0">
+                  <input
+                    class="form-control switchEmbact"
+                    id="view{{ i }}"
+                    type="checkbox"
+                    formControlName="can_View"
+                    [checked]="allPermissions"
+                  />
+                  <label for="view{{ i }}"></label>
+                </div>
+              </div>
+              <div class="col-3 col-md-2">
+                <div class="form-check p-0">
+                  <input
+                    class="form-control switchEmbact"
+                    id="add{{ i }}"
+                    type="checkbox"
+                    value=""
+                    formControlName="can_Add"
+                    [checked]="allPermissions"
+                  />
+                  <label for="add{{ i }}"></label>
+                </div>
+              </div>
+              <div class="col-3 col-md-2">
+                <div class="form-check p-0">
+                  <input
+                    class="form-control switchEmbact"
+                    id="edit{{ i }}"
+                    type="checkbox"
+                    value=""
+                    formControlName="can_Edit"
+                    [checked]="allPermissions"
+                  />
+                  <label for="edit{{ i }}"></label>
+                </div>
+              </div>
+              <div class="col-3 col-md-2">
+                <div class="form-check">
+                  <div class="form-check p-0">
+                    <input
+                      class="form-control switchEmbact"
+                      id="delete{{ i }}"
+                      type="checkbox"
+                      value=""
+                      formControlName="can_Delete"
+                      [checked]="allPermissions"
+                    />
+                    <label for="delete{{ i }}"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="btn btn-primary py-2 d-flex align-items-center gap-2"
+            >
+              <i class="isax isax-send-2"></i> Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div
+        class="d-flex flex-column align-items-center justify-content-center gap-2"
+      >
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        Loading ...
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #loading2>
+  <li class="breadcrumb-item active" aria-current="page">Loading ...</li>
+</ng-template>

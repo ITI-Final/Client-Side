@@ -1,0 +1,104 @@
+.dropdown {
+
+}
+.dropdown-menu {
+   opacity: 0;
+   transform: translateY(50px);
+   -webkit-transform: translateY(50px);
+   -moz-transform: translateY(50px);
+   -ms-transform: translateY(50px);
+   -o-transform: translateY(50px);
+   animation:  dropMenu 0.5s forwards;
+   -webkit-animation:  dropMenu 0.5s forwards;
+}
+.dropdown-menu:hover {
+   opacity: 1 !important;
+   transform: translateY(0);
+   -webkit-transform: translateY(0);
+   -moz-transform: translateY(0);
+   -ms-transform: translateY(0);
+   -o-transform: translateY(0);
+}
+
+@keyframes dropMenu {
+   from {
+      opacity: 0;
+      transform: translateY(20px);
+      -webkit-transform: translateY(20px);
+      -moz-transform: translateY(20px);
+      -ms-transform: translateY(20px);
+      -o-transform: translateY(20px);
+}
+   to {
+      opacity: 1;
+      transform: translateY(0);
+      -webkit-transform: translateY(0);
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -o-transform: translateY(0);
+}
+}
+
+.custom-navbar {
+   border-bottom: 1px solid #EEE;
+   height: 80px;
+   z-index: 9999 !important;
+}
+
+.user-icon svg {
+   color: var(--primary-color);
+   flex: 0 0 30px;
+   height: 30px;
+   overflow: hidden;
+   position: relative;
+   width: 30px;
+   z-index: 1;
+}
+.location-menu a {
+   display: flex;
+   align-items:center;
+   gap: 5px;
+}
+
+.location-menu a:before{
+   font-family: 'iconsax' !important;
+   content: "\eadd";
+   color: var(--primary-color);
+
+}
+
+.sub-navbar .nav-link {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 5px;
+   font-size: 12px;
+   opacity: 0.7;
+   transition: 0.3s;
+   -webkit-transition: 0.3s;
+   -moz-transition: 0.3s;
+   -ms-transition: 0.3s;
+   -o-transition: 0.3s;
+}
+
+.sub-navbar .nav-link:hover {
+   opacity: 1;
+}
+
+.sub-navbar .nav-link img{
+   height: 25px;
+   width: 25px;
+   transition: 0.3s;
+   filter: grayscale(100);
+   -webkit-filter: grayscale(100);
+   -webkit-transition: 0.3s;
+   -moz-transition: 0.3s;
+   -ms-transition: 0.3s;
+   -o-transition: 0.3s;
+}
+.sub-navbar .nav-link:hover img {
+   opacity: 1;
+   filter: grayscale(0);
+   -webkit-filter: grayscale(0);
+}
+

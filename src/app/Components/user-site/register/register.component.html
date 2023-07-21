@@ -1,0 +1,150 @@
+<div class="container-fluid overflow-hidden">
+  <div class="row justify-content-center align-items-center my-2">
+    <div class="col-12 col-sm-6 col-md-3 my-5">
+      <h3 class="mb-4">
+        <span class="fw-bold">Sign Up</span>
+        <span class="text-primary"> &</span> Sell some stuff
+      </h3>
+      <form
+        class="row g-3 needs-validation"
+        [formGroup]="addForm"
+        (ngSubmit)="formOperation($event)"
+        novalidate
+      >
+        <div>
+          <label for="name" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            formControlName="name"
+            [ngClass]="{
+              'form-control': true,
+              'is-invalid': checkValidation(Name),
+            }"
+          />
+          <div class="invalid-feedback">
+            {{ getErrorMsg("name") }}
+          </div>
+        </div>
+        <div>
+          <label for="email" class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            id="email"
+            formControlName="email"
+            [ngClass]="{
+               'form-control': true,
+               'is-invalid': checkValidation(Email),
+             }"
+          />
+          <div class="invalid-feedback">
+            {{ getErrorMsg("email") }}
+          </div>
+        </div>
+        <div>
+          <label for="usrPass" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="usrPass"
+            id="usrPass"
+            formControlName="password"
+            [ngClass]="{
+               'form-control': true,
+               'is-invalid':
+               checkValidation(Password),
+             }"
+          />
+          <div class="invalid-feedback">
+            {{ getErrorMsg("password") }}
+          </div>
+        </div>
+        <div>
+          <label for="phone" class="form-label">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="phone"
+            id="phone"
+            formControlName="phone"
+            [ngClass]="{
+             'form-control': true,
+             'is-invalid': checkValidation(Phone),
+           }"
+          />
+          <div class="invalid-feedback">
+            {{ getErrorMsg("phone") }}
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Gender</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              id="male"
+              value="true"
+              formControlName="gender"
+              [ngClass]="{
+               'is-invalid':
+               checkValidation(Gender),
+             }"
+            />
+            <label class="form-check-label" for="male"> Male </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              id="female"
+              value="false"
+              formControlName="gender"
+              [ngClass]="{
+               'is-invalid':
+               checkValidation(Gender),
+             }"
+            />
+            <label class="form-check-label" for="female"> Female </label>
+          </div>
+        </div>
+        <div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="rules"
+              [ngClass]="{
+               'is-invalid':
+               checkValidation(Rules),
+             }"
+              formControlName="rules"
+            />
+            <label class="form-check-label" for="rules">
+              I Read & Accept <a href="#">Rules</a> and <a href="#">Privacy</a>
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <button
+            type="submit"
+            class="btn btn-primary py-2 d-flex align-items-center justify-content-center gap-2 w-100"
+          >
+            <i class="isax isax-send-1"></i> Sign Up Now
+          </button>
+          <div class="text-center mt-3">
+            Already have an account ?
+            <a routerLink="/login" class="text-decoration-none">Log In</a>
+          </div>
+        </div>
+      </form>
+      <!-- <button [disabled]="!isAdminLogged"  class="btn btn-danger"(click)="logout()">logout</button> -->
+    </div>
+  </div>
+</div>

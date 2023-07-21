@@ -1,0 +1,22 @@
+<p>categories works!</p>
+<div class="row">
+
+<div class="col-md-4">
+  
+    <div *ngFor="let cat of categoryParentArry;let i=index">
+        <a [id]="cat.id" (click)="categoryParentId(cat.id)">{{ cat.label}}</a>
+    </div>
+</div>
+<div class="col-md-4">
+  
+    <div *ngFor="let catHasParent of categoryHasParent;let i=index">
+        <a [id]="catHasParent.id" (click)="categoryHasParentF(catHasParent.id)">{{ catHasParent.label}}</a>
+    </div>
+</div>
+<div class="col-md-4">
+  
+    <div *ngFor="let catHasField of categoryHasFields;let i=index">
+        <a [id]="catHasField.id" (click)="categoryHasFieldsF(catHasField.id)">{{ catHasField.label}}</a>
+    </div>
+</div>
+</div>

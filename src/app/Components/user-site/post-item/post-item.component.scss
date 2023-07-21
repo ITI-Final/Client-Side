@@ -1,0 +1,107 @@
+
+.slideshow {
+   height: 250px;
+}
+
+.slideshow img{
+   object-fit: cover;
+   height: 100%;
+}
+
+.card > img {
+   height: 250px;
+   object-fit: cover;
+}
+
+
+.carousel-indicators {
+
+}
+
+.carousel-indicators button {
+   width: 3px;
+   height:3px;
+   border-radius: 15px;
+   border:2px solid #FFF;
+   background-color: #FFF;
+   transition: 0.3s;
+}
+
+.carousel-indicators button.active {
+   border-color:#FFF;
+   background-color: #FFF;
+}
+
+
+.carousel-control-prev-custom , .carousel-control-next-custom {
+   background-color:#FFF;
+   color: #000;
+   height: 30px;
+   width: 30px;
+   border-radius: 50%;
+   border: 0;
+   display: flex;
+   align-items:center;
+   justify-content: center;
+   margin: 10px;
+   opacity: 0.5;
+   transition: 0.3s;
+}
+.carousel-control-prev-custom:hover,
+.carousel-control-next-custom:hover {
+   opacity: 1;
+}
+
+.btn-fav {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   border: 0;
+   background-color: transparent;
+   font-weight: bolder;
+
+}
+
+.btn-fav i {
+   color: #FFF;
+   font-size: 22px;
+}
+
+.slider-btns {
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   top: 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+
+.card-title {
+   font-size: 16px;
+}
+
+.post-time {
+   font-size: 12px;
+}
+.location {
+   font-size: 12px !important;
+   margin-bottom: 5px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+   display: flex;
+   align-items: center;
+   gap: 3px;
+}
+
+.card-text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+}

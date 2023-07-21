@@ -1,0 +1,116 @@
+.chat {
+   max-height: 600px;
+   margin-bottom: 50px;
+}
+.chat-header {
+   text-align: center;
+   padding: 20px;
+   background-image: linear-gradient(to top, #f7F7F7,#FFF);
+}
+.chat-box {
+   overflow-y: scroll;
+   height: 500px;
+   padding: 0;
+}
+.chat-item {
+   padding: 10px 15px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   border-bottom: 1px solid #EEE;
+   transition: 0.3s;
+   border-left: 5px solid transparent;
+   width: 100%;
+}
+.chat-item:hover {
+   background-color: #F7F7F7;
+   cursor: pointer;
+}
+.chat-item.active{
+   border-left-color: var(--primary-color);
+}
+.chat-item.active .avatar{
+   border-color: var(--primary-color);
+}
+.chat-item .avatar{
+   height: 50px;
+   width: 50px;
+   line-height: 50px;
+   text-align: center;
+   border-radius: 50%;
+   -webkit-border-radius: 50%;
+   -moz-border-radius: 50%;
+   -ms-border-radius: 50%;
+   -o-border-radius: 50%;
+   font-size: 18px;
+   border: 1px solid #EEE;
+}
+.avatar-mini{
+   height: 40px;
+   width: 40px;
+   line-height: 40px;
+   text-align: center;
+   border-radius: 50%;
+   -webkit-border-radius: 50%;
+   -moz-border-radius: 50%;
+   -ms-border-radius: 50%;
+   -o-border-radius: 50%;
+   font-size: 18px;
+   border: 1px solid var(--primary-color);
+}
+.chat-message {
+   padding: 8px 20px;
+}
+
+.chat-message.sender span ,.chat-message.receiver span{
+   padding: 8px 12px;
+   background-color: #EEE;
+   border-radius: 15px;
+   -webkit-border-radius: 15px;
+   -moz-border-radius: 15px;
+   -ms-border-radius: 15px;
+   -o-border-radius: 15px;
+   display: inline-block;
+   max-width: 80%;
+}
+
+
+.chat-message.sender{
+   text-align: right;
+}
+
+.chat-message.sender span {
+   background-color: var(--primary-color-light);
+}
+.chat-message.receiver{}
+
+.send-message {
+   position: absolute; 
+   bottom: 0;
+   width: 100%;
+   display: flex;
+   border-top: 1px solid #EEE;
+   background-color: #FFF;
+}
+
+.send-message input{
+   width: 100%;
+   border:0;
+   padding: 0 15px;
+   outline: 0;
+}
+
+
+.send-message button{
+   width: 100%;
+   border:0;
+   padding: 0 15px;
+   outline: 0;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   height: 50px;
+   width: 100px;
+   background-color: var(--primary-color);
+   color: #FFF;
+}

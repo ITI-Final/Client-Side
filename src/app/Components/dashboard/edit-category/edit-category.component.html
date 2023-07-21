@@ -1,0 +1,531 @@
+<nav aria-label="breadcrumb">
+  
+    <ol class="breadcrumb" >
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="'/dashboard/category'">Category</a>
+      </li>
+      <li class="breadcrumb-item active"       *ngIf="categoryDetials != null; else loading2"
+      aria-current="page">Edite Cateogry</li>
+    </ol>
+  </nav>
+  <div class="bg-white p-3 p-md-5 rounded-4">
+    <h1 class="mb-4">Edite Category</h1>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <form
+            class="row g-3 needs-validation"
+            [formGroup]="addForm"
+            (ngSubmit)="formOperation($event)"
+            novalidate
+          >
+            <div class="col-md-6">
+              <label for="name" class="form-label">Category Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                formControlName="name"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Name?.invalid && (Name?.dirty || Name?.touched),
+                  'is-valid': !Name?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("name") }}
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="label" class="form-label">Label (English)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="label"
+                id="label"
+                formControlName="label"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Label?.invalid && (Label?.dirty || Label?.touched),
+                  'is-valid': !Label?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("label") }}
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="label_Ar" class="form-label">Label (Arabic)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="label_Ar"
+                id="label_Ar"
+                formControlName="label_Ar"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Label_Ar?.invalid && (Label_Ar?.dirty || Label_Ar?.touched),
+                  'is-valid': !Label_Ar?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("labelAr") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="slug" class="form-label">Slug</label>
+              <input
+                type="text"
+                class="form-control"
+                name="slug"
+                id="slug"
+                formControlName="slug"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                  Slug?.invalid && (Slug?.dirty || Slug?.touched),
+                  'is-valid': !Slug?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("slug") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="parent_Id" class="form-label">Category Parent</label>
+              <select class="form-select" aria-label="Default select example" formControlName="parent_Id" [ngClass]="{
+                'form-control': true,
+                'is-invalid':
+                Parent_Id?.invalid && (Parent_Id?.dirty || Parent_Id?.touched),
+                'is-valid': !Parent_Id?.invalid
+              }"> 
+                <option selected  disabled >Select Parent Category</option>
+                <option [value]=null> Parent </option>
+                <option *ngFor="let option of categoryParentArry" [value]="option.id ">{{ option.label }}</option>
+
+              </select>
+             
+              <div class="invalid-feedback">
+                {{ getErrorMsg("parent_Id") }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="4"
+                formControlName="description"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                  Description?.invalid && (Description?.dirty || Description?.touched),
+                  'is-valid': !Description?.invalid
+                }"
+              ></textarea>
+              <div class="invalid-feedback">
+                {{ getErrorMsg("description") }}
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="tags" class="form-label">Tags</label>
+              <input
+                type="text"
+                class="form-control"
+                name="tags"
+                id="tags"
+                formControlName="tags"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                  Tags?.invalid && (Tags?.dirty || Tags?.touched),
+                  'is-valid': !Tags?.invalid
+                }"
+              />
+              <div class="invalid-feedback">
+                {{ getErrorMsg("tags") }}
+              </div>
+            </div>
+            <!-- Extra Fields -->
+             <div *ngIf="showField"> 
+
+                    <div class="col-md-12">
+                        <div
+                          class="col-md-12 d-flex justify-content-between align-items-center"
+                        >
+                          <h3 class="mb-0">Extra Fields</h3>
+                          <button (click)="AddFieldstoggel1()" type="button"
+                            class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4"
+                          >
+                            <i class="isax isax-add"></i> Show Field
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                      <div *ngIf="hasField">
+                        <div formArrayName="fields">
+
+                          <div class="mb-3 ms-4" *ngFor="let field of Fields.controls; let i=index" [formGroupName]="i">
+                      
+                            <div class="accordion" id="accordionFlushExample">
+                              <div class="accordion-item">
+                                <h2 class="accordion-header d-flex align-items-center gap-2">
+                                  <button
+                                    class="accordion-button collapsed shadow-none"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne"
+                                    aria-expanded="false"
+                                    aria-controls="flush-collapseOne"
+                                  >
+                                    Extra Field #{{i+1}}
+                                  </button>
+                                  <!-- <button class="btn border-0 text-danger me-2 d-flex align-items-center"(click)="deleteFields(i)" *ngIf=" (i === Fields.controls.length - 1 && i !== 0) ">
+                                    <i class="isax isax-trash"></i>
+                                  </button> -->
+                                  <button class="btn border-0 text-danger me-2 d-flex align-items-center" type="button"(click)="AddFieldstoggel1()" *ngIf=" (i === Fields.controls.length - 1 && i == 0) ">
+                                    <i class="isax isax-trash"></i>
+                                  </button>
+                                </h2>
+                                <div
+                                  id="flush-collapseOne"
+                                  class="accordion-collapse collapse"
+                                  data-bs-parent="#accordionFlushExample"
+                                >
+                                  <div class="accordion-body">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <label for="name{{i+1}}" class="form-label">Name</label>
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          name="name{{i+1}}"
+                                          [id]="'name'+(i+1)"
+                                          formControlName="name"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('name')?.invalid && (field.get('name')?.dirty || field.get('name')?.touched),
+                                            'is-valid': !field.get('name')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("name") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-3">
+                                        <label for="label{{i+1}}" class="form-label"
+                                          >Label (English)</label
+                                        >
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          name="label{{i+1}}"
+                                          [id]="'label'+(i+1)"
+                                          formControlName="label"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('label')?.invalid && (field.get('label')?.dirty || field.get('label')?.touched),
+                                            'is-valid': !field.get('label')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg('label') }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-3">
+                                        <label for="label_Ar{{i+1}}" class="form-label"
+                                          >Label (Arabic)</label
+                                        >
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          name="label_Ar{{i+1}}"
+                                          [id]="'label_Ar'+(i+1)"
+                                          formControlName="label_Ar"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('label_Ar')?.invalid && (field.get('label_Ar')?.dirty || field.get('label_Ar')?.touched),
+                                            'is-valid': !field.get('label_Ar')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("label_Ar") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="value_Type{{i+1}}" class="form-label">Value Type</label>
+                                        <select
+                                          class="form-select"
+                                          aria-label="Default select example" formControlName="value_Type"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('value_Type')?.invalid && (field.get('value_Type')?.dirty || field.get('value_Type')?.touched),
+                                            'is-valid': !field.get('value_Type')?.invalid
+                                          }"
+                                        >
+                                          <option selected disabled>Value Type</option>
+                                          <option value="enum">Enum</option>
+                                          <option value="float">Float</option>
+                                          <option value="int">Int</option>
+                                          <option value="arry">Arry</option>
+
+                                        </select>
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("value_Type") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="choice_Type{{i+1}}" class="form-label"
+                                          >Choice Type</label
+                                        >
+                                        <select
+                                          class="form-select"
+                                          aria-label="Default select example" formControlName="choice_Type" [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('choice_Type')?.invalid && (field.get('choice_Type')?.dirty || field.get('choice_Type')?.touched),
+                                            'is-valid': !field.get('choice_Type')?.invalid
+                                          }"
+                                        >
+                                          <option selected disabled>Value Type</option>
+                                          <option value="Single">Single Choice</option>
+                                          <option value="multi"> Multi Choice</option>
+                                          <option value="radio">radio</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("choice_Type") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="min_Length{{i+1}}" class="form-label">Min Length</label>
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          name="min_Length{{i+1}}"
+                                          [id]="'min_Length'+(i+1)"
+                                          formControlName="min_Length"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('min_Length')?.invalid && (field.get('min_Length')?.dirty || field.get('min_Length')?.touched),
+                                            'is-valid': !field.get('min_Length')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("min_Length") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="max_Length{{i+1}}" class="form-label">Max Length</label>
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          name="max_Length{{i+1}}"
+                                          [id]="'max_Length'+(i+1)"
+                                          formControlName="max_Length"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('max_Length')?.invalid && (field.get('max_Length')?.dirty || field.get('max_Length')?.touched),
+                                            'is-valid': !field.get('max_Length')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("max_Length") }}
+                                        </div>
+                                      </div>
+                      
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="min_Value{{i+1}}" class="form-label">Min Value</label>
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          name="min_Value{{i+1}}"
+                                          [id]="'min_Value'+(i+1)"
+                                          formControlName="min_Value"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('min_Value')?.invalid && (field.get('min_Value')?.dirty || field.get('min_Value')?.touched),
+                                            'is-valid': !field.get('min_Value')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("min_Value") }}
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-2 mt-2">
+                                        <label for="max_Value{{i+1}}" class="form-label">Max Value</label>
+                                        <input
+                                          type="number"
+                                          class="form-control"
+                                          name="max_Value{{i+1}}"
+                                          [id]="'max_Value'+(i+1)"
+                                          formControlName="max_Value"
+                                          [ngClass]="{
+                                            'form-control': true,
+                                            'is-invalid': field.get('max_Value')?.invalid && (field.get('max_Value')?.dirty || field.get('max_Value')?.touched),
+                                            'is-valid': !field.get('max_Value')?.invalid
+                                          }"
+                                        />
+                                        <div class="invalid-feedback">
+                                          {{ getErrorMsg("max_Value") }}
+                                        </div>
+                                      </div>
+                                      <!-- add choies -->
+
+                                      <div formArrayName="choices"> 
+                                        <div class="mb-3 ms-4"*ngFor="let choice of getChoicesArry(i).controls; let j=index" [formGroupName]="j">
+
+                                      <div
+                      class="col-md-12 mt-3 d-flex justify-content-between align-items-center"
+                    >
+                      <h4 class="mb-0">Field Choices</h4>
+                      <!-- <button  (click)="AddChoices()" *ngIf="choice.valid && j ===ChoicesArry.length - 1"
+                        class="btn btn-outline-secondary d-flex align-items-center gap-2"
+                      >
+                        <i class="isax isax-add"></i> Add Choice
+                      </button> -->
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-6 col-md-3">
+                        <label for="label{{j+1}}" class="form-label"
+                          >Label (English)</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="label{{j+1}}"
+                          [id]="'label'+(j+1)"
+                          formControlName="label"
+                          [ngClass]="{
+                            'form-control': true,
+                            'is-invalid': choice.get('label')?.invalid && (choice.get('label')?.dirty || choice.get('label')?.touched),
+                            'is-valid': !choice.get('label')?.invalid
+                          }"
+                        />
+                        <div class="invalid-feedback">
+                          {{ getErrorMsg("label") }}
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <label for="label_Ar{{j+1}}" class="form-label"
+                          >Label (Arabic)</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="label_Ar{{j+1}}"
+                          [id]="'label_Ar'+(j+1)"
+                          formControlName="label_Ar"
+                          [ngClass]="{
+                            'form-control': true,
+                            'is-invalid': choice.get('label_Ar')?.invalid && (choice.get('label_Ar')?.dirty || choice.get('label_Ar')?.touched),
+                            'is-valid': !choice.get('label_Ar')?.invalid
+                          }"
+                        />
+                        <div class="invalid-feedback">
+                          {{ getErrorMsg("label_Ar") }}
+                        </div>
+                      </div>
+                      <div class="col-4 col-md-2">
+                        <label for="slug{{j+1}}" class="form-label">Slug</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="slug{{j+1}}"
+                          [id]="'slug'+(j+1)"
+                          formControlName="slug"
+                          [ngClass]="{
+                            'form-control': true,
+                            'is-invalid': choice.get('slug')?.invalid && (choice.get('slug')?.dirty || choice.get('slug')?.touched),
+                            'is-valid': !choice.get('slug')?.invalid
+                          }"
+                        />
+                        <div class="invalid-feedback">
+                          {{ getErrorMsg("slug") }}
+                        </div>
+                      </div>
+                      <div class="col-5 col-md-3">
+                        <label for="icon{{j+1}}" class="form-label">icon</label>
+                        <input
+                          type="url"   
+                          class="form-control"
+                          name="icon{{j+1}}"
+                          [id]="'icon'+(j+1)"
+                          formControlName="icon"
+                          [ngClass]="{
+                            'form-control': true,
+                            'is-invalid': choice.get('icon')?.invalid && (choice.get('icon')?.dirty || choice.get('icon')?.touched),
+                            'is-valid': !choice.get('icon')?.invalid
+                          }"
+                        />
+                        <div class="invalid-feedback">
+                          {{ getErrorMsg("icon") }}
+                        </div>
+                      </div>
+                      <!-- <div class="col-3 col-md-1">
+                        <label for="email" class="form-label" *ngIf="  j !== 0" >Delete</label>
+                        <button (click)="deleteChoices(j)" *ngIf="j !== 0"
+                          class="btn border-0 text-danger me-2 d-flex align-items-center"
+                        >
+                          <i class="isax isax-trash"></i>
+                        </button>
+                      </div> -->
+                    </div>
+                  </div>
+                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="col-md-12">
+                              <div
+                                class="col-md-12 d-flex justify-content-between align-items-center mt-3"
+                              >
+                                <h3 class="mb-0"></h3>
+                                <button (click)="AddFields()" *ngIf="field.valid && i === Fields.controls.length - 1"
+                                  class="btn btn-outline-warning py-2 d-flex align-items-center gap-2 rounded-4"
+                                >
+                                  <i class="isax isax-add"></i> Add Field
+                                </button>
+                              </div>
+                            </div> -->
+                            
+                          </div>
+                        </div>
+
+                </div>     
+
+          <!-- </div> -->
+
+            <div>
+              <button
+                type="submit"
+                class="btn btn-primary py-2 d-flex align-items-center gap-2"
+              >
+                <i class="isax isax-add"></i> Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div
+          class="d-flex flex-column align-items-center justify-content-center gap-2"
+        >
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          Loading ...
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #loading2>
+    <li class="breadcrumb-item active" aria-current="page">Loading ...</li>
+  </ng-template>
