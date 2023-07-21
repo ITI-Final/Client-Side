@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/Dashboard/auth.service';
 import { CategoryService } from 'src/app/services/Dashboard/category.service';
@@ -10,278 +10,379 @@ import { CategoryService } from 'src/app/services/Dashboard/category.service';
   styleUrls: ['./add-post.component.scss']
 })
 export class AddPostComponent {
-addForm:FormGroup
-currentidCat:number=0
-categoryDetials:any
-arryFields:any
-/////////////////
-  categoryParentArry: any[]=[]
+  addForm:FormGroup
+  currentidCat:number=0
+  categoryDetials:any
+  arryFields:any
+  governorate:any=[]
+  city:any=[]
+  hasCity=false
+  selectedImages: FileList |any;
+userID:any
 
-  fieldArry=[]
-hasField:boolean=false
-ChoicesArry:any
-selectedFile: File | undefined;
+  /////////////////
+    categoryParentArry: any[]=[]
+  testArry:any=[]
+    fieldArry=[]
+  hasField:boolean=false
+  ChoicesArry:any
+  selectedFile: File | undefined;
+  PriceType=["Free","Negotiable","Non-Negotiable"]
+  
+    constructor(private router:Router,private fb:FormBuilder,private categoryService:CategoryService,private ActiceRouter:ActivatedRoute) {
+      this.addForm = this.fb.group({
+  
+  // Id: [""],
+  Title: ["",[Validators.required,Validators.minLength(3)]],
+  Description: ["",[Validators.required,Validators.minLength(3)]],
+  Price: ["",[Validators.required,Validators.minLength(3)]],
+  Price_Type: ["",[Validators.required,Validators.minLength(3)]],
+  Contact_Method: ["",[Validators.required,Validators.minLength(3)]],
+  Post_Location: ["",[Validators.required,Validators.minLength(3)]],
+  Location: ["",[Validators.required,Validators.minLength(3)]],
 
-  constructor(private router:Router,private fb:FormBuilder,private categoryService:CategoryService,private ActiceRouter:ActivatedRoute) {
-    this.addForm = this.fb.group({
+  Fields: this.fb.array([this.AddFieldsFormGroup()]),
+  Post_Images:[''],
+  
+  arryRadio:this.fb.array([this.AddFieldsFormGroup()]),
+  
+  arryChexkBox:this.fb.array([this.AddFieldsFormGroup()]),
+  // correct:[""],
+  arrySelectBox:this.fb.array([this.AddFieldsFormGroup()]),
+  
+      });
+    }
+   
 
-Id: [""],
-User_Id: [""],
-Cat_Id: [""],
-Title: ["",[Validators.required,Validators.minLength(3)]],
-Description: ["",[Validators.required,Validators.minLength(3)]],
-Price: ["",[Validators.required,Validators.minLength(3)]],
-Price_Type: ["",[Validators.required,Validators.minLength(3)]],
-Contact_Method: ["",[Validators.required,Validators.minLength(3)]],
-Post_Location: ["",[Validators.required,Validators.minLength(3)]],
-Fields: this.fb.array([this.AddFieldsFormGroup()]),
-Post_Images:this.fb.array([this.AddFieldsFormGroup()]),
+onChoiceSelect(event:any,field: AbstractControl, i: any): void {
+  const choicesArray = field.get('choices') as FormArray;
+  const selectedChoice = choicesArray.at(i); // Get the selected choice FormGroup
+  let selectedLabel = event.target.value // Get the label of the selected choice
+  console.log(event.target);
 
-arryRadio:this.fb.array([this.AddFieldsFormGroup()]),
+  console.log(field.get('label')?.value, selectedLabel);
 
-arryChexkBox:this.fb.array([this.AddFieldsFormGroup()]),
+  let obj: any = {
+    "fildeID": (field.get('id')?.value),
+    "choices": []
+  };
 
-arrySelectBox:this.fb.array([]),
-
-    });
-  }
  
+  obj.choices.push(selectedLabel);
 
-  //#region From Varaibles
-  
+  // Check if the field ID already exists in the array
+  let existingIndex = this.testArry.findIndex((val: any) => val.fildeID === (field.get('id')?.value));
 
+  if (existingIndex !== -1 && event.target.checked) {
+    // if (event.target.checked) {
+console.log(event.target.checked)
+console.log(event.target.value)
+console.log(event.target)
 
-  get User_Id() { return this.addForm.get('User_Id')}
-  get Cat_Id() { return this.addForm.get('Cat_Id')}
-  get Title() { return this.addForm.get('Title')}
-  get Price() { return this.addForm.get('Price')}
-  get Price_Type() { return this.addForm.get('Price_Type')}
-  get Contact_Method() { return this.addForm.get('Contact_Method')}
-  get Description() { return this.addForm.get('Description')}
-  get Post_Images() {return this.addForm.get('Post_Images') as FormArray;
+       this.testArry[existingIndex].choices.push(event.target.value)
+
+    }else  if (existingIndex !== -1) {
+
+    // If the field ID exists, update its choices array
+    this.testArry[existingIndex].choices = obj.choices;
+  } else {
+    // If the field ID does not exist, add a new object to the array
+    this.testArry.push(obj);
+  }
+
+  console.log(this.testArry);
 }
-  get Fields() {
-    return this.addForm.get('fields') as FormArray;
-  }
-  get arryRadio() {
-    return this.addForm.get('arryRadio') as FormArray;
-  } get arryChexkBox() {
-    return this.addForm.get('arryChexkBox') as FormArray;
-  } get ArrySelectBox() {
-    return this.addForm.get('arrySelectBox') as FormArray;
-  }
-
-  //#endregion
-  //#region Add fields
-  AddFieldsFormGroup(): FormGroup {
-    return this.fb.group({
-      // name: ['', [Validators.required]],
-      label: ['', [Validators.required]],
-      // label_Ar: ['', [Validators.required]],
-      // value_Type: ['', [Validators.required]],
-      // choice_Type: ['', [Validators.required]],
-      // max_Length: ['', [Validators.required]],
-      // min_Length: ['', [Validators.required]],
-      // max_Value: ['', [Validators.required]],
-      // min_Value: ['', [Validators.required]],
-      // choices: this.fb.array([this.AddchoicesFormGroup()])
-
-    });
-  }
-
-  
-  // AddFields() {
-  //   // if (this.addForm.valid) {
-  //     this.Fields.push(this.AddFieldsFormGroup());
-  //   // }
-  // }
-  // AddField(arry:any) {
-  //   // if (this.addForm.valid) {
-  //     arry.push(this.AddFieldsFormGroup());
-  //   // }
-  // }
-
-  
-  ///add choices//
-  AddchoicesFormGroup(): FormGroup {
-    return this.fb.group({
-      label: ['', [Validators.required]],
-      // label_Ar: ['', [Validators.required]],
-      // slug: ['', [Validators.required]],
-      // icon: ['', [Validators.required]],
-
-    });
-  }
-  //arry in fields fromArry inside formArry
-  getChoicesArry(i:number): FormArray {
-    let x=this.addForm.get('arrySelectBox') as FormArray
-    let y=this.ArrySelectBox.at(i).get("choices") 
-    this.ChoicesArry = y as FormArray
-  return this.ChoicesArry
-  }
-  
-  // AddChoices() {
-  //   // if (this.addForm.valid) {
-  //     this.ChoicesArry.push(this.AddchoicesFormGroup());
-  //   // }
-  // }
-  // deleteChoices(index: number) {
-  //   this.ChoicesArry.removeAt(index);
-  // }
-  //#endregion
-
-//#region oninit
-ngOnInit(): void {
-  this.ActiceRouter.paramMap.subscribe(
-    paramMap => {
-  this.currentidCat = Number(paramMap.get('id'));
-console.log(this.currentidCat);
-    })
-    this.categoryService.getCategoryByID(this.currentidCat).subscribe((result=>
-      { if(result.data!=null){
-        this.categoryDetials =result.data
-
-// console.log(this.categoryDetials);
-this.arryFields=this.categoryDetials.fields
-console.log(this.categoryDetials.label);
-
-console.log(this.arryFields);
-// Single
-let arrySelectBox= this.arryFields.filter((val:any) => val.choice_Type=="Single")
-let arryChexkBox= this.arryFields.filter((val:any)=>val.choice_Type=='multi')
-let arryRadio= this.arryFields.filter((val:any)=>val.choice_Type=="radio")
 
 
-if(this.categoryDetials.fields.length>0){
-
-this.getFieldDetials(arrySelectBox,this.ArrySelectBox)
-} 
-
-      // this.getFieldDetials(arrySelectBox,this.ArrySelectBox)
-      // this.getFieldDetials(arryChexkBox)
-      // this.getFieldDetials(arryRadio)
-
-// console.log(arrySelectBox);
-// console.log(arryChexkBox);
-// console.log(arryRadio);
-
-// choice_Type
-// : 
-// "Single"
-}}))
-
-// Two arrays of objects
-// const array1 = [
-//   { id: 1, name: 'John' },
-//   { id: 2, name: 'Jane' }
-// ];
-
-// const array2 = [
-//   { id: 3, name: 'Alice' },
-//   { id: 4, name: 'Bob' }
-// ];
-
-// // Merge the arrays
-// const mergedArray = array1.concat(array2);
-
-//console.log(mergedArray);
-
-
-}
-  //#endregion
-     //#region add field toggel
-    //  AddFieldstoggel1(){
-    //   this.hasField=!this.hasField
-    //  }
-  //#endregion
-     //#region add image file
-    //  onFileSelected(event: any) {
-    //   this.selectedFile = event.target.files[0];
-    // }
-  //#endregion
-
-  //#region On Form Submit
-  formOperation(e:any) {
-//     this.addForm.get('admin_Id')?.setValue( localStorage.getItem('id') );
-//     console.log(localStorage.getItem('id'))
-//     const formControls = this.addForm.controls;
-// let isAllValidExceptName = true;
-
-// for (const key in formControls) {
-//   if (key !== 'fields' && !formControls[key].valid) {
-//     isAllValidExceptName = false;
-//     break;
-//   }
-// }
-//     // console.log( this.addForm.value)
-//     if( this.addForm.get("parent_Id")?.value=='null'&&isAllValidExceptName&&this.hasField==false||this.addForm.get("parent_Id")?.value!='null'&&isAllValidExceptName&&this.hasField==false){
-//       if(this.addForm.get("parent_Id")?.value=='null'){
-//         this.addForm.get('parent_Id')?.setValue(null);
-//       }
-//       const { fields, ...formDataValue } = this.addForm.value;
-//       console.log(formDataValue)
-// this.categoryService.addMainCategory(formDataValue).subscribe(result=>{
-//   console.log(result)
-
-// })
-//     }
-//     else if((this.addForm.valid)){
-    
-//  console.log( this.addForm.value)
-    
-//       this.categoryService.addCategory(this.addForm.value).subscribe(result=>{
-//         console.log(result)
-
-//       })
-//     }else{
-    
-//           Object.keys(this.addForm.controls).forEach((key: string) => {
-//             const control = this.addForm.get(key);
-//             if (control) {
-//               control.markAsDirty();
-//               control.markAsTouched();
-//             }
-//           });
-//     }
-
-  }
-  //#endregion
-
-  getFieldDetials(arryChoiesType:any,arry:FormArray){
-    for (let index = 0; index < arryChoiesType.length ; index++) {
-
-      const fieldsFormGroup = this.AddFieldsFormGroup();
-      const choicesArray = arry.get('choices') as FormArray;
-      fieldsFormGroup.patchValue(arryChoiesType[index]);
-      
-      for (let index2 = 0; index2 < arryChoiesType[index].choices.length - 1; index2++) {
-      const choiceFormGroup = this.AddchoicesFormGroup();
-      choicesArray.push(choiceFormGroup);
-      choiceFormGroup.patchValue(arryChoiesType[index].choices[index2]);
-      
-      }
-      arry.push(fieldsFormGroup);
-      
-      }
-      
-      } 
+    //#region From Varaibles
     
   
-   //#region Handle Errors
-   getErrorMsg( controlName : string) : string {
-    const control = this.addForm.get(controlName);
-        if (control?.errors){
-          if (control.errors && control.errors['required']) {
-            return 'Required Field';
-          } else if (control.errors && control.errors['minlength']) {
-            return `Min ${control.errors['minlength']['requiredLength']} Character.`;
-          } else if (control.errors && control.errors['min']) { 
-            return `Min ${control.errors['min']['min']} Number.`;
-          } else if (control.errors && control.errors['max']) { 
-            return `Max ${control.errors['max']['max']} Number.`;
-          } 
-       
+  
+     get User_Id() { return this.addForm.get('User_Id')}
+     get Cat_Id() { return this.addForm.get('Cat_Id')}
+    get Title() { return this.addForm.get('Title')}
+    get Price() { return this.addForm.get('Price')}
+    get Price_Type() { return this.addForm.get('Price_Type')}
+    get Contact_Method() { return this.addForm.get('Contact_Method')}
+    get Description() { return this.addForm.get('Description')}
+    get Post_Images() {return this.addForm.get('Post_Images') }
+    get Post_Location() {return this.addForm.get('Post_Location');
+
+  }
+    get Fields() {
+      return this.addForm.get('fields') as FormArray;
+    }
+    get ArryRadio() {
+      return this.addForm.get('arryRadio') as FormArray;
+    } get ArryChexkBox() {
+      return this.addForm.get('arryChexkBox') as FormArray;
+    } 
+    get ArrySelectBox() {
+      return this.addForm.get('arrySelectBox') as FormArray;
+    }
+  
+    //#endregion
+    //#region Add fields
+    AddFieldsFormGroup(): FormGroup {
+      return this.fb.group({
+        label: ['', [Validators.required]],
+        id: ['', [Validators.required]],
+
+         choices: this.fb.array([this.AddchoicesFormGroup()])
+  
+      });
+    }
+  
+  
+    
+    ///add choices//
+    AddchoicesFormGroup(): FormGroup {
+      return this.fb.group({
+        label: ['', [Validators.required]],
+  
+  
+      });
+    }
+    //arry in fields fromArry inside formArry
+    getChoicesArrySelect(i:number,arryTypeChoices:FormArray): FormArray {
+      let x=arryTypeChoices
+      let y=x.at(i).get("choices") 
+      this.ChoicesArry = y as FormArray
+    return this.ChoicesArry
+    }
+    
+    
+    //#endregion
+  
+  //#region oninit
+  ngOnInit(): void {
+    this.ActiceRouter.paramMap.subscribe(
+      paramMap => {
+    this.currentidCat = Number(paramMap.get('id'));
+  console.log(this.currentidCat);
+      })
+      this.categoryService.getCategoryByID(this.currentidCat).subscribe((result=>
+        { if(result.data!=null){
+          this.categoryDetials =result.data
+  
+  // console.log(this.categoryDetials);
+  this.arryFields=this.categoryDetials.fields
+  console.log(this.categoryDetials.label);
+  
+  console.log(this.arryFields);
+  // Single
+  let arrySelectBox= this.arryFields.filter((val:any) => val.choice_Type=="Single")
+   let arryChexkBox= this.arryFields.filter((val:any)=>val.choice_Type=='multi')
+   let arryRadio= this.arryFields.filter((val:any)=>val.choice_Type=="radio")
+  
+  console.log(arryRadio)
+  if(this.categoryDetials.fields.length>0){
+    this.getFieldDetials(arrySelectBox,this.ArrySelectBox)
+    this.getFieldDetials2(arryRadio,this.ArryRadio)
+    this.getFieldDetials2(arryChexkBox,this.ArryChexkBox)
+
+  
+  } 
+  
+ 
+  }}))
+  
+
+  ///cities
+
+  this.categoryService.getallGovernorates().subscribe(res=>{
+    console.log(res.data)
+    this.governorate=res.data
+  })
+  this.addForm.get('Location')?.valueChanges.subscribe(res=>{
+    this.hasCity=true
+
+    this.categoryService.getGovernorateById(res).subscribe(res=>{
+      console.log(res.data)
+      this.city=res.data.cities
+      
+    })  })
+  }
+    //#endregion
+       //#region add field toggel
+      //  AddFieldstoggel1(){
+      //   this.hasField=!this.hasField
+      //  }
+    //#endregion
+    onFileChange(event: Event) {
+      const inputElement = event.target as HTMLInputElement;
+      this.selectedImages = inputElement.files;
+      console.log(this.selectedImages)
+    }
+    //#endregion
+  
+    //#region On Form Submit
+    formOperation(e:any) {
+     this.userID=localStorage.getItem('userId')
+console.log("/////////////////////")
+console.log(this.userID)
+console.log( this.currentidCat.toString())
+console.log(this.Title?.value)
+console.log(this.Description?.value)
+console.log(this.Price?.value)
+console.log(this.Price_Type?.value)
+console.log(this.Contact_Method?.value)
+console.log(this.Post_Location?.value)
+console.log(this.testArry)
+console.log(this.Post_Location?.value)
+
+
+
+
+console.log("/////////////////////")
+
+      const formData = new FormData();
+      formData.append('User_Id',this.userID);
+      formData.append('Cat_Id', this.currentidCat.toString());
+        formData.append('Title', this.Title?.value);
+        formData.append('Description',this.Description?.value);
+        formData.append('Price', this.Price?.value);
+        formData.append('Price_Type', this.Price_Type?.value);
+        formData.append('Contact_Method',this.Contact_Method?.value);
+        formData.append('Post_Location',this.Post_Location?.value);
+        formData.append('Fields',JSON.stringify( this.testArry));
+        const Post_ImagesArry: any[] = [];
+
+  for (let i = 0; i < this.selectedImages.length; i++) {
+    const file = this.selectedImages[i];
+    const postImageObj: any = {
+      ImageFile: file,
+      Image: file.name
+    };
+    Post_ImagesArry.push(postImageObj);
+    formData.append(`Post_Images[${i}].ImageFile`, file, file.name);
+    formData.append(`Post_Images[${i}].Image`, file.name);
+  }
+
+  // Append the Post_ImagesArry to formData (if needed for your backend)
+  formData.append('Post_Images', JSON.stringify(Post_ImagesArry));
+
+      //   let Post_ImagesArry:any=[
+      //     {"ImageFile":'',"Image":''}
+      //   ]
+      // for (let i = 0; i < this.selectedImages.length; i++) {
+      //   const file = this.selectedImages[i];
+      //   Post_ImagesArry[i].ImageFile=file
+      //   Post_ImagesArry[i].Image=file.name
+
+      //   // formData.append('Post_Images', file, file.name);
+      //   // formData.append('Post_Images[0].ImageFile', file, file.name);
+      //   // formData.append('Post_Images', file, file.name);
+      //   // console.log(file,file.name)
+      // }
+      // this.Post_Images.setValue(Post_ImagesArry)
+      // formData.append('Post_Images',this.Post_Images);
+
+      this.categoryService.addPost(formData).subscribe(val=>{
+        console.log(val)
+      })
+      // console.log(this.addForm.get('Price_Type')?.value)
+      // this.addForm.get('Post_Location')
+  //     this.addForm.get('admin_Id')?.setValue( localStorage.getItem('id') );
+  //     console.log(localStorage.getItem('id'))
+  //     const formControls = this.addForm.controls;
+  // let isAllValidExceptName = true;
+  
+  // for (const key in formControls) {
+  //   if (key !== 'fields' && !formControls[key].valid) {
+  //     isAllValidExceptName = false;
+  //     break;
+  //   }
+  // }
+  //     // console.log( this.addForm.value)
+  //     if( this.addForm.get("parent_Id")?.value=='null'&&isAllValidExceptName&&this.hasField==false||this.addForm.get("parent_Id")?.value!='null'&&isAllValidExceptName&&this.hasField==false){
+  //       if(this.addForm.get("parent_Id")?.value=='null'){
+  //         this.addForm.get('parent_Id')?.setValue(null);
+  //       }
+  //       const { fields, ...formDataValue } = this.addForm.value;
+  //       console.log(formDataValue)
+  // this.categoryService.addMainCategory(formDataValue).subscribe(result=>{
+  //   console.log(result)
+  
+  // })
+  //     }
+  //     else if((this.addForm.valid)){
+      
+  //  console.log( this.addForm.value)
+      
+  //       this.categoryService.addCategory(this.addForm.value).subscribe(result=>{
+  //         console.log(result)
+  
+  //       })
+  //     }else{
+      
+  //           Object.keys(this.addForm.controls).forEach((key: string) => {
+  //             const control = this.addForm.get(key);
+  //             if (control) {
+  //               control.markAsDirty();
+  //               control.markAsTouched();
+  //             }
+  //           });
+  //     }
+  
+    }
+    //#endregion
+   getFieldDetials(arryChoiesType:any,arry:FormArray){
+    arry.controls=[]
+  
+  for (let index = 0; index <arryChoiesType.length ; index++) {
+  
+  const fieldsFormGroup = this.AddFieldsFormGroup();
+  fieldsFormGroup.patchValue(arryChoiesType[index]);
+  
+  for (let index2 = 0; index2 <arryChoiesType[index].choices.length - 1; index2++) {
+  const choiceFormGroup = this.AddchoicesFormGroup();
+  choiceFormGroup.patchValue(arryChoiesType[index].choices[index2]);
+  const choicesArray = fieldsFormGroup.get('choices') as FormArray;
+  choicesArray.push(choiceFormGroup);
+  
+  }
+  arry.push(fieldsFormGroup);
+  
+  }
+        
+       }
+       getFieldDetials2(arryChoiesType: any, arry: FormArray) {
+        arry.clear(); // Clear the FormArray before populating it again
+      
+        for (let index = 0; index < arryChoiesType.length; index++) {
+          const fieldFormGroup = this.AddFieldsFormGroup();
+          fieldFormGroup.patchValue(arryChoiesType[index]);
+      
+          const choicesArray = fieldFormGroup.get('choices') as FormArray;
+          choicesArray.clear(); // Clear the choices FormArray for each field
+      
+          for (let index2 = 0; index2 < arryChoiesType[index].choices.length; index2++) {
+            const choiceFormGroup = this.AddchoicesFormGroup();
+            choiceFormGroup.patchValue(arryChoiesType[index].choices[index2]);
+            choicesArray.push(choiceFormGroup);
+          }
+      
+          arry.push(fieldFormGroup);
         }
-    return '';
+      } 
+      
+    
+     //#region Handle Errors
+     getErrorMsg( controlName : string) : string {
+      const control = this.addForm.get(controlName);
+          if (control?.errors){
+            if (control.errors && control.errors['required']) {
+              return 'Required Field';
+            } else if (control.errors && control.errors['minlength']) {
+              return `Min ${control.errors['minlength']['requiredLength']} Character.`;
+            } else if (control.errors && control.errors['min']) { 
+              return `Min ${control.errors['min']['min']} Number.`;
+            } else if (control.errors && control.errors['max']) { 
+              return `Max ${control.errors['max']['max']} Number.`;
+            } 
+         
+          }
+      return '';
+    }
   }
-}
