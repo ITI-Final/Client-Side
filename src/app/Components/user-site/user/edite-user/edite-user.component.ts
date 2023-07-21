@@ -46,7 +46,6 @@ export class EditeUserComponent implements OnInit {
           this.userDetials =result.data
           this.userDetials.birth_Date = `${this.userDetials.birth_Date?.split("T")[0]}`;
           console.log(this.userDetials.birth_Date);
-          
           this.addForm.patchValue( this.userDetials )
           if(this.userDetials.companies.length<=0){
             this.hasCompany=false

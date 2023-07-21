@@ -15,12 +15,14 @@ import { PostItemComponent } from './post-item/post-item.component';
 import { PostSectionComponent } from './post-section/post-section.component';
 import { RegisterComponent } from './register/register.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
+
 import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes =[
   {path:"",component:MainlayoutComponent,
   children:[
+
     {path:"",component:HomeComponent},
     {path:'register', component:RegisterComponent},
     {path:'login', component:LoginComponent},
@@ -30,6 +32,7 @@ const routes: Routes =[
     {path:"chat/:id",component:ChatComponent},
     {
       path: 'user',
+
       loadChildren: () => import('src/app/Components/user-site/user/user.module')
                             .then(m=>m.UserModule)
     },
@@ -47,7 +50,6 @@ const routes: Routes =[
 {path: '**', component:NotFoundComponent}
 /////////////////////////////////////////
   ]}
-
 ]
 
 @NgModule({
@@ -65,6 +67,7 @@ RegisterComponent,
 SlideshowComponent,
 PostViewComponent,
 ChatComponent
+
   ],
   imports: [
     CommonModule,
