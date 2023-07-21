@@ -1,0 +1,228 @@
+<div class="row">
+  <nav
+    class="navbar custom-navbar navbar-expand-lg px-5 bg-white position-fixed top-0 z-3"
+  >
+    <div class="container">
+      <a class="navbar-brand" href="#">O<span>l</span>X</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-4 flex-grow-1">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link p-0"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div
+                class="input-group rounded-5 overflow-hidden border border-1"
+              >
+                <span class="input-group-text bg-transparent border-0"
+                  ><i class="isax isax-location"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control shadow-none border-0"
+                  placeholder="Location..."
+                  style="width: 120px; padding: 12px 10px"
+                />
+                <span class="input-group-text bg-transparent border-0">
+                  <i class="isax isax-arrow-down-1"></i>
+                </span>
+              </div>
+            </a>
+            <ul
+              class="dropdown-menu location-menu"
+              style="width: 100%; max-height: 300px; overflow-y: scroll"
+            >
+              <li><a class="dropdown-item" href="#">Cairo</a></li>
+              <li><a class="dropdown-item" href="#">Dakhlia</a></li>
+              <li><a class="dropdown-item" href="#">Cairo</a></li>
+              <li><a class="dropdown-item" href="#">Dakhlia</a></li>
+              <li><a class="dropdown-item" href="#">Cairo</a></li>
+              <li><a class="dropdown-item" href="#">Dakhlia</a></li>
+              <li><a class="dropdown-item" href="#">Cairo</a></li>
+              <li><a class="dropdown-item" href="#">Dakhlia</a></li>
+              <li><a class="dropdown-item" href="#">Cairo</a></li>
+              <li><a class="dropdown-item" href="#">Dakhlia</a></li>
+              <!-- <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+            </ul>
+          </li>
+          <li class="nav-item flex-grow-1">
+            <div class="input-group rounded-5 overflow-hidden border border-1">
+              <span class="input-group-text bg-transparent border-0"
+                ><i class="isax isax-search-normal-1"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control shadow-none border-0"
+                style="padding: 12px 10px"
+                placeholder="Find Cars, Mobile Phones and more..."
+              />
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link d-flex align-items-center" href="#"
+              ><i class="isax isax-heart"></i
+            ></a>
+          </li>
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link d-flex align-items-center" routerLink="/chat"
+              ><i class="isax isax-message"></i
+            ></a>
+          </li>
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link d-flex align-items-center" href="#"
+              ><i class="isax isax-notification"></i
+            ></a>
+          </li>
+          <li class="nav-item d-flex align-items-center">
+            <a
+              class="nav-link d-flex align-items-center btn-primary"
+              type="button"
+              routerLink="/categories"
+            >
+              <div class="text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1.3em"
+                  viewBox="0 0 576 512"
+                >
+                  <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                  <style>
+                    svg {
+                      fill: var(--primary-color);
+                    }
+                  </style>
+                  <path
+                    d="M547.6 103.8L490.3 13.1C485.2 5 476.1 0 466.4 0H109.6C99.9 0 90.8 5 85.7 13.1L28.3 103.8c-29.6 46.8-3.4 111.9 51.9 119.4c4 .5 8.1 .8 12.1 .8c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.1 0 49.3-11.4 65.2-29c15.9 17.6 39.1 29 65.2 29c26.2 0 49.3-11.4 65.2-29c16 17.6 39.1 29 65.2 29c4.1 0 8.1-.3 12.1-.8c55.5-7.4 81.8-72.5 52.1-119.4zM499.7 254.9l-.1 0c-5.3 .7-10.7 1.1-16.2 1.1c-12.4 0-24.3-1.9-35.4-5.3V384H128V250.6c-11.2 3.5-23.2 5.4-35.6 5.4c-5.5 0-11-.4-16.3-1.1l-.1 0c-4.1-.6-8.1-1.3-12-2.3V384v64c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V384 252.6c-4 1-8 1.8-12.3 2.3z"
+                  />
+                </svg>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item dropdown border border-1 rounded-5">
+            <a
+              class="nav-link d-flex align-items-center p-1 px-2"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="isax isax-menu-1 mx-1 fw-bold"></i>
+              <div class="user-icon ms-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                  aria-hidden="true"
+                  role="presentation"
+                  focusable="false"
+                  style="fill: currentcolor"
+                >
+                  <path
+                    d="M16 .7C7.56.7.7 7.56.7 16S7.56 31.3 16 31.3 31.3 24.44 31.3 16 24.44.7 16 .7zm0 28c-4.02 0-7.6-1.88-9.93-4.81a12.43 12.43 0 0 1 6.45-4.4A6.5 6.5 0 0 1 9.5 14a6.5 6.5 0 0 1 13 0 6.51 6.51 0 0 1-3.02 5.5 12.42 12.42 0 0 1 6.45 4.4A12.67 12.67 0 0 1 16 28.7z"
+                  ></path>
+                </svg>
+              </div>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a
+                  class="dropdown-item"
+                  [hidden]="isUserLogged"
+                  routerLink="register"
+                  routerLinkActive="text-primary"
+                  >Sign up</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="dropdown-item"
+                  [hidden]="!isUserLogged"
+                  routerLink="user/profile"
+                  routerLinkActive="text-primary"
+                  routerLink="user/profile"
+                >
+                  <span class="d-block fw-bold">{{ userDetials?.name }}</span>
+                  <span style="font-size: 14px">Profile Page</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  [hidden]="isUserLogged"
+                  routerLink="login"
+                  routerLinkActive="text-primary"
+                  >Log in</a
+                >
+              </li>
+              <li [hidden]="!isUserLogged"><hr class="dropdown-divider" /></li>
+              <li class="nav-item">
+                <a
+                  class="dropdown-item"
+                  [hidden]="!isUserLogged"
+                  (click)="logout()"
+                  routerLink="/Logout"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- ------------------------------------------------------------------------------------------------------ -->
+  <!-- Sub Nav -->
+  <nav class="navbar sub-navbar navbar-expand-lg" style="margin-top: 80px;">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav gap-5">
+          <li
+            *ngFor="let menu of menus; let i = index"
+            class="nav-item dropdown"
+            (mouseenter)="toggleMenu(i)"
+            (mouseleave)="toggleMenu(i)"
+          >
+            <a
+              class="nav-link"
+              role="button"
+              data-bs-toggle="dropdown"
+              [attr.aria-expanded]="areaExpanded && activeMenu == i"
+              [class.show]="areaExpanded && activeMenu == i"
+              [routerLink]="menu.url"
+            >
+              <img src="{{ menu.icon }}" alt="" />
+              {{ menu.title }}
+            </a>
+            <ul
+              class="dropdown-menu"
+              [class.show]="areaExpanded && activeMenu == i"
+            >
+              <li *ngFor="let menuItem of menu.items; let i = index">
+                <a class="dropdown-item" [routerLink]="menuItem.url">{{
+                  menuItem.label
+                }}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

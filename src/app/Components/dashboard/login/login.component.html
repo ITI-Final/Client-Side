@@ -1,0 +1,63 @@
+
+<div class="container-fluid vh-100 overflow-hidden">
+  <div class="row justify-content-center align-items-center h-100">
+    <div class="col-12 col-sm-6 col-md-3" style="margin-top: -150px">
+      <h1 class="site-logo text-center mb-4">O<span>L</span>X</h1>
+      <h3 class="mb-2 fw-bold">Dashboard Login</h3>
+      <p class="fw-normal mb-4">Enter your admin Email and Password</p>
+      <form
+        class="row g-3 needs-validation"
+        [formGroup]="usrFormGroup"
+        (ngSubmit)="login($event)"
+        novalidate
+      >
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          id="email"
+          formControlName="email"
+          [ngClass]="{
+            'form-control': true,
+            'is-invalid': Email?.invalid && (Email?.dirty || Email?.touched),
+            'is-valid': !Email?.invalid
+          }"
+        />
+        <div class="invalid-feedback">
+          {{ getErrorMsg("email") }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="usrPass" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="usrPass"
+          id="usrPass"
+          formControlName="password"
+          [ngClass]="{
+            'form-control': true,
+            'is-invalid':
+              Password?.invalid && (Password?.dirty || Password?.touched),
+            'is-valid': !Password?.invalid
+          }"
+        />
+        <div class="invalid-feedback">
+          {{ getErrorMsg("password") }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn btn-primary py-2 d-flex align-items-center justify-content-center gap-2 w-100"
+          [disabled]="isAdminLogged"
+        >
+          <i class="isax isax-lock-1"></i> Login
+        </button>
+      </div>
+
+      </form>
+    </div>
