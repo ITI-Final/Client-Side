@@ -68,10 +68,16 @@
       </div> -->
     <!-- End Carousel -->
     <button class="btn-fav"><i class="isax isax-heart"></i></button>
-    <img src="{{ post.image }}" class="d-block w-100 rounded-4" alt="..." />
+    <img
+      src="{{ domain }}{{ post.post_Images[0].image }}"
+      class="d-block w-100 rounded-4"
+      alt="..."
+    />
     <div class="card-body px-0">
       <p class="location">
-        <i class="isax isax-location"></i> {{ post.location }}
+        <i class="isax isax-location"></i>
+        {{ post.post_LocationNavigation.city_Name_En }} ,
+        {{ post.post_LocationNavigation.governorate.governorate_Name_En }}
       </p>
       <div class="d-flex align-items-center justify-content-between mb-1">
         <h5 class="card-title fw-bold mb-0 text-primary">

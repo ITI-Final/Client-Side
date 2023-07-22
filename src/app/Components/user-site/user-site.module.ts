@@ -18,6 +18,7 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 
 import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
+import { CategoryViewComponent } from './category-view/category-view.component';
 
 const routes: Routes = [
   {

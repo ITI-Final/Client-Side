@@ -12,6 +12,7 @@ export class CategoriesComponent implements OnInit {
   categoryParentArry:any[]=[]
   categoryHasParent:any
   categoryHasFields:any
+  currentActive : number = 0
 
   constructor(private router:Router,private categoryService:CategoryService) {
 
@@ -32,19 +33,15 @@ export class CategoriesComponent implements OnInit {
     });  }
 
     categoryParentId(id:any){
+      this.currentActive = id
       this.categoryService.getCategoryByID(id).subscribe((cat:any)=>{
         this.categoryHasParent=cat.data.inverseParent
       })
     }
     categoryHasParentF(id:number){
       this.categoryService.getCategoryByID(id).subscribe((cat:any)=>{
-              console.log(cat.data.inverseParent)
-              console.log(cat.data.inverseParent.length)
-
-               if(cat.data.inverseParent.length<=0){
-          alert(id)
-this.router.navigate(['post/add',id])
-          
+          if(cat.data.inverseParent.length<=0){
+          this.router.navigate(['post/add',id])
         }
         else{
           this.categoryHasFields=cat.data.inverseParent
@@ -54,8 +51,6 @@ this.router.navigate(['post/add',id])
       })
     }
     categoryHasFieldsF(id:any){
-      alert(id)
       this.router.navigate(['post/add',id])
-
     }
 }

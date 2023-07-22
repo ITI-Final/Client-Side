@@ -20,10 +20,10 @@ export class ViewUserComponent {
 
   ngOnInit(): void {
     this.currentidUser = localStorage.getItem("userId")
-
     this.userService.getById(this.currentidUser).subscribe((result: any) => {
       this.userDetials = result.data
       console.log(result)
     })
   }
+
 }

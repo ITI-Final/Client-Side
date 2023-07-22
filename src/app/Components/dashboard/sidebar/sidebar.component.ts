@@ -1,4 +1,6 @@
+import { Admin } from 'src/app/interfaces/Dashboard/admin';
 import { Component } from '@angular/core';
+import AdminService from 'src/app/services/Dashboard/admin.service';
 import { AuthService } from 'src/app/services/Dashboard/auth.service';
 
 @Component({
@@ -8,7 +10,8 @@ import { AuthService } from 'src/app/services/Dashboard/auth.service';
 })
 export class SidebarComponent {
   isAdminLogged:boolean|undefined
-  constructor(private AuthServices:AuthService) {
+  adminDetials:any
+  constructor(private AuthServices:AuthService,private adminService:AdminService) {
     // this.isAdminLogged=AuthServices.isAdminLogged
   }
   ngOnInit(): void {
@@ -17,6 +20,11 @@ export class SidebarComponent {
     this.AuthServices.getAdminloggedStatus().
     subscribe(status=>{this.isAdminLogged=status
       console.log(`"admin"${this.isAdminLogged}`)
+    })
+    localStorage.getItem('id')
+    this.adminService.getById(  Number(localStorage.getItem('id'))).subscribe((res:any)=>{
+      console.log(res.data)
+      this.adminDetials=res.data
     })
   }
 

@@ -538,6 +538,7 @@ section {
    align-items:center;
    gap: 0.5rem;
 }
+
 .accordion-button:not(.collapsed) {
    color: #000;
    background-color: var(--primary-color-light);
