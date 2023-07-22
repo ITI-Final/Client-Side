@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     ReactiveFormsModule,
   ],
+  
   providers: [DatePipe],
   bootstrap: [AppComponent]
 })
