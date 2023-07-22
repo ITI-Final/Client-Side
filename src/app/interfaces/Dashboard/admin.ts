@@ -7,9 +7,9 @@ export interface Admin {
    password?: string | null,
    avatar: string | null,
    address: string | null,
-   gender? : boolean | null,
+   gender?: boolean | null,
    phone: string | null,
-   birth_Date : string | null,
-   added_Date : string | null,
-   permissions : IPermission[]
+   birth_Date: string | null,
+   added_Date: string | null,
+   permissions: IPermission[]
 }

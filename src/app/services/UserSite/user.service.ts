@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class UserService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getAll(): any {
     return this.http.get(environment.User());
@@ -17,11 +17,12 @@ export class UserService {
     return this.http.get(environment.User() + '/' + id);
   }
   add(entity: User) {
-    return this.http.post(environment.User(),entity); 
+    return this.http.post(environment.User(), entity);
   }
   update(id: number, entity: User) {
-    return this.http.put(environment.User() + '/' + id,entity); 
+    return this.http.put(environment.User() + '/' + id, entity);
   }
   delete(id: number) {
     return this.http.delete(environment.User() + '/' + id);
-  }}
+  }
+}

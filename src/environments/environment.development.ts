@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     APIURL: 'http://localhost:3000',
-    endPoint: "https://localhost:7094/api/",
+    endPoint: "https://localhost:44326/api/",
     Admin: () => environment.endPoint + "Admins",
     Companies: () => environment.endPoint + "Companies",
     User: () => environment.endPoint + "Users",

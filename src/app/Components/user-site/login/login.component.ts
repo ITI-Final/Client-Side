@@ -48,7 +48,7 @@ export class LoginComponent {
       const formData = new FormData();
       formData.append('email', this.usrFormGroup.value.email);
       formData.append('password', this.usrFormGroup.value.password);
-    
+
       this.AuthServices.login(formData).subscribe(result=>{
           this.isUserLogged=this.AuthServices.isUserLogged
           //////
@@ -61,9 +61,9 @@ export class LoginComponent {
             // Parse the decoded payload as JSON to access its properties
             const payloadObj = JSON.parse(decodedPayload);
 
-       
-            
-        
+
+
+
 //////
           localStorage.setItem("userId", payloadObj.Id)
           this.router.navigate([""])
@@ -88,9 +88,9 @@ export class LoginComponent {
         return 'Required Field';
       } else if (control.errors && control.errors['minlength']) {
         return `Min ${control.errors['minlength']['requiredLength']} Character.`;
-      } else if (control.errors && control.errors['min']) { 
+      } else if (control.errors && control.errors['min']) {
         return `Min ${control.errors['min']['min']} Number.`;
-      } else if (control.errors && control.errors['max']) { 
+      } else if (control.errors && control.errors['max']) {
         return `Max ${control.errors['max']['max']} Number.`;
       } else if (control.errors && control.errors['pattern']) {
         if (controlName === 'email') {
@@ -99,7 +99,7 @@ export class LoginComponent {
           return 'Please Enter Valid Format , Accepted : PNG, JPEG, JPG.';
         } else if (controlName === 'password') {
           return 'At least 6 characters mixed with numbers and symbols.';
-        } else if (control.errors && control.errors['InvaildPassword'] != undefined) {            
+        } else if (control.errors && control.errors['InvaildPassword'] != undefined) {
           return control.errors['InvaildPassword'];
         }
           }
@@ -107,7 +107,7 @@ export class LoginComponent {
     return '';
   }
   //#endregion
-  
+
   logout(){
     this.AuthServices.logout()
     this.isUserLogged=this.AuthServices.isUserLogged

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export default class AdminService implements IRepository<Admin> {
 
-  constructor(private http : HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(): any {
     return this.http.get(environment.Admin());
@@ -18,15 +18,15 @@ export default class AdminService implements IRepository<Admin> {
     return this.http.get(environment.Admin() + '/' + id);
   }
   add(entity: any) {
-    return this.http.post(environment.Admin(),entity); 
+    return this.http.post(environment.Admin(), entity);
   }
   update(id: number, entity: Admin) {
-    return this.http.put(environment.Admin() + '/' + id,entity); 
+    return this.http.put(environment.Admin() + '/' + id, entity);
   }
   delete(id: number) {
     return this.http.delete(environment.Admin() + '/' + id);
   }
   login(entity: any) {
-    return this.http.post(environment.Admin() + '/login' ,entity); 
+    return this.http.post(environment.Admin() + '/login', entity);
   }
 }

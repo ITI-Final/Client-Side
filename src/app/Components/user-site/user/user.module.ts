@@ -8,22 +8,22 @@ import { authUserGuard } from 'src/app/Guards/UserSite/auth-user.guard';
 import { EditeUserComponent } from './edite-user/edite-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 
-  const routes: Routes =[
-    // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
-    // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
-    // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
-    {path:"profile",component:ViewUserComponent,canActivate:[authUserGuard]},
-    {path:"profile/edit",component:EditeUserComponent,canActivate:[authUserGuard]},
-    
+const routes: Routes = [
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  { path: "profile", component: ViewUserComponent, canActivate: [authUserGuard] },
+  { path: "profile/edit", component: EditeUserComponent, canActivate: [authUserGuard] },
 
-  ]
+
+]
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
     EditeUserComponent
-    ,ViewUserComponent
+    , ViewUserComponent
   ],
   imports: [
     CommonModule,

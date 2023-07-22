@@ -11,85 +11,83 @@ export class AuthService {
   public isUserSubject: BehaviorSubject<boolean>;
 
   private httpoptions
-   user:any;
-  
-    constructor(private httpclient:HttpClient) { 
-       this.isUserSubject=new BehaviorSubject<boolean> (this.isUserLogged);
-  
-      this.httpoptions={
-        headers:new HttpHeaders({
-          // 'accept':'*/*',
-          // 'Content-Type':'application/json'
-          'accept':' */*' ,
- 'Content-Type': 'multipart/form-data' 
-        })
-      }
-    }
-    getalluser(): Observable<any>{
-      return this.httpclient.get<any>(`${environment.APIURL}/users`);
-    }
-  
-    login1(userName:string,Password:string){
-   
-  
-      localStorage.setItem("UserName", userName);
-       this.isUserSubject.next(true);
-      
-    }
-    login(entity: any):Observable<any> {
-   //test
-  
-      localStorage.setItem("UserName", "login");
-      this.isUserSubject.next(true);
+  user: any;
 
-      return this.httpclient.post<any>(environment.User() + '/login' ,entity); 
+  constructor(private httpclient: HttpClient) {
+    this.isUserSubject = new BehaviorSubject<boolean>(this.isUserLogged);
 
-      
+    this.httpoptions = {
+      headers: new HttpHeaders({
+        // 'accept':'*/*',
+        // 'Content-Type':'application/json'
+        'accept': ' */*',
+        'Content-Type': 'multipart/form-data'
+      })
     }
-
-    logout(){
-      localStorage.removeItem("UserName")
-       this.isUserSubject.next(false);
-  
-    }
-  
-  
-    get isUserLogged(): boolean
-    {
-      return  (localStorage.getItem('UserName'))? true: false
-    }
-  
-    getUserloggedStatus(): Observable<boolean>
-    {
-      return this.isUserSubject.asObservable();
-    }
-  
-    getSingleUser(id:number):Observable<any>{
-      return this.httpclient.get<any>(`${environment.APIURL}/users/${id}`);
-  
-    }
-    addNewUser(newUser:any):Observable<any>{
-  
-      return this.httpclient.post<any>(`${environment.APIURL}/users`
-  
-                                      ,JSON.stringify(newUser),
-  
-                                                this.httpoptions)
-  
-                                                .pipe(
-  
-                                                  retry(3),catchError((err)=>{
-  
-                                                    return throwError(()=>{
-  
-                                                      return new Error('Error occured please try again.')
-  
-                                                    })
-  
-                                                  })
-  
-                                                )
-  
-      }
   }
+  getalluser(): Observable<any> {
+    return this.httpclient.get<any>(`${environment.APIURL}/users`);
+  }
+
+  login1(userName: string, Password: string) {
+
+
+    localStorage.setItem("UserName", userName);
+    this.isUserSubject.next(true);
+
+  }
+  login(entity: any): Observable<any> {
+    //test
+
+    localStorage.setItem("UserName", "login");
+    this.isUserSubject.next(true);
+
+    return this.httpclient.post<any>(environment.User() + '/login', entity);
+
+
+  }
+
+  logout() {
+    localStorage.removeItem("UserName")
+    this.isUserSubject.next(false);
+
+  }
+
+
+  get isUserLogged(): boolean {
+    return (localStorage.getItem('UserName')) ? true : false
+  }
+
+  getUserloggedStatus(): Observable<boolean> {
+    return this.isUserSubject.asObservable();
+  }
+
+  getSingleUser(id: number): Observable<any> {
+    return this.httpclient.get<any>(`${environment.APIURL}/users/${id}`);
+
+  }
+  addNewUser(newUser: any): Observable<any> {
+
+    return this.httpclient.post<any>(`${environment.APIURL}/users`
+
+      , JSON.stringify(newUser),
+
+      this.httpoptions)
+
+      .pipe(
+
+        retry(3), catchError((err) => {
+
+          return throwError(() => {
+
+            return new Error('Error occured please try again.')
+
+          })
+
+        })
+
+      )
+
+  }
+}
 
