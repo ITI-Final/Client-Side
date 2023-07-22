@@ -40,9 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-<<<<<<< HEAD
 /.vs
-=======
 /.vs/Client-Side/FileContentIndex/read.lock
 /.vs/Client-Side/FileContentIndex/a2b382f6-d2a7-4864-9f58-6c1d269bd4d9.vsidx
 /.vs/Client-Side/FileContentIndex
@@ -51,5 +49,3 @@ Thumbs.db
 /.vs/slnx.sqlite-journal
 *.wsuo
 *.json
->>>>>>> main
-/src/app/Components/user-site/category-view/category-view.component.ts
