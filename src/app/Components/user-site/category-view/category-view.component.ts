@@ -31,9 +31,8 @@ export class CategoryViewComponent {
   }
 
   ngOnInit(): void {
-    
-    console.log(this.category);
     if (this.slug != null) {
+      console.log(this.slug);
       this.categoryService.getAllPosts(this.slug).subscribe({
         next: (data) => {
           if (data.statusCode == 200) {
@@ -42,10 +41,10 @@ export class CategoryViewComponent {
             // console.log(this.Catposts);
             this.carsourlview = false;
             if (this.Catposts.length != 0) {
-              this.category = {
+              this.vehicles = {
                 name: data.data.name,
                 items: this.Catposts,
-                url: "/" + this.slug + "/",
+                url: '#',
               };
             }
           }
@@ -140,7 +139,7 @@ export class CategoryViewComponent {
   //     location: 'Alexandria, Egypt',
   //   },
   // ];
-  category = {
+  vehicles = {
     name: '',
     url: '#',
     items: [],

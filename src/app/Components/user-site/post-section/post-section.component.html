@@ -6,9 +6,6 @@
     ></a>
   </div>
   <div class="col-md-6 col-lg-3" *ngFor="let post of posts; let i = index">
-    <pre>
-      <!-- {{posts[i] | json}} -->
-    </pre>
-    <a [routerLink]="'/'+section.url+'/'+posts[i].id" class="text-decoration-none"><app-post-item [post]="posts[i]"></app-post-item></a>
+    <app-post-item [post]="posts[i]"></app-post-item>
   </div>
 </div>

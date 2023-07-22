@@ -37,15 +37,33 @@ export class PostViewComponent implements OnInit {
     private categoryService: CategoryService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')!;
-    console.log("ID",this.id);
-    
     this.catregory = this.activatedRoute.snapshot.params;
     this.catregory = this.catregory.category;
-  
+    this.postService.getpostById(this.id).subscribe({
+      next: (res) => {
+        this.post = res.data;
+        this.postImages = this.post.post_Image;
+        this.imagesAfter3 = this.postImages.slice(3, this.postImages.length);
+        this.frist3 = this.postImages.slice(0, 3);
+        this.details = this.post.fields;
+        this.UserId = this.post.user_Id;
+        this.city = this.post.post_LocationNavigation;
+        //console.log(this.imagesAfter3);
+        //console.log(this.frist3);
+        //
+        //console.log(this.post);
+        // console.log(this.postImages);
+        // console.log(this.details);
+        // console.log(this.UserId);
+        // console.log(this.city);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   ngOnInit(): void {
-    
     this.postService.getuserById(this.UserId).subscribe({
       next: (res) => {
         this.userdata = res.data[0];

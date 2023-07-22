@@ -1,7 +1,4 @@
-<pre>
-  {{post.url}}
-</pre>
-<!-- <a href="{{ post.url }}" class="text-decoration-none"> -->
+<a [routerLink]="post.id" class="text-decoration-none">
   <div class="card border-0">
     <!-- Start Carousel -->
     <!-- <div id="carouselExampleIndicators" class="carousel position-relative slide">
@@ -27,6 +24,70 @@
             aria-label="Slide 3"
           ></button>
         </div>
+        <div class="carousel-inner rounded-4">
+          <div class="carousel-item slideshow active">
+            <img
+              src="https://images.pexels.com/photos/4466421/pexels-photo-4466421.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item slideshow">
+            <img
+              src="https://images.pexels.com/photos/5973856/pexels-photo-5973856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item slideshow">
+            <img
+              src="https://images.pexels.com/photos/6044288/pexels-photo-6044288.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+        </div>
+        <div class="slider-btns">
+          <button
+            class="carousel-control-prev-custom"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <i class="isax isax-arrow-left-2 fw-bolder"></i>
+          </button>
+          <button
+            class="carousel-control-next-custom"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <i class="isax isax-arrow-right-3 fw-bolder"></i>
+          </button>
+        </div>       
+      </div> -->
+    <!-- End Carousel -->
+    <button class="btn-fav"><i class="isax isax-heart"></i></button>
+    <img
+      src="{{ domain }}{{ post.post_Images[0].image }}"
+      class="d-block w-100 rounded-4"
+      alt="..."
+    />
+    <div class="card-body px-0">
+      <p class="location">
+        <i class="isax isax-location"></i>
+        {{ post.post_LocationNavigation.city_Name_En }} ,
+        {{ post.post_LocationNavigation.governorate.governorate_Name_En }}
+      </p>
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <h5 class="card-title fw-bold mb-0 text-primary">
+          {{ currenyFormat(post.price) }}
+        </h5>
+        <span class="post-time">{{ post.date }}</span>
+      </div>
+      <p class="card-text">
+        {{ post.title }}
+      </p>
     </div>
   </div>
-<!-- </a> -->
+</a>

@@ -40,9 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-/.vs/Client-Side/FileContentIndex/read.lock
-/.vs/Client-Side/FileContentIndex/a2b382f6-d2a7-4864-9f58-6c1d269bd4d9.vsidx
-/.vs/Client-Side/FileContentIndex
-/.vs/ProjectSettings.json
-/.vs/slnx.sqlite
-/.vs/slnx.sqlite-journal
