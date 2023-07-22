@@ -1,7 +1,9 @@
 <div class="row">
-  <nav class="navbar custom-navbar navbar-expand-lg px-5 bg-white position-fixed top-0 z-3">
+  <nav
+    class="navbar custom-navbar navbar-expand-lg px-5 bg-white position-fixed top-0 z-3"
+  >
     <div class="container">
-      <a class="navbar-brand" href="#">O<span>l</span>X</a>
+      <a class="navbar-brand" [routerLink]="['']">O<span>l</span>X</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -81,11 +83,11 @@
           <li class="nav-item d-flex align-items-center">
             <a class="nav-link d-flex align-items-center" routerLink="/chat"><i class="isax isax-message"></i></a>
           </li>
-          <li class="nav-item d-flex align-items-center">
+          <!-- <li class="nav-item d-flex align-items-center">
             <a class="nav-link d-flex align-items-center" href="#"
               ><i class="isax isax-notification"></i
             ></a>
-          </li>
+          </li> -->
           <li class="nav-item d-flex align-items-center">
 
             <a
@@ -152,11 +154,8 @@
                   class="dropdown-item"
                   [hidden]="!isUserLogged"
                   routerLink="user/profile"
-
-                  routerLinkActive="text-primary"
-                  routerLink="user/profile"
                 >
-                  <span class="d-block fw-bold">{{ userDetials?.name }}</span>
+                  <span class="d-block fw-bold">Hesham Mohamed</span>
                   <span style="font-size: 14px">Profile Page</span>
                 </a>
               </li>
@@ -175,7 +174,7 @@
                   class="dropdown-item"
                   [hidden]="!isUserLogged"
                   (click)="logout()"
-                  routerLink="/Logout"
+                  routerLink="logout"
                   >Logout</a
                 >
               </li>
@@ -213,9 +212,12 @@
               [class.show]="areaExpanded && activeMenu == i"
             >
               <li *ngFor="let menuItem of menu.items; let i = index">
-                <a class="dropdown-item" [routerLink]="menuItem.url">{{
-                  menuItem.label
-                }}</a>
+                <a
+                  class="dropdown-item"
+                  (click)="changeslug($event)"
+                  [routerLink]="menuItem.url"
+                  >{{ menuItem.label }}</a
+                >
               </li>
             </ul>
           </li>
