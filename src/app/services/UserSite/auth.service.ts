@@ -21,7 +21,7 @@ export class AuthService {
           // 'accept':'*/*',
           // 'Content-Type':'application/json'
           'accept':' */*' ,
-          'Content-Type': 'multipart/form-data' 
+ 'Content-Type': 'multipart/form-data' 
         })
       }
     }

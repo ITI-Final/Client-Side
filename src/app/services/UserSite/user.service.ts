@@ -32,11 +32,12 @@ export class UserService {
     return this.http.get(environment.User() + '/' + id,this.httpoptions);
   }
   add(entity: User) {
-    return this.http.post(environment.User(),entity); 
+    return this.http.post(environment.User(), entity);
   }
   update(id: number, entity: User) {
-    return this.http.put(environment.User() + '/' + id,entity); 
+    return this.http.put(environment.User() + '/' + id, entity);
   }
   delete(id: number) {
     return this.http.delete(environment.User() + '/' + id);
-  }}
+  }
+}

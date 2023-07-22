@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate, CanActivateFn } from '@angular/router';
- const routes: Routes = [
+const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('src/app/Components/dashboard/dashboard.module')
-                          .then(m=>m.DashboardModule)
+      .then(m => m.DashboardModule)
   },
-      
+
   {
     path: '',
     loadChildren: () => import('src/app/Components/user-site/user-site.module')
-                          .then(m=>m.UserSiteModule)
+      .then(m => m.UserSiteModule)
   },
 
- ]
+]
 
 // const routes: Routes = [
 //   {path:"",component:MainlayoutComponent,
@@ -38,7 +38,7 @@ import { RouterModule, Routes, CanActivate, CanActivateFn } from '@angular/route
 
 
 //     {path: '**', component:Erro404Component}
-  
+
 //           ]
 // },
 

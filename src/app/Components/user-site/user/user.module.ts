@@ -9,18 +9,26 @@ import { EditeUserComponent } from './edite-user/edite-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
-  const routes: Routes =[
-    {path:"profile",component:ViewUserComponent,canActivate:[authUserGuard]},
-    {path:"profile/edit",component:EditeUserComponent,canActivate:[authUserGuard]},
-    {path:"profile/change-password",component:ChangePasswordComponent,canActivate:[authUserGuard]},
-  ]
+
+const routes: Routes = [
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  // {path:'Profile', component: ProfileComponent,canActivate:[authUserGuard]},
+  { path: "profile", component: ViewUserComponent, canActivate: [authUserGuard] },
+  { path: "profile/edit", component: EditeUserComponent, canActivate: [authUserGuard] },
+
+  { path: "profile", component: ViewUserComponent, canActivate: [authUserGuard] },
+  { path: "profile/edit", component: EditeUserComponent, canActivate: [authUserGuard] },
+  { path: "profile/change-password", component: ChangePasswordComponent, canActivate: [authUserGuard] },
+]
+
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
     EditeUserComponent
-    ,ViewUserComponent, ChangePasswordComponent
+    , ViewUserComponent, ChangePasswordComponent
   ],
   imports: [
     CommonModule,
