@@ -1,5 +1,6 @@
 import { CategoryService } from './../../../services/UserSite/category.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/UserSite/auth.service';
 
 interface MainMenu {
@@ -210,7 +211,8 @@ export class NavbarComponent {
 
   constructor(
     private AuthServices: AuthService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router:Router,
   ) {
     // this.isUserLogged=AuthServices.isUserLogged
   }
@@ -227,8 +229,8 @@ export class NavbarComponent {
     this.str = this.str.split(' ');
     this.str = this.str.join('-');
     this.str = this.str.toLowerCase();
-
-    this.categoryService.setvalue = this.str;
+    
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => this.router.navigate([this.str]));
   }
   logout() {
     this.AuthServices.logout();

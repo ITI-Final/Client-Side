@@ -26,6 +26,8 @@ export class CategoryViewComponent {
   }
 
   ngOnInit(): void {
+    console.log("Category");
+    
     if (this.slug != null) {
       this.Catposts = this.categoryService.getAllPosts(this.slug).subscribe({
         next: (data) => {

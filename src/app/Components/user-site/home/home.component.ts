@@ -84,32 +84,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.slug);
-    if (this.slug != null) {
-      this.Catposts = this.categoryService.getAllPosts(this.slug).subscribe({
-        next: (data) => {
-          if (data.statusCode == 200) {
-            this.flag = true;
-            this.Catposts = data.data.posts;
-            // console.log(this.Catposts);
-            this.carsourlview = false;
-            if (this.Catposts.length != 0) {
-              this.vehicles = {
-                name: data.data.name,
-                items: this.Catposts,
-                url: '#',
-              };
-              console.log('gooooooooooooooooooooooooooooe');
-            } else {
-              this.router.navigate(['/notfound']);
-              console.log('hereeeeeeeeeeeee');
-            }
+    if (this.slug == null)  {
+      this.flag = false;
+      this.categoryService.getAllCategories().subscribe({
+        next: (res) => {
+          // console.log(res.data);
 
-            // console.log(this.vehicles);
+          this.AllCatigory = res.data;
+          for (let i = 0; i < this.AllCatigory.length; i++) {
+            if (this.AllCatigory[i].posts.length != 0) {
+              this.post = {
+                name: this.AllCatigory[i].name,
+                url: '',
+                items: this.AllCatigory[i].posts.slice(0, 4),
+              };
+              this.OutputData.push(this.post);
+            }
           }
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
