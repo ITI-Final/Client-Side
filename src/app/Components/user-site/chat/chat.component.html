@@ -1,112 +1,48 @@
-<div class="container">
-   <!-- Breadcrumb -->
-   <div class="row">
-      <!-- Main Details -->
-      <div class="row border border-1 mt-3 chat p-0 rounded rounded-4 overflow-hidden">
+<div
+    class="container">
+    <!-- Breadcrumb -->
+    <div
+        class="row">
+        <!-- Main Details -->
+        <div class="row border border-1 mt-3 chat p-0 rounded rounded-4 overflow-hidden">
             <div class="col-md-4 p-0 border-end">
-              <div class="chat-header">
-                Chats
-              </div>
-              <div class="chat-box p-0">
-                <div class="chat-item active">
-                  <div class="avatar">H</div>
-                  <span>Hisham Mohamed</span>
+                <div class="chat-header">
+                    Chats
                 </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
+                <div class="chat-box p-0">
+                    <div *ngFor="let user of allUsersArray" class="chat-item" [class.active]="user.id === reserverId" (click)="getChat(userId,user.id)">
+                        <div class="avatar">{{user.name.charAt(0).toUpperCase()}}</div>
+                        <span>{{user.name}}</span>
+                    </div>
                 </div>
-                <div class="chat-item">
-                  <div class="avatar">H</div>
-                  <span>Hisham Mohamed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-                <div class="chat-item">
-                  <div class="avatar">M</div>
-                  <span>Mohamed Ahmed</span>
-                </div>
-              </div>
             </div>
-            
             <div class="col-md-8 p-0 position-relative">
-              <div class="chat-header d-flex align-items-center justify-content-between" style="padding: 12px 20px;">
-                <div class="d-flex align-items-center gap-2">
-                  <div class="avatar-mini">M</div>
-                  <span>Mohamed Ahmed</span>
+                <div class="chat-header d-flex align-items-center justify-content-between" style="padding: 12px 20px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="avatar-mini">{{reserverName.charAt(0).toUpperCase()}}</div>
+                        <span>{{reserverName}}</span>
+                    </div>
+                    <button class="btn btn-primary rounded-5 d-flex align-items-center gap-2">
+                        <i class="isax isax-call"></i>
+                        Phone Number</button>
                 </div>
-                <button class="btn btn-primary rounded-5 d-flex align-items-center gap-2"><i class="isax isax-call"></i> Phone Number</button>
-              </div>
-              <div class="chat-box " style="padding-bottom: 55px;">
-                <div class="chat-message sender">
-                  <span>Hello</span>
+                <div class="chat-box " style="padding-bottom: 55px;">
+                    <div *ngFor="let message of AllMessages" [ngSwitch]="message.sender_ID === userId">
+                        <div *ngSwitchCase="true" class="chat-message sender">
+                            <span>{{ message.message }}</span>
+                        </div>
+                        <div *ngSwitchCase="false" class="chat-message receiver">
+                            <span>{{ message.message }}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="chat-message receiver">
-                  <span>Hey</span>
+                <div class="send-message">
+                    <input type="text" placeholder="Message..." type="text" [(ngModel)]="newMessage">
+                        <button (click)="sendMessage()">Send
+                            <i class="isax isax-send-1"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="chat-message receiver">
-                  <span>What you need ?</span>
-                </div>
-                <div class="chat-message sender">
-                  <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit repudiandae quia temporibus adipisci impedit officiis, perferendis culpa cupiditate maxime porro.</span>
-                </div>
-                <div class="chat-message receiver">
-                  <span>What you need ?</span>
-                </div>
-                <div class="chat-message sender">
-                  <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit repudiandae quia temporibus adipisci impedit officiis, perferendis culpa cupiditate maxime porro.</span>
-                </div>
-                <div class="chat-message receiver">
-                  <span>What you need ?</span>
-                </div>
-                <div class="chat-message sender">
-                  <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit repudiandae quia temporibus adipisci impedit officiis, perferendis culpa cupiditate maxime porro.</span>
-                </div>
-              </div>
-              <div class="send-message">
-                <input type="text" placeholder="Message...">
-                <button>Send <i class="isax isax-send-1"></i></button>
-              </div>
             </div>
-      </div>
-   </div>
- </div>
- 
+        </div>
+    </div>

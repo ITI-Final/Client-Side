@@ -4,7 +4,7 @@ export interface User {
     "password"?: "string",
     "phone"?: "string",
     "bio"?: "string",
-    "gender"?:"string",
+    "gender"?: "string",
     "company"?: string,
     "birth_Date"?: "string",
     "post_Count"?: number,

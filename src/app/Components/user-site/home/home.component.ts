@@ -58,10 +58,10 @@ export class HomeComponent implements OnInit {
 
                 //this.vehicles.items = this.Catposts;
                 if (this.Catposts.length != 0) {
-                  this.vehicles = {
+                  this.category = {
                     name: data.data.name,
                     items: this.Catposts,
-                    url: '#',
+                    url: "/" + this.slug + "/",
                   };
                 }
                 // console.log(this.vehicles);
@@ -86,16 +86,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if (this.slug == null)  {
       this.flag = false;
+      
       this.categoryService.getAllCategories().subscribe({
         next: (res) => {
           // console.log(res.data);
-
+          
           this.AllCatigory = res.data;
           for (let i = 0; i < this.AllCatigory.length; i++) {
             if (this.AllCatigory[i].posts.length != 0) {
               this.post = {
                 name: this.AllCatigory[i].name,
-                url: '',
+                url: this.AllCatigory[i].slug,
                 items: this.AllCatigory[i].posts.slice(0, 4),
               };
               this.OutputData.push(this.post);
@@ -168,7 +169,7 @@ export class HomeComponent implements OnInit {
   //     location: 'Alexandria, Egypt',
   //   },
   // ];
-  vehicles = {
+  category = {
     name: '',
     url: '#',
     items: [],
