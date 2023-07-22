@@ -1,11 +1,11 @@
 <div class="row mt-3">
-  <div class="d-flex mb-2 align-items-center justify-content-between">
-    <h2>{{ section.name }}</h2>
-    <a href="#" class="btn fw-semibold align-center-embact text-primary"
-      >View More <i class="isax isax-arrow-right-3 fw-bold"></i
-    ></a>
-  </div>
-  <div class="col-md-6 col-lg-3" *ngFor="let post of posts; let i = index">
-    <app-post-item [post]="posts[i]"></app-post-item>
-  </div>
+    <div class="d-flex mb-2 align-items-center justify-content-between">
+        <h2>{{ section.name }}</h2>
+        <a href="#" class="btn fw-semibold align-center-embact text-primary">View More
+            <i class="isax isax-arrow-right-3 fw-bold"></i>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-3" *ngFor="let post of posts; let i = index">
+        <app-post-item [post]="posts[i]"></app-post-item>
+    </div>
 </div>
