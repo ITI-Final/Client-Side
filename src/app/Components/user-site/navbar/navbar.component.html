@@ -113,7 +113,6 @@
                 </svg>
               </div>
             </a>
-
           </li>
           <li class="nav-item dropdown border border-1 rounded-5">
             <a
@@ -145,7 +144,6 @@
                   class="dropdown-item"
                   [hidden]="isUserLogged"
                   routerLink="register"
-                  routerLinkActive="text-primary"
                   >Sign up</a
                 >
               </li>
@@ -154,9 +152,9 @@
                   class="dropdown-item"
                   [hidden]="!isUserLogged"
                   routerLink="user/profile"
+                  routerLink="user/profile"
                 >
-                  <span class="d-block fw-bold">Hesham Mohamed</span>
-                  <span style="font-size: 14px">Profile Page</span>
+                  <span>Profile Page</span>
                 </a>
               </li>
               <li>
@@ -164,7 +162,6 @@
                   class="dropdown-item"
                   [hidden]="isUserLogged"
                   routerLink="login"
-                  routerLinkActive="text-primary"
                   >Log in</a
                 >
               </li>
