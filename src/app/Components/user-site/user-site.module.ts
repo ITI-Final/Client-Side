@@ -18,6 +18,7 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 
 import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
+import { CategoryViewComponent } from './category-view/category-view.component';
 
 const routes: Routes =[
   {path:"",component:MainlayoutComponent,
@@ -41,9 +42,9 @@ const routes: Routes =[
       loadChildren: () => import('src/app/Components/user-site/posts/posts.module')
                             .then(m=>m.PostsModule)
     },
-    {path:":category",component:PostViewComponent},
-    {path:":category/:sub",component:PostViewComponent},
-    {path:":category/:sub/:id",component:PostViewComponent},
+    // {path:":category",component:PostViewComponent},
+    {path:":category",component:CategoryViewComponent},
+    {path:":category/:id",component:PostViewComponent},
 
   
 //////// must be last  Path/////////////
@@ -66,7 +67,8 @@ PostSectionComponent,
 RegisterComponent,
 SlideshowComponent,
 PostViewComponent,
-ChatComponent
+ChatComponent,
+CategoryViewComponent
 
   ],
   imports: [

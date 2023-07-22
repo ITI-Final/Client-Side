@@ -1,34 +1,16 @@
-import { CategoryService } from './../../../services/UserSite/category.service';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  Output,
-} from '@angular/core';
-import { DataTransfer } from 'src/app/interfaces/UserSite/data-transfer';
+import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { CategoryService } from 'src/app/services/UserSite/category.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-category-view',
+  templateUrl: './category-view.component.html',
+  styleUrls: ['./category-view.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class CategoryViewComponent {
   slug: string | null = '';
   Catposts: any = [];
-  post: DataTransfer = {
-    name: '',
-    items: [],
-    url: '',
-  };
+  post :any = [];
   OutputData: DataTransfer[] = [];
   carsourlview: boolean = true;
   currentRoute = '';
@@ -39,52 +21,11 @@ export class HomeComponent implements OnInit {
     private categoryService: CategoryService,
     private router: Router
   ) {
-    this.slug = activatedRoute.snapshot.paramMap.get('slug');
+    this.slug = activatedRoute.snapshot.paramMap.get('category');
 
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-      }
-
-      if (event instanceof NavigationEnd) {
-        this.slug = activatedRoute.snapshot.paramMap.get('slug');
-        if (this.slug != null) {
-          this.flag = true;
-          this.categoryService.getAllPosts(this.slug).subscribe({
-            next: (data) => {
-              if (data.statusCode == 200) {
-                this.Catposts = data.data.posts;
-                // console.log(this.Catposts);
-                this.carsourlview = false;
-
-                //this.vehicles.items = this.Catposts;
-                if (this.Catposts.length != 0) {
-                  this.vehicles = {
-                    name: data.data.name,
-                    items: this.Catposts,
-                    url: '#',
-                  };
-                }
-                // console.log(this.vehicles);
-                //this.OutputData.push();
-              }
-            },
-            error: (err) => {
-              console.log(err);
-            },
-          });
-        }
-        //console.log(this.slug);
-        this.currentRoute = event.url;
-        //console.log(event);
-      }
-
-      if (event instanceof NavigationError) {
-      }
-    });
   }
 
   ngOnInit(): void {
-    console.log(this.slug);
     if (this.slug != null) {
       this.Catposts = this.categoryService.getAllPosts(this.slug).subscribe({
         next: (data) => {
@@ -110,6 +51,25 @@ export class HomeComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
+        },
+      });
+    } else {
+      this.flag = false;
+      this.categoryService.getAllCategories().subscribe({
+        next: (res) => {
+          // console.log(res.data);
+
+          this.AllCatigory = res.data;
+          for (let i = 0; i < this.AllCatigory.length; i++) {
+            if (this.AllCatigory[i].posts.length != 0) {
+              this.post = {
+                name: this.AllCatigory[i].name,
+                url: '',
+                items: this.AllCatigory[i].posts.slice(0, 4),
+              };
+              this.OutputData.push(this.post);
+            }
+          }
         },
       });
     }
