@@ -22,7 +22,7 @@ export class UserService {
     return this.http.get<User[]>(environment.User());
   }
   getById(id: number):Observable<User>{
-    return this.http.get<User>(environment.User() + '/id?id=' + id);
+    return this.http.get<User>(environment.User() + '/' + id);
   }
   add(entity: any) :Observable<User>{
     return this.http.post<User>(environment.User()+'/register',entity,this.httpoptions); 

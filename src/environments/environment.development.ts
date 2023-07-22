@@ -9,6 +9,8 @@ export const environment = {
     categorywithPost: () => environment.endPoint + 'Categories/withPosts',
     AllCategories: () => environment.endPoint + 'Categories',
     getRandomImages: () => environment.endPoint + 'Images',
+    getPost: () => environment.endPoint + 'Posts',
+    getcities: () => environment.endPoint + 'Governorates',
     DefaultIMG : "../../../../assets/images/default.jpg",
     Gender: (gender :boolean | null) => gender ? "Male" : "Female",
 };

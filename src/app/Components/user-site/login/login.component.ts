@@ -66,6 +66,7 @@ export class LoginComponent {
         
 //////
           localStorage.setItem("userId", payloadObj.Id)
+          localStorage.setItem("token", result.response.token)
           this.router.navigate([""])
 
           console.log(result);
