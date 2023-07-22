@@ -20,9 +20,14 @@
         <h3 class="mb-4">
           My <span class="text-primary">Profile</span>
         </h3>
+       <div class="d-flex gap-2">
         <a class="btn btn-warning" [routerLink]="['edit']"
-          ><i class="isax isax-user-edit"></i> Edit Profile</a
-        >
+        ><i class="isax isax-user-edit"></i> Edit Profile</a
+      >
+      <a class="btn btn-outline-secondary" [routerLink]="['change-password']"
+        ><i class="isax isax-key"></i> Change Password</a
+      >
+       </div>
       </div>
       <div class="container-fluid">
         <div class="row">
@@ -51,8 +56,7 @@
           </div>
           <div class="col-md-6 mt-2">
             <span class="text-primary">Birthdate</span>
-            <div class="bg-body-tertiary p-3 rounded-4 mt-1">
-                {{userDetials?.birth_Date | date}}
+            <div class="bg-body-tertiary p-3 rounded-4 mt-1" [innerHTML]="(userDetials?.birth_Date | date) || '<i class=&quot;text-muted&quot;>No Birthdate</i>' ">
             </div>
           </div>
           <div class="col-md-12 mt-2">
@@ -86,3 +90,7 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0d37203fa4dbd485a373e0fa290223dded419c5f

@@ -1,0 +1,14 @@
+<div class="container">
+   <!-- Post Section -->
+   <ng-container *ngIf="flag">
+     <app-post-section [section]="vehicles"></app-post-section>
+   </ng-container>
+   <ng-container *ngIf="!flag">
+     <div *ngFor="let post of OutputData; let i = index">
+       <app-post-section [section]="OutputData[i]"></app-post-section>
+     </div>
+   </ng-container>
+   <!-- <app-post-section [section]="vehicles"></app-post-section> -->
+   <!-- <h1>{{ vehicles.name }}</h1> -->
+ </div>
+ 

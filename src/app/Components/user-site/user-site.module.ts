@@ -15,8 +15,10 @@ import { PostItemComponent } from './post-item/post-item.component';
 import { PostSectionComponent } from './post-section/post-section.component';
 import { RegisterComponent } from './register/register.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
+
 import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
+import { CategoryViewComponent } from './category-view/category-view.component';
 
 const routes: Routes =[
   {path:"",component:MainlayoutComponent,
@@ -38,16 +40,15 @@ const routes: Routes =[
       loadChildren: () => import('src/app/Components/user-site/posts/posts.module')
                             .then(m=>m.PostsModule)
     },
-    {path:":category",component:PostViewComponent},
-    {path:":category/:sub",component:PostViewComponent},
-    {path:":category/:sub/:id",component:PostViewComponent},
+    // {path:":category",component:PostViewComponent},
+    {path:":category",component:CategoryViewComponent},
+    {path:":category/:id",component:PostViewComponent},
 
   
 //////// must be last  Path/////////////
 {path: '**', component:NotFoundComponent}
 /////////////////////////////////////////
   ]}
-
 ]
 
 @NgModule({
@@ -64,7 +65,9 @@ PostSectionComponent,
 RegisterComponent,
 SlideshowComponent,
 PostViewComponent,
-ChatComponent
+ChatComponent,
+CategoryViewComponent
+
   ],
   imports: [
     CommonModule,

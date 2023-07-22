@@ -165,7 +165,7 @@ for (const key in formControls) {
       console.log(formDataValue)
 this.categoryService.addMainCategory(formDataValue).subscribe(result=>{
   console.log(result)
-
+this.router.navigate(["dashboard/category"])
 })
     }
     else if((this.addForm.valid)){
@@ -174,6 +174,7 @@ this.categoryService.addMainCategory(formDataValue).subscribe(result=>{
     
       this.categoryService.addCategory(this.addForm.value).subscribe(result=>{
         console.log(result)
+        this.router.navigate(["dashboard/category"])
 
       })
     }else{
