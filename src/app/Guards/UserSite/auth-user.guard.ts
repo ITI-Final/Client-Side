@@ -7,19 +7,19 @@ import { AuthService } from 'src/app/services/UserSite/auth.service';
   providedIn: 'root'
 })
 export class authUserGuard implements CanActivate {
-  constructor(private authUser:AuthService
-    ,private router:Router){}
+  constructor(private authUser: AuthService
+    , private router: Router) { }
   canActivate(
-      route: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.authUser.isUserLogged){
-        return true;
-      }
-      else{
-        alert("not user");
-        this.authUser.logout()
-        this.router.navigate(['Logout']);
-        return false;
-      }
-      }
+    if (this.authUser.isUserLogged) {
+      return true;
     }
+    else {
+      alert("not user");
+      this.authUser.logout()
+      this.router.navigate(['Logout']);
+      return false;
+    }
+  }
+}

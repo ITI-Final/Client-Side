@@ -8,19 +8,19 @@ import { AuthService } from 'src/app/services/Dashboard/auth.service';
   providedIn: 'root'
 })
 export class authAdminGuard implements CanActivate {
-  constructor(private authAdmin:AuthService
-    ,private router:Router){}
+  constructor(private authAdmin: AuthService
+    , private router: Router) { }
   canActivate(
-      route: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.authAdmin.isAdminLogged){
-        return true;
-      }
-      else{
-        alert("not admin");
-        this.authAdmin.logout()
-        this.router.navigate(['dashboard/Logout']);
-        return false;
-      }
-      }
+    if (this.authAdmin.isAdminLogged) {
+      return true;
     }
+    else {
+      alert("not admin");
+      this.authAdmin.logout()
+      this.router.navigate(['dashboard/Logout']);
+      return false;
+    }
+  }
+}

@@ -10,25 +10,25 @@ export class CategoryService {
 
   private httpoptions
 
-  constructor(private httpclient:HttpClient ) {
-    this.httpoptions={
-      headers:new HttpHeaders({
-        'Content-Type':'application/json'
+  constructor(private httpclient: HttpClient) {
+    this.httpoptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
       })
     }
-   }
+  }
 
 
-  getallGategory(): Observable<any>{
+  getallGategory(): Observable<any> {
     return this.httpclient.get<any>(`${environment.endPoint}Categories`);
   }
-  addMainCategory(category:any): Observable<any>{
-    return this.httpclient.post<any>(`${environment.endPoint}Categories/main`,category,this.httpoptions);
+  addMainCategory(category: any): Observable<any> {
+    return this.httpclient.post<any>(`${environment.endPoint}Categories/main`, category, this.httpoptions);
   }
-  addCategory(category:any): Observable<any>{
-    return this.httpclient.post<any>(`${environment.endPoint}Categories`,category,this.httpoptions);
+  addCategory(category: any): Observable<any> {
+    return this.httpclient.post<any>(`${environment.endPoint}Categories`, category, this.httpoptions);
   }
-  deleteGategory(id:number): Observable<any>{
+  deleteGategory(id: number): Observable<any> {
     return this.httpclient.delete<any>(`${environment.endPoint}Categories/${id}`);
   }
   deleteCategory(id: number): Observable<any> {
@@ -36,20 +36,20 @@ export class CategoryService {
     const url = `${environment.endPoint}Categories/${id}?_cb=${cacheBuster}`;
     return this.httpclient.delete<any>(url);
   }
-  editeCategory(category:any,id:number): Observable<any>{
-    return this.httpclient.put<any>(`${environment.endPoint}Categories/${id}`,category,this.httpoptions);
+  editeCategory(category: any, id: number): Observable<any> {
+    return this.httpclient.put<any>(`${environment.endPoint}Categories/${id}`, category, this.httpoptions);
   }
-  getCategoryByID(id:number): Observable<any>{
+  getCategoryByID(id: number): Observable<any> {
     return this.httpclient.get<any>(`${environment.endPoint}Categories/${id}`);
   }
-  getallGovernorates(): Observable<any>{
+  getallGovernorates(): Observable<any> {
     return this.httpclient.get<any>(`${environment.endPoint}Governorates`);
   }
-  getGovernorateById(id:number): Observable<any>{
+  getGovernorateById(id: number): Observable<any> {
     return this.httpclient.get<any>(`${environment.endPoint}Governorates/${id}`);
   }
-  addPost(post:any): Observable<any>{
-    return this.httpclient.post<any>(`${environment.endPoint}Posts`,post);
+  addPost(post: any): Observable<any> {
+    return this.httpclient.post<any>(`${environment.endPoint}Posts`, post);
   }
 }
 

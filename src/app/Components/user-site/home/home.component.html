@@ -3,7 +3,7 @@
   <app-slideshow *ngIf="carsourlview"></app-slideshow>
   <!-- Post Section -->
   <ng-container *ngIf="flag">
-    <app-post-section [section]="vehicles"></app-post-section>
+    <app-post-section [section]="category"></app-post-section>
   </ng-container>
   <ng-container *ngIf="!flag">
     <div *ngFor="let post of OutputData; let i = index">

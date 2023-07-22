@@ -10,48 +10,48 @@ import { environment } from 'src/environments/environment.development';
 })
 export class UserService {
   private httpoptions
-  constructor(private http : HttpClient) {
-    this.httpoptions={
-      headers:new HttpHeaders({
-        'Content-Type':'application/json'
+  constructor(private http: HttpClient) {
+    this.httpoptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
       })
     }
   }
 
-  getAll():Observable<User[]> {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(environment.User());
   }
   getById(id: number):Observable<User>{
-    return this.http.get<User>(environment.User() + '/id?id=' + id);
+    return this.http.get<User>(environment.User() + '/' + id);
   }
-  add(entity: any) :Observable<User>{
-    return this.http.post<User>(environment.User()+'/register',entity,this.httpoptions); 
+  add(entity: any): Observable<User> {
+    return this.http.post<User>(environment.User() + '/register', entity, this.httpoptions);
   }
- 
-  update(id: number, entity: User):Observable<User> {
-    return this.http.put<User>(environment.User() + '/id?id=' + id,entity); 
+
+  update(id: number, entity: User): Observable<User> {
+    return this.http.put<User>(environment.User() + '/id?id=' + id, entity);
   }
-  delete(id: number):Observable<User>  {
+  delete(id: number): Observable<User> {
     return this.http.delete<User>(environment.User() + '/id?id=' + id);
   }
-  
+
   //////////company//////////
 
 
-  getCompaniesAll():Observable<User[]> {
+  getCompaniesAll(): Observable<User[]> {
     return this.http.get<User[]>(environment.Companies());
   }
-  getCompanyById(id: number):Observable<User>{
+  getCompanyById(id: number): Observable<User> {
     return this.http.get<User>(environment.Companies() + '/' + id);
   }
 
-  addCompany(entity: any) :Observable<Company>{
-    return this.http.post<Company>(environment.Companies(),entity); 
+  addCompany(entity: any): Observable<Company> {
+    return this.http.post<Company>(environment.Companies(), entity);
   }
-  updateCompany(id: number, entity: User):Observable<User> {
-    return this.http.put<User>(environment.Companies() + '/' + id,entity); 
+  updateCompany(id: number, entity: User): Observable<User> {
+    return this.http.put<User>(environment.Companies() + '/' + id, entity);
   }
-  deleteCompany(id: number):Observable<User>  {
+  deleteCompany(id: number): Observable<User> {
     return this.http.delete<User>(environment.Companies() + '/' + id);
   }
-  }
+}

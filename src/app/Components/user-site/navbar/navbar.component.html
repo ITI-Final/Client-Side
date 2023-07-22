@@ -3,11 +3,7 @@
     class="navbar custom-navbar navbar-expand-lg px-5 bg-white position-fixed top-0 z-3"
   >
     <div class="container">
-<<<<<<< HEAD
-      <a class="navbar-brand" href="#">O<span>l</span>X</a>
-=======
       <a class="navbar-brand" [routerLink]="['']">O<span>l</span>X</a>
->>>>>>> 0d37203fa4dbd485a373e0fa290223dded419c5f
       <button
         class="navbar-toggler"
         type="button"
@@ -148,7 +144,6 @@
                   class="dropdown-item"
                   [hidden]="isUserLogged"
                   routerLink="register"
-                  routerLinkActive="text-primary"
                   >Sign up</a
                 >
               </li>
@@ -157,11 +152,9 @@
                   class="dropdown-item"
                   [hidden]="!isUserLogged"
                   routerLink="user/profile"
-                  routerLinkActive="text-primary"
                   routerLink="user/profile"
                 >
-                  <span class="d-block fw-bold">{{ userDetials?.name }}</span>
-                  <span style="font-size: 14px">Profile Page</span>
+                  <span>Profile Page</span>
                 </a>
               </li>
               <li>
@@ -169,7 +162,6 @@
                   class="dropdown-item"
                   [hidden]="isUserLogged"
                   routerLink="login"
-                  routerLinkActive="text-primary"
                   >Log in</a
                 >
               </li>

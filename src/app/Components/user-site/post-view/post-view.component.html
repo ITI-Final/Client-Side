@@ -1,230 +1,559 @@
 <div class="container">
-   <!-- Breadcrumb -->
-   <div class="row">
-      <div class="col-md-12 mt-4">
-         <div aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
-              <li class="breadcrumb-item">
-                <a [routerLink]="'/dashboard/category'">Vehicles</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a [routerLink]="'/dashboard/category'">Cars For Sale</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">MERCEDES BENZ CLA 200 USED 2022</li>
-            </ol>
+  <!-- Breadcrumb -->
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/dashboard'">Home</a>
+          </li>
+          <!-- <li class="breadcrumb-item">
+            <a [routerLink]="'/dashboard/category'">Vehicles</a>
+          </li> -->
+          <li class="breadcrumb-item">
+            <a [routerLink]="'/dashboard/category'">{{ catregory }}</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ post.title }}
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-4">
+        <h1 class="fw-bold">{{ post.title }}</h1>
+        <h5 class="text-muted d-flex align-items-center gap-1">
+          <i class="isax isax-location fs-4 fw-bold text-primary"></i>
+          {{ city.city_Name_En }} ,
+          {{ city.governorate.governorate_Name_En }}
+        </h5>
+      </div>
+      <!-- Gallery -->
+      <div class="col-md-12">
+        <div class="gallery gap-3 mb-3">
+          <div
+            class="gallery-item rounded-4 overflow-hidden"
+            vid-id="3jfI-z__GY0"
+            data-bs-toggle="modal"
+            data-bs-target="#galleryModal"
+            gallery-id="0"
+            style="display: block"
+            *ngFor="let item of frist3; let i = index"
+          >
+            <div
+              class="more-gallery-items position-absolute text-white d-flex flex-column justify-content-center align-items-center w-100 h-100"
+              *ngIf="i == 2 && postImages.length > 3"
+            >
+              <span>{{ postImages.length - 3 }}</span>
+              <div>Show More</div>
+            </div>
+            <img class="w-100" src="{{ domain }}{{ item.image }}" alt="" />
+            <span class="skeleton skeleton-img" style="display: none"></span>
           </div>
+
+          <!-- Start Gallery Modal -->
+          <ng-container *ngIf="imagesAfter3.length > 0">
+            <div
+              class="modal fade"
+              id="galleryModal"
+              tabindex="-1"
+              aria-labelledby="galleryModalLabel"
+              aria-hidden="true"
+              style="display: none"
+            >
+              <div class="modal-dialog modal-fullscreen">
+                <div class="gallery-modal modal-content">
+                  <div
+                    type="button"
+                    class="gallery-close-btn d-flex justify-align-center align-items-center gap-2 text-black bg-white m-auto py-2 px-3 mt-3 rounded-5 fw-bolder"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <i class="fa-solid fa-xmark"></i> إغلاق
+                  </div>
+                  <div
+                    class="modal-body d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      id="carouselGalleryControls"
+                      class="carousel slide gallery-body"
+                      data-bs-interval="false"
+                    >
+                      <div class="carousel-indicators gallery-indicators">
+                        <!-- Auto Load -->
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="0"
+                          aria-label="Image 1"
+                          class=""
+                          *ngFor="let image of imagesAfter3; let i = index"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="{{ domain }}{{ image.image }}"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="1"
+                          aria-label="Image 2"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="2"
+                          aria-label="Image 3"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://wallpaperaccess.com/full/2076086.jpg"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="3"
+                          aria-label="Image 4"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="4"
+                          aria-label="Image 5"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="5"
+                          aria-label="Image 6"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="6"
+                          aria-label="Image 7"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="7"
+                          aria-label="Image 8"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="8"
+                          aria-label="Image 9"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="9"
+                          aria-label="Image 10"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="10"
+                          aria-label="Image 11"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://wallpaperaccess.com/full/2076086.jpg"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="11"
+                          aria-label="Image 12"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="12"
+                          aria-label="Image 13"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="13"
+                          aria-label="Image 14"
+                          class="active"
+                          aria-current="true"
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="14"
+                          aria-label="Image 15"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="15"
+                          aria-label="Image 16"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+
+                        <div
+                          type="button"
+                          data-bs-target="#carouselGalleryControls"
+                          data-bs-slide-to="16"
+                          aria-label="Image 17"
+                          class=""
+                        >
+                          <img
+                            class="d-block w-100 h-100"
+                            src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div class="carousel-inner gallery-modal-item">
+                        <!-- Auto Load -->
+                        <div class="carousel-item" carousel-id="0">
+                          <iframe
+                            src="https://www.youtube.com/embed/3jfI-z__GY0"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen=""
+                          ></iframe>
+                        </div>
+                        <div class="carousel-item" carousel-id="1">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="2">
+                          <img
+                            class="d-block"
+                            src="https://wallpaperaccess.com/full/2076086.jpg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="3">
+                          <img
+                            class="d-block"
+                            src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="4">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="5">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="6">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="7">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="8">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="9">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="10">
+                          <img
+                            class="d-block"
+                            src="https://wallpaperaccess.com/full/2076086.jpg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="11">
+                          <img
+                            class="d-block"
+                            src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="12">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item active" carousel-id="13">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="14">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="15">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="carousel-item" carousel-id="16">
+                          <img
+                            class="d-block"
+                            src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <button
+                        class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselGalleryControls"
+                        data-bs-slide="prev"
+                      >
+                        <span
+                          class="carousel-control-prev-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button
+                        class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselGalleryControls"
+                        data-bs-slide="next"
+                      >
+                        <span
+                          class="carousel-control-next-icon"
+                          aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <!-- End Gallery Modal -->
+        </div>
       </div>
-      <div class="row">
-         <div class="col-md-12 mb-4">
-            <h1 class="fw-bold">MERCEDES BENZ CLA 200 USED 2022</h1>
-            <h5 class="text-muted d-flex align-items-center gap-1"><i class="isax isax-location fs-4 fw-bold text-primary"></i> Mansoura, Dakhlia , Egypt</h5>
-         </div>
-         <!-- Gallery -->
-         <div class="col-md-12">
-            <div class="gallery gap-3 mb-3">
-               <div class="gallery-item rounded-4 overflow-hidden video" vid-id="3jfI-z__GY0" data-bs-toggle="modal" data-bs-target="#galleryModal" gallery-id="0" style="display: block;"><span class="skeleton skeleton-img" style="display: none;"></span>
-                 <img class="w-100" src="https://images.pexels.com/photos/337909/pexels-photo-337909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
-               </div>
-               <div class="gallery-item rounded-4 overflow-hidden" data-bs-toggle="modal" data-bs-target="#galleryModal" gallery-id="1" style="display: block;"><span class="skeleton skeleton-img" style="display: none;"></span>
-                 <img class="w-100" src="https://images.pexels.com/photos/5976640/pexels-photo-5976640.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
-               </div>
-               <div class="gallery-item rounded-4 overflow-hidden" data-bs-toggle="modal" data-bs-target="#galleryModal" gallery-id="4" style="display: block;"><div class="more-gallery-items position-absolute text-white d-flex flex-column justify-content-center align-items-center w-100 h-100">
-                   <span>12+</span>
-                   <div>Show More</div>
-                   </div>
-             <span class="skeleton skeleton-img" style="display: none;"></span>
-                 <img class="w-100" src="https://images.pexels.com/photos/1280560/pexels-photo-1280560.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
-               </div>                  
-               <!-- Start Gallery Modal -->        
-               <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true" style="display: none;">
-                 <div class="modal-dialog modal-fullscreen">
-                   <div class="gallery-modal modal-content">
-                     <div type="button" class="gallery-close-btn d-flex justify-align-center align-items-center gap-2 text-black bg-white m-auto py-2 px-3 mt-3 rounded-5 fw-bolder" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i> إغلاق</div>
-                     <div class="modal-body d-flex justify-content-center align-items-center">
-                       <div id="carouselGalleryControls" class="carousel slide gallery-body" data-bs-interval="false">
-                         <div class="carousel-indicators gallery-indicators">
-                           <!-- Auto Load -->
-                         
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="0" aria-label="Image 1" class="">
-                     <img class="d-block w-100 h-100" src="https://img.youtube.com/vi/3jfI-z__GY0/0.jpg" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="1" aria-label="Image 2" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="2" aria-label="Image 3">
-                     <img class="d-block w-100 h-100" src="https://wallpaperaccess.com/full/2076086.jpg" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="3" aria-label="Image 4">
-                     <img class="d-block w-100 h-100" src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="4" aria-label="Image 5">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="5" aria-label="Image 6">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="6" aria-label="Image 7">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="7" aria-label="Image 8" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="8" aria-label="Image 9" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="9" aria-label="Image 10" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="10" aria-label="Image 11" class="">
-                     <img class="d-block w-100 h-100" src="https://wallpaperaccess.com/full/2076086.jpg" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="11" aria-label="Image 12">
-                     <img class="d-block w-100 h-100" src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="12" aria-label="Image 13" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="13" aria-label="Image 14" class="active" aria-current="true">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="14" aria-label="Image 15" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="15" aria-label="Image 16" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt="">
-                   </div>
-           
-                   <div type="button" data-bs-target="#carouselGalleryControls" data-bs-slide-to="16" aria-label="Image 17" class="">
-                     <img class="d-block w-100 h-100" src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="">
-                   </div>
-           </div>
-                         <div class="carousel-inner gallery-modal-item">
-                           <!-- Auto Load -->
-                         <div class="carousel-item" carousel-id="0"><iframe src="https://www.youtube.com/embed/3jfI-z__GY0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div><div class="carousel-item" carousel-id="1"><img class="d-block" src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="2"><img class="d-block" src="https://wallpaperaccess.com/full/2076086.jpg" alt=""></div><div class="carousel-item" carousel-id="3"><img class="d-block" src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg" alt=""></div><div class="carousel-item" carousel-id="4"><img class="d-block" src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="5"><img class="d-block" src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="6"><img class="d-block" src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="7"><img class="d-block" src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="8"><img class="d-block" src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="9"><img class="d-block" src="https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="10"><img class="d-block" src="https://wallpaperaccess.com/full/2076086.jpg" alt=""></div><div class="carousel-item" carousel-id="11"><img class="d-block" src="https://thumbs.dreamstime.com/b/interior-living-room-wall-mock-up-background-modern-mockup-furniture-decor-168482519.jpg" alt=""></div><div class="carousel-item" carousel-id="12"><img class="d-block" src="https://images.unsplash.com/photo-1505137998040-6a5fed40850e?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1074&amp;q=80" alt=""></div><div class="carousel-item active" carousel-id="13"><img class="d-block" src="https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=738&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="14"><img class="d-block" src="https://images.unsplash.com/photo-1557496866-e27ec3a7e4ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="15"><img class="d-block" src="https://images.unsplash.com/photo-1559926431-73aebfacd993?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" alt=""></div><div class="carousel-item" carousel-id="16"><img class="d-block" src="https://images.unsplash.com/photo-1559637250-71776a04f8c3?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt=""></div></div>
-                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselGalleryControls" data-bs-slide="prev">
-                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                           <span class="visually-hidden">Previous</span>
-                         </button>
-                         <button class="carousel-control-next" type="button" data-bs-target="#carouselGalleryControls" data-bs-slide="next">
-                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                           <span class="visually-hidden">Next</span>
-                         </button>
-                       </div>
-                     </div>   
-                   </div>
-                 </div>
-               </div>
-               <!-- End Gallery Modal -->
-             </div>
-         </div>
-      </div>
-      <!-- Main Details -->
-      <div class="row mt-3 flex-sm-column-reverse flex-md-row">
-            <div class="col-md-8">
-               <h3 class="mb-4">Details</h3>
-               <div class="row items g-4">
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Brand</span>
-                     <span>Mercedes Benz</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Model</span>
-                     <span>Mercedes Benz</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Ad Type</span>
-                     <span>For Sale</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Price Type</span>
-                     <span>Price</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Year</span>
-                     <span>2023</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> State</span>
-                     <span>New</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Engine(CC)</span>
-                     <span>1300 to 1500</span>
-                  </div>
-                  <div class="col-md-6 item-info">
-                     <span><i class="isax isax-component text-primary"></i> Color</span>
-                     <span>Black</span>
-                  </div>
-               </div>
-               <hr>
-               <h3 class="mt-4">Description</h3>
-               <div class="col-md-12">
-                  <p class="description">
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quae minima pariatur! Assumenda atque fugit alias, nobis ducimus odio ullam? Fugiat est sapiente quasi. Saepe qui repudiandae beatae quos nulla cum cupiditate, modi laudantium, consectetur quo dolorem ea voluptatem accusamus accusantium deserunt, debitis animi! Nostrum, soluta itaque. Commodi quisquam totam, sint blanditiis libero quae ipsa aut at! Illum, labore perferendis?
-                  </p>
-               </div>
-               <hr>
-               <h3 class="mt-4">Related Posts</h3>
-               <div class="col-md-12 mt-4">
-                  <div class="row">
-                     <!-- <div class="col-md-4">
-                        <app-post-item [post]="posts[0]" ></app-post-item>
-                     </div>
-                     <div class="col-md-4">
-                        <app-post-item [post]="posts[1]" ></app-post-item>
-                     </div>
-                     <div class="col-md-4">
-                        <app-post-item [post]="posts[2]" ></app-post-item>
-                     </div> -->
-                  </div>
-               </div>
+    </div>
+    <!-- Main Details -->
+    <div class="row mt-3 flex-sm-column-reverse flex-md-row">
+      <div class="col-md-8">
+        <h3 class="mb-4">Details</h3>
+        <div class="row items g-4">
+          <div
+            class="col-md-6 item-info"
+            *ngFor="let item of details; let i = index"
+          >
+            <span
+              ><i class="isax isax-component text-primary"></i>
+              {{ item.field_Label }}</span
+            >
+            <span>{{ item.choices[0].label }}</span>
+          </div>
+        </div>
+        <hr />
+        <h3 class="mt-4">Description</h3>
+        <div class="col-md-12">
+          <p class="description">
+            {{ post.description }}
+          </p>
+        </div>
+        <hr />
+        <h3 class="mt-4">Related Posts</h3>
+        <div class="col-md-12 mt-4">
+          <div class="row">
+            <div class="col-md-4">
+              <app-post-item [post]="Catposts[0]"></app-post-item>
             </div>
             <div class="col-md-4">
-               <div class="row sticky-top" style="top: 100px;">
-                  <div class="col-md-12">
-                     <div class="main-details rounded-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                           <span class="details-price fw-bold text-primary">EGP 2,900,000</span>
-                           <span class="text-muted">3 days ago</span>
-                        </div>
-                        <div class="details-avatar mt-4">H</div>
-                        <h5 class="mt-3 mb-3 text-center">Hisham Mohamed</h5>
-                        <div class="d-flex align-items-center justify-content-between gap-2">
-                           <button class="btn btn-primary w-100 align-center-embact"><i class="isax isax-call"></i> Show Number</button>
-                           <button class="btn btn-outline-primary w-100  align-center-embact"><i class="isax isax-message"></i> Send Message</button>
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="col-md-12 mt-4 mb-4">
-                     <div class="border border-1 rounded-4 p-3">
-                        <h5 class="mt-3">Your safety is our priority</h5>
-                        <p class="safety-item">1- Meet the seller in a public place.</p>
-                        <p class="safety-item">2- Take someone with you.</p>
-                        <p class="safety-item">3- Check the product well before you buy.</p>
-                     </div>
-                  </div>
-               </div>
+              <app-post-item [post]="Catposts[1]"></app-post-item>
             </div>
-
-            
+            <div class="col-md-4">
+              <app-post-item [post]="Catposts[2]"></app-post-item>
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
- </div>
- 
+      <div class="col-md-4">
+        <div class="row sticky-top" style="top: 100px">
+          <div class="col-md-12">
+            <div class="main-details rounded-4">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="details-price fw-bold text-primary"
+                  >EGP {{ post.price }}</span
+                >
+                <!-- <span class="text-muted">3 days ago</span> -->
+              </div>
+              <div class="details-avatar mt-4">
+                {{ userdata.name[0].toUpperCase() }}
+              </div>
+              <h5 class="mt-3 mb-3 text-center">{{ userdata.name }}</h5>
+              <div
+                class="d-flex align-items-center justify-content-between gap-2"
+              >
+                <button class="btn btn-primary w-100 align-center-embact">
+                  <i class="isax isax-call"></i> Show Number
+                </button>
+                <button
+                  class="btn btn-outline-primary w-100 align-center-embact"
+                >
+                  <i class="isax isax-message"></i> Send Message
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 mt-4 mb-4">
+            <div class="border border-1 rounded-4 p-3">
+              <h5 class="mt-3">Your safety is our priority</h5>
+              <p class="safety-item">1- Meet the seller in a public place.</p>
+              <p class="safety-item">2- Take someone with you.</p>
+              <p class="safety-item">
+                3- Check the product well before you buy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+interface IUserConnection {
+    user_ID: number;
+    connection_ID: string;
+}
+
+export class UserConnection implements IUserConnection {
+    user_ID: number;
+    connection_ID: string;
+    constructor(user_ID: number, connection_ID: string) {
+        this.user_ID = user_ID;
+        this.connection_ID = connection_ID;
+    }
+}
