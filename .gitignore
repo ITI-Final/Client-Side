@@ -46,3 +46,5 @@ Thumbs.db
 /.vs/ProjectSettings.json
 /.vs/slnx.sqlite
 /.vs/slnx.sqlite-journal
+*.wsuo
+*.json
