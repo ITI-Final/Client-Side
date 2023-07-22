@@ -10,20 +10,19 @@ import { UserService } from 'src/app/services/Dashboard/user.service';
 })
 export class ViewUserComponent {
 
-  admin: User | null = null;
-  buttonRemove: number = 0;
-  currentidUser: any
-  userDetials: User | undefined
-  constructor(private router: Router, public activatedRoute: ActivatedRoute, private userService: UserService) {
-
+  admin : User | null = null ;
+  buttonRemove : number = 0;
+  currentidUser:any
+  userDetials:User | undefined
+  constructor(private router: Router,public activatedRoute: ActivatedRoute,private userService: UserService) {
+    
   }
 
   ngOnInit(): void {
     this.currentidUser = localStorage.getItem("userId")
-    this.userService.getById(this.currentidUser).subscribe((result: any) => {
+    this.userService.getById(this.currentidUser).subscribe((result:any)=>
+    {
       this.userDetials = result.data
-      console.log(result)
-    })
-  }
-
+      console.log(result) })
+    }
 }

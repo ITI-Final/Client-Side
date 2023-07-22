@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { CategoryService } from 'src/app/services/UserSite/category.service';
 
 @Component({
   selector: 'app-category-view',
   templateUrl: './category-view.component.html',
-  styleUrls: ['./category-view.component.scss']
+  styleUrls: ['./category-view.component.scss'],
 })
 export class CategoryViewComponent {
   slug: string | null = '';
   Catposts: any = [];
-  post :any = [];
+  post: any = [];
   OutputData: DataTransfer[] = [];
   carsourlview: boolean = true;
   currentRoute = '';
@@ -22,14 +28,12 @@ export class CategoryViewComponent {
     private router: Router
   ) {
     this.slug = activatedRoute.snapshot.paramMap.get('category');
-
   }
 
   ngOnInit(): void {
-    console.log("Category");
-    
     if (this.slug != null) {
-      this.Catposts = this.categoryService.getAllPosts(this.slug).subscribe({
+      console.log(this.slug);
+      this.categoryService.getAllPosts(this.slug).subscribe({
         next: (data) => {
           if (data.statusCode == 200) {
             this.flag = true;
@@ -42,39 +46,35 @@ export class CategoryViewComponent {
                 items: this.Catposts,
                 url: '#',
               };
-              console.log('gooooooooooooooooooooooooooooe');
-            } else {
-              this.router.navigate(['/notfound']);
-              console.log('hereeeeeeeeeeeee');
             }
-
-            // console.log(this.vehicles);
           }
         },
         error: (err) => {
           console.log(err);
-        },
-      });
-    } else {
-      this.flag = false;
-      this.categoryService.getAllCategories().subscribe({
-        next: (res) => {
-          // console.log(res.data);
-
-          this.AllCatigory = res.data;
-          for (let i = 0; i < this.AllCatigory.length; i++) {
-            if (this.AllCatigory[i].posts.length != 0) {
-              this.post = {
-                name: this.AllCatigory[i].name,
-                url: '',
-                items: this.AllCatigory[i].posts.slice(0, 4),
-              };
-              this.OutputData.push(this.post);
-            }
-          }
+          this.router.navigate(['/notfound']);
         },
       });
     }
+    // else {
+    //   this.flag = false;
+    //   this.categoryService.getAllCategories().subscribe({
+    //     next: (res) => {
+    //       // console.log(res.data);
+
+    //       this.AllCatigory = res.data;
+    //       for (let i = 0; i < this.AllCatigory.length; i++) {
+    //         if (this.AllCatigory[i].posts.length != 0) {
+    //           this.post = {
+    //             name: this.AllCatigory[i].name,
+    //             url: '',
+    //             items: this.AllCatigory[i].posts.slice(0, 4),
+    //           };
+    //           this.OutputData.push(this.post);
+    //         }
+    //       }
+    //     },
+    //   });
+    // }
   }
 
   //posts = this.Catposts;

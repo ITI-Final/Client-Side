@@ -19,6 +19,7 @@ export class NavbarComponent {
   areaExpanded: boolean = false;
   activeMenu: number = 0;
   str: any = '';
+  userDetials:any
   menus: MainMenu[] = [
     {
       icon: 'https://www.dubizzle.com.eg/assets/vehicles_noinline.f0509d15f4ed1cd4cb243005f067d354.svg',

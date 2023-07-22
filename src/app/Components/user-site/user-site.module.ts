@@ -22,38 +22,42 @@ import { CategoryViewComponent } from './category-view/category-view.component';
 
 const routes: Routes = [
   {
-    path: "", component: MainlayoutComponent,
+    path: '',
+    component: MainlayoutComponent,
     children: [
-
-      { path: "", component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Logout', component: LoginComponent },
-      { path: "categories", component: CategoriesComponent },
-      { path: "chat", component: ChatComponent },
-      { path: "chat/:id", component: ChatComponent },
+      { path: 'categories', component: CategoriesComponent },
+      { path: 'chat', component: ChatComponent },
+      { path: 'chat/:id', component: ChatComponent },
+      //{ path: ':slug', component: HomeComponent },
       {
         path: 'user',
 
-        loadChildren: () => import('src/app/Components/user-site/user/user.module')
-          .then(m => m.UserModule)
+        loadChildren: () =>
+          import('src/app/Components/user-site/user/user.module').then(
+            (m) => m.UserModule
+          ),
       },
       {
         path: 'post',
-        loadChildren: () => import('src/app/Components/user-site/posts/posts.module')
-          .then(m => m.PostsModule)
+        loadChildren: () =>
+          import('src/app/Components/user-site/posts/posts.module').then(
+            (m) => m.PostsModule
+          ),
       },
-      { path: ":category", component: PostViewComponent },
-      { path: ":category/:sub", component: PostViewComponent },
-      { path: ":category/:sub/:id", component: PostViewComponent },
-
+      // {path:":category",component:PostViewComponent},
+      { path: ':category', component: CategoryViewComponent },
+      { path: ':category/:id', component: PostViewComponent },
 
       //////// must be last  Path/////////////
-      { path: '**', component: NotFoundComponent }
+      { path: '**', component: NotFoundComponent },
       /////////////////////////////////////////
-    ]
-  }
-]
+    ],
+  },
+];
 
 @NgModule({
   declarations: [
@@ -69,8 +73,8 @@ const routes: Routes = [
     RegisterComponent,
     SlideshowComponent,
     PostViewComponent,
-    ChatComponent
-
+    ChatComponent,
+    CategoryViewComponent,
   ],
   imports: [
     CommonModule,
@@ -78,7 +82,6 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-
-  ]
+  ],
 })
-export class UserSiteModule { }
+export class UserSiteModule {}
