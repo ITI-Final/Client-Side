@@ -10,15 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { AddPostComponent } from './posts/add-post/add-post.component';
-import { PostItemComponent } from './post-item/post-item.component';
 import { PostSectionComponent } from './post-section/post-section.component';
 import { RegisterComponent } from './register/register.component';
 import { SlideshowComponent } from './slideshow/slideshow.component';
-
 import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
 import { CategoryViewComponent } from './category-view/category-view.component';
+import { SharedModule } from './shared/shared.module';
+
+
+
 
 const routes: Routes = [
   {
@@ -48,10 +49,11 @@ const routes: Routes = [
             (m) => m.PostsModule
           ),
       },
-      // {path:":category",component:PostViewComponent},
+      // Main Not Found => Must be before Category
+      { path: '404', component: NotFoundComponent},
+      // Category Routes
       { path: ':category', component: CategoryViewComponent },
       { path: ':category/:id', component: PostViewComponent },
-
       //////// must be last  Path/////////////
       { path: '**', component: NotFoundComponent },
       /////////////////////////////////////////
@@ -68,7 +70,6 @@ const routes: Routes = [
     MainlayoutComponent,
     LoginComponent,
     CategoriesComponent,
-    PostItemComponent,
     PostSectionComponent,
     RegisterComponent,
     SlideshowComponent,
@@ -82,6 +83,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SharedModule
   ],
 })
 export class UserSiteModule {}

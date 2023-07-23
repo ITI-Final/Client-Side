@@ -9,11 +9,14 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class UserService {
-  private httpoptions
+  private httpoptions;
+  private token;
   constructor(private http: HttpClient) {
+    this.token = localStorage.getItem('token');
     this.httpoptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
       })
     }
   }
@@ -22,17 +25,17 @@ export class UserService {
     return this.http.get<User[]>(environment.User());
   }
   getById(id: number):Observable<User>{
-    return this.http.get<User>(environment.User() + '/' + id);
+    return this.http.get<User>(environment.User() + '/' + id, this.httpoptions);
   }
   add(entity: any): Observable<User> {
     return this.http.post<User>(environment.User() + '/register', entity, this.httpoptions);
   }
 
   update(id: number, entity: User): Observable<User> {
-    return this.http.put<User>(environment.User() + '/id?id=' + id, entity);
+    return this.http.put<User>(environment.User() + '/id?id=' + id, entity, this.httpoptions);
   }
   delete(id: number): Observable<User> {
-    return this.http.delete<User>(environment.User() + '/id?id=' + id);
+    return this.http.delete<User>(environment.User() + '/id?id=' + id, this.httpoptions);
   }
 
   //////////company//////////

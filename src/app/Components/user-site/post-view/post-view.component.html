@@ -1,17 +1,14 @@
 <div class="container">
   <!-- Breadcrumb -->
-  <div class="row">
+  <div class="row" *ngIf="post != null">
     <div class="col-md-12 mt-4">
       <div aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a [routerLink]="'/dashboard'">Home</a>
+            <a [routerLink]="'/'">Home</a>
           </li>
-          <!-- <li class="breadcrumb-item">
-            <a [routerLink]="'/dashboard/category'">Vehicles</a>
-          </li> -->
           <li class="breadcrumb-item">
-            <a [routerLink]="'/dashboard/category'">{{ catregory }}</a>
+            <a [routerLink]="'/' + post.cat.slug ">{{ post.cat.label }}</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
             {{ post.title }}
@@ -24,27 +21,26 @@
         <h1 class="fw-bold">{{ post.title }}</h1>
         <h5 class="text-muted d-flex align-items-center gap-1">
           <i class="isax isax-location fs-4 fw-bold text-primary"></i>
-          {{ city.city_Name_En }} ,
-          {{ city.governorate.governorate_Name_En }}
+          {{ post.post_LocationNavigation.city_Name_En }} ,
+          {{ post.post_LocationNavigation.governorate.governorate_Name_En }}
         </h5>
       </div>
       <!-- Gallery -->
       <div class="col-md-12">
         <div class="gallery gap-3 mb-3">
           <div
+            *ngFor="let item of frist3; let i = index"
             class="gallery-item rounded-4 overflow-hidden"
-            vid-id="3jfI-z__GY0"
             data-bs-toggle="modal"
             data-bs-target="#galleryModal"
-            gallery-id="0"
+            [attr.gallery-id]="i"
             style="display: block"
-            *ngFor="let item of frist3; let i = index"
           >
             <div
               class="more-gallery-items position-absolute text-white d-flex flex-column justify-content-center align-items-center w-100 h-100"
               *ngIf="i == 2 && postImages.length > 3"
             >
-              <span>{{ postImages.length - 3 }}</span>
+              <span>{{ postImages.length - 3 }}+</span>
               <div>Show More</div>
             </div>
             <img class="w-100" src="{{ domain }}{{ item.image }}" alt="" />
@@ -52,7 +48,7 @@
           </div>
 
           <!-- Start Gallery Modal -->
-          <ng-container *ngIf="imagesAfter3.length > 0">
+          <ng-container *ngIf="false">
             <div
               class="modal fade"
               id="galleryModal"
@@ -485,9 +481,9 @@
           >
             <span
               ><i class="isax isax-component text-primary"></i>
-              {{ item.field_Label }}</span
+              {{ getFieldLabel(item["fildeID"]) }}</span
             >
-            <span>{{ item.choices[0].label }}</span>
+            <span>{{ item["choices"][0] }}</span>
           </div>
         </div>
         <hr />
@@ -501,14 +497,8 @@
         <h3 class="mt-4">Related Posts</h3>
         <div class="col-md-12 mt-4">
           <div class="row">
-            <div class="col-md-4">
-              <app-post-item [post]="Catposts[0]"></app-post-item>
-            </div>
-            <div class="col-md-4">
-              <app-post-item [post]="Catposts[1]"></app-post-item>
-            </div>
-            <div class="col-md-4">
-              <app-post-item [post]="Catposts[2]"></app-post-item>
+            <div class="col-md-4" *ngFor="let post of Catposts.length <= 3 ? Catposts  : [1,2,3] ">
+              <app-post-item [post]="post" [category]="category" (click)="gotoRelatedPost(post.id)"></app-post-item>
             </div>
           </div>
         </div>
@@ -519,26 +509,38 @@
             <div class="main-details rounded-4">
               <div class="d-flex align-items-center justify-content-between">
                 <span class="details-price fw-bold text-primary"
-                  >EGP {{ post.price }}</span
+                  >{{currenyFormat(post.price)}}</span
                 >
-                <!-- <span class="text-muted">3 days ago</span> -->
+                <span class="text-muted">{{post.created_Date | date }}</span>
               </div>
               <div class="details-avatar mt-4">
                 {{ userdata.name[0].toUpperCase() }}
               </div>
               <h5 class="mt-3 mb-3 text-center">{{ userdata.name }}</h5>
               <div
-                class="d-flex align-items-center justify-content-between gap-2"
+              class="d-flex align-items-center justify-content-between gap-2 flex-grow-1"
+            >
+              <button *ngIf="post.contact_Method == 1 || post.contact_Method == 3" class="btn btn-primary w-100 align-center-embact justify-content-center" (click)="toggleMobileNumber()">
+                <i class="isax isax-call"></i> {{toggleMobile ? userdata.phone : 'Show Number' }} 
+              </button>
+              <button
+              [routerLink]="'/chat/'+UserId"
+                class="btn btn-outline-primary align-center-embact justify-content-center"
+                [class.btn-outline-primary]="post.contact_Method == 1 || post.contact_Method == 3"
+                [class.btn-primary]="post.contact_Method == 2"
+                [class.flex-grow-1]="post.contact_Method == 2 || post.contact_Method == 3"
+                *ngIf="post.contact_Method == 2 || post.contact_Method == 3"
               >
-                <button class="btn btn-primary w-100 align-center-embact">
-                  <i class="isax isax-call"></i> Show Number
-                </button>
-                <button
-                  class="btn btn-outline-primary w-100 align-center-embact"
-                >
-                  <i class="isax isax-message"></i> Send Message
-                </button>
-              </div>
+                <i class="isax isax-message" style="font-size: 22px;"></i> {{post.contact_Method == 2 ? 'Send Message' : '' }} 
+              </button>
+              <button
+              [routerLink]="'/user/'+ (isMyPost(UserId) ? 'profile' : UserId) "
+                class="btn btn-outline-primary align-center-embact justify-content-center flex-grow-0"
+              >
+              <i class="isax isax-user" style="font-size: 22px;"></i>
+              </button>
+            </div>
+              
             </div>
           </div>
 
