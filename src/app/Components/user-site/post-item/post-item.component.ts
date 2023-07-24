@@ -17,7 +17,8 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./post-item.component.scss'],
 })
 export class PostItemComponent {
-  slug: any = '';
+  @Input() post: any;
+  @Input() category: any = '';
   Catposts: any = [];
   domain = environment.domain;
   currenyFormat(money: number) {
@@ -26,9 +27,8 @@ export class PostItemComponent {
       currency: 'EGP',
       maximumFractionDigits: 0,
     });
-
     return USDollar.format(money);
   }
 
-  @Input() post: any;
+
 }

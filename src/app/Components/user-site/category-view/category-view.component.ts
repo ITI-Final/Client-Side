@@ -28,6 +28,11 @@ export class CategoryViewComponent {
     private router: Router
   ) {
     this.slug = activatedRoute.snapshot.paramMap.get('category');
+    if (!isNaN(parseInt(this.slug!))){
+      console.log("Not Category");
+      
+      this.router.navigate(['/404']);
+    }
   }
 
   ngOnInit(): void {
@@ -41,17 +46,17 @@ export class CategoryViewComponent {
             // console.log(this.Catposts);
             this.carsourlview = false;
             if (this.Catposts.length != 0) {
-              this.vehicles = {
+              this.section = {
                 name: data.data.name,
                 items: this.Catposts,
-                url: '#',
+                url: '/' + this.slug,
               };
             }
           }
         },
         error: (err) => {
           console.log(err);
-          this.router.navigate(['/notfound']);
+          this.router.navigate(['/404'], { skipLocationChange: true });
         },
       });
     }
@@ -139,7 +144,7 @@ export class CategoryViewComponent {
   //     location: 'Alexandria, Egypt',
   //   },
   // ];
-  vehicles = {
+  section = {
     name: '',
     url: '#',
     items: [],

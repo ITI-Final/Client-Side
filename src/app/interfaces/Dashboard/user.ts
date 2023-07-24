@@ -9,4 +9,5 @@ export interface User {
     "birth_Date"?: "string",
     "post_Count"?: number,
     "register_Date"?: "string"
+    "companies"?: []
 }

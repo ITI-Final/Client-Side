@@ -46,7 +46,7 @@ import { RouterModule, Routes, CanActivate, CanActivateFn } from '@angular/route
 // ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{scrollPositionRestoration: "top"})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

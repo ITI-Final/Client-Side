@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment.development';
 })
 export class PostService {
   constructor(private http: HttpClient) {}
+  getUserPosts(id : number): any {
+    return this.http.get(environment.getPost() + '/user/' + id);
+  }
   getpostById(id: string): Observable<any> {
     return this.http.get(environment.getPost() + '/' + id);
   }
