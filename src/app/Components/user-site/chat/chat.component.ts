@@ -4,6 +4,8 @@ import { AllUsers } from './Interfaces/IAllUsers';
 import * as signalR from '@microsoft/signalr';
 import { Chat } from './Interfaces/IChat';
 import { DatePipe } from '@angular/common';
+import { UserService } from 'src/app/services/Dashboard/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -13,8 +15,9 @@ import { DatePipe } from '@angular/common';
 export class ChatComponent implements OnInit {
   //#region Fields
   userId: number;
-  @Input() reserverId: number = 0;
-  reserverName: string = "";
+  reserverId: number = 0;
+  receiverData: any = null;
+  // reserverName: string = "";
   allUsersArray: AllUsers[] = [];
   senderMessages: Chat[] = [];
   reserverMessages: Chat[] = [];
@@ -25,8 +28,14 @@ export class ChatComponent implements OnInit {
   //#endregion
 
   //#region Constructors
-  constructor(private httpClient: HttpClient, private datePipe: DatePipe) {
+  constructor(private httpClient: HttpClient, private datePipe: DatePipe,private userService: UserService,private activatedRoute: ActivatedRoute) {    
     this.userId = parseInt(localStorage.getItem("userId")!);
+    if (this.activatedRoute.snapshot.params['id']) {
+      this.reserverId = parseInt(this.activatedRoute.snapshot.params['id']);
+      this.userService.getById(this.reserverId).subscribe((response :any) => {
+        this.receiverData = response.data;
+      });
+    }
     this.getAllUsers(this.userId);
     //#region SignalR
     this.signalRConnection = this.getConnection();
@@ -41,7 +50,7 @@ export class ChatComponent implements OnInit {
 
   //#region Methods
   private getAllUsers(id: number): AllUsers[] {
-    this.httpClient.get<any>(`https://localhost:44326/api/Users/id/chats?id=${id}`).subscribe(
+    this.httpClient.get<any>(`https://localhost:7094/api/Users/id/chats?id=${id}`).subscribe(
       (response: any) => {
         if (response.statusCode === 200) {
           this.allUsersArray = response.data;
@@ -51,14 +60,12 @@ export class ChatComponent implements OnInit {
   }
 
   getChat(senderId: number, reserverId: number): any {
-    this.reserverId = reserverId;
-    this.httpClient.get<any>(`https://localhost:44326/api/ChatMessages/${senderId}/${reserverId}`).subscribe(
+    // this.reserverId = reserverId;
+    this.httpClient.get<any>(`https://localhost:7094/api/ChatMessages/${senderId}/${reserverId}`).subscribe(
       (response: any) => {
         console.log(response)
         if (response.statusCode === 200) {
           this.AllMessages = response.data;
-          const person35 = this.allUsersArray.find(person => person.id === reserverId);
-          this.reserverName = person35?.name!;
         }
       })
   }
@@ -66,7 +73,7 @@ export class ChatComponent implements OnInit {
   //#region SignalR
   getConnection(): signalR.HubConnection {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`https://localhost:44326/chat?userId=${this.userId}`, signalR.HttpTransportType.WebSockets)
+      .withUrl(`https://localhost:7094/chat?userId=${this.userId}`, signalR.HttpTransportType.WebSockets)
       .build();
 
     return connection;
@@ -99,7 +106,7 @@ export class ChatComponent implements OnInit {
     if (await this.isReceiverOnline(this.chat.receiver_ID)) {
       this.signalRConnection.invoke("SendMessage", this.chat);
     } else {
-      this.httpClient.post<any>("https://localhost:44326/api/ChatMessages", this.chat)
+      this.httpClient.post<any>("https://localhost:7094/api/ChatMessages", this.chat)
         .subscribe(data => {
           this.AllMessages.push(this.chat);
         });
@@ -110,7 +117,7 @@ export class ChatComponent implements OnInit {
 
 
   async isReceiverOnline(reserverId: number): Promise<boolean> {
-    const con = await this.httpClient.get<any>(`https://localhost:44326/api/User_Connections/${reserverId}`).toPromise();
+    const con = await this.httpClient.get<any>(`https://localhost:7094/api/User_Connections/${reserverId}`).toPromise();
 
     return con.statusCode === 200;
   }

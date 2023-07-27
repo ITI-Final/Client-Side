@@ -30,6 +30,7 @@ export class PostViewComponent implements OnInit {
   postRes: any;
   domain: string = environment.domain;
   toggleMobile: boolean = false;
+  imageCounter: number = 1;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -51,6 +52,7 @@ export class PostViewComponent implements OnInit {
     
     this.postService.getpostById(this.id).subscribe({
       next: (res) => {
+        
         this.post = res.data;
         if (this.post != null){
           this.postImages = this.post.post_Images; 
@@ -64,7 +66,9 @@ export class PostViewComponent implements OnInit {
 
           this.userService.getById(this.UserId).subscribe({
             next: (res : any) => {
-              this.userdata = res.data;
+              setTimeout(() => {
+                this.userdata = res.data;
+              }, 800);
             },
             error: (err) => {
               console.log(err);
@@ -135,5 +139,21 @@ export class PostViewComponent implements OnInit {
   }
   gotoRelatedPost(id: number) {
     this.router.navigate([this.category,id]);
+  }
+
+  increaseCounter(){
+    if (this.imageCounter < this.postImages.length) {
+      this.imageCounter ++;
+    } else {
+      this.imageCounter = 1;
+    }
+  }
+
+  decreaseCounter(){
+    if (this.imageCounter > 1) {
+      this.imageCounter --;
+    } else {
+      this.imageCounter = this.postImages.length;
+    }
   }
 }

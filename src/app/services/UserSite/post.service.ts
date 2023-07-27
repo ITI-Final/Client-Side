@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment.development';
 })
 export class PostService {
   constructor(private http: HttpClient) {}
+  getAll(query : string): any {
+    return this.http.get(environment.getPost() + query);
+  }
   getUserPosts(id : number): any {
     return this.http.get(environment.getPost() + '/user/' + id);
   }

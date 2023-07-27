@@ -30,4 +30,7 @@ export class CategoryService {
   getAllCategories(): Observable<any> {
     return this.httpclient.get(environment.AllCategories());
   }
+  getCategoriesNames(): Observable<any> {
+    return this.httpclient.get(environment.AllCategories() + "/names");
+  }
 }

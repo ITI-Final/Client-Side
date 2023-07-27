@@ -7,6 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { CategoryService } from 'src/app/services/UserSite/category.service';
+import { PostService } from 'src/app/services/UserSite/post.service';
 
 @Component({
   selector: 'app-category-view',
@@ -25,6 +26,7 @@ export class CategoryViewComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
+    private postService: PostService,
     private router: Router
   ) {
     this.slug = activatedRoute.snapshot.paramMap.get('category');
@@ -43,11 +45,17 @@ export class CategoryViewComponent {
           if (data.statusCode == 200) {
             this.flag = true;
             this.Catposts = data.data.posts;
-            // console.log(this.Catposts);
+            console.log(this.Catposts);
             this.carsourlview = false;
             if (this.Catposts.length != 0) {
               this.section = {
                 name: data.data.name,
+                items: this.Catposts,
+                url: '/' + this.slug,
+              };
+            } else {
+              this.section = {
+                name: this.slug?.split("-").map((str:string) => str[0].toUpperCase() + str.slice(1)).join(" ")!,
                 items: this.Catposts,
                 url: '/' + this.slug,
               };
@@ -144,6 +152,19 @@ export class CategoryViewComponent {
   //     location: 'Alexandria, Egypt',
   //   },
   // ];
+  changeSelect(e : any) {
+    var query = "?isSortedByPriceAscending=" + (e.target.value == 'asc' ? 'true' : 'false');
+    console.log(query);
+    
+    this.postService.getAll(query).subscribe((response:any) => {
+      if (response.statusCode == 200) {
+        this.Catposts = null ;
+        this.Catposts = response.data;
+        console.log(this.Catposts);
+        
+      }
+    });
+  }
   section = {
     name: '',
     url: '#',

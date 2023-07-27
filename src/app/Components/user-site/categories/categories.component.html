@@ -4,10 +4,12 @@
         <div class="col-md-12">
         </div>
         <div class="col-md-4 first-step">
+
             <div *ngFor="let cat of categoryParentArry;let i=index">
                 <a [id]="cat.id" class="d-flex align-items-center justify-content-between text-decoration-none text-body-emphasis" [class.active]="currentActive == cat.id" (click)="categoryParentId(cat.id)">
                     <div class="align-center-embact">
                         <i class="isax isax-component text-primary fw-bold"></i>
+                        <img src="{{cat.icon}}" alt="">
                         {{cat.label}}
                     </div>
                     <i class="isax isax-arrow-right-3 fs-4 fw-bold"></i>

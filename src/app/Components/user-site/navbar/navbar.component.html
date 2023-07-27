@@ -188,7 +188,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav gap-5">
           <li
-            *ngFor="let menu of menus; let i = index"
+            *ngFor="let menu of ParentCategories(); let i = index"
             class="nav-item dropdown"
             (mouseenter)="toggleMenu(i)"
             (mouseleave)="toggleMenu(i)"
@@ -202,17 +202,18 @@
               [routerLink]="menu.url"
             >
               <img src="{{ menu.icon }}" alt="" />
-              {{ menu.title }}
+              {{ menu.label }}
             </a>
             <ul
               class="dropdown-menu"
               [class.show]="areaExpanded && activeMenu == i"
+              *ngIf=" ChildCategories(menu.id).length > 0"
             >
-              <li *ngFor="let menuItem of menu.items; let i = index">
+              <li *ngFor="let menuItem of ChildCategories(menu.id); let i = index">
                 <a
                   class="dropdown-item"
-                  (click)="changeslug($event)"
-                  [routerLink]="menuItem.url"
+                  (click)="changeslug(menuItem.slug)"
+                  [routerLink]="['/',menuItem.slug]"
                   >{{ menuItem.label }}</a
                 >
               </li>

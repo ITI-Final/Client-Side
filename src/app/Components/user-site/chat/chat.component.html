@@ -1,8 +1,7 @@
 <div
     class="container">
     <!-- Breadcrumb -->
-    <div
-        class="row">
+    <div class="row">
         <!-- Main Details -->
         <div class="row border border-1 mt-3 chat p-0 rounded rounded-4 overflow-hidden">
             <div class="col-md-4 p-0 border-end">
@@ -18,13 +17,13 @@
             </div>
             <div class="col-md-8 p-0 position-relative">
                 <div class="chat-header d-flex align-items-center justify-content-between" style="padding: 12px 20px;">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="avatar-mini">{{reserverName.charAt(0).toUpperCase()}}</div>
-                        <span>{{reserverName}}</span>
+                    <div class="d-flex align-items-center gap-2" *ngIf="reserverId != 0 && receiverData != null">
+                        <div class="avatar-mini">{{receiverData.name.charAt(0).toUpperCase()}}</div>
+                        <span>{{receiverData.name}}</span>
                     </div>
-                    <button class="btn btn-primary rounded-5 d-flex align-items-center gap-2">
+                    <a href="tel:{{receiverData.phone}}" class="btn btn-primary rounded-5 ms-auto d-flex align-items-center gap-2" *ngIf="reserverId != 0">
                         <i class="isax isax-call"></i>
-                        Phone Number</button>
+                        Phone Number</a>
                 </div>
                 <div class="chat-box " style="padding-bottom: 55px;">
                     <div *ngFor="let message of AllMessages" [ngSwitch]="message.sender_ID === userId">

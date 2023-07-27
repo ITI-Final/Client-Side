@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
               this.post = {
                 name: this.AllCatigory[i].name,
                 url: this.AllCatigory[i].slug,
-                items: this.AllCatigory[i].posts.slice(0, 4),
+                items: this.AllCatigory[i].posts.reverse().slice(0, 4), // Reverse To Get Last 4 items
               };
               this.OutputData.push(this.post);
             }
