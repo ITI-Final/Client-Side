@@ -11,6 +11,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { UserPostsComponent } from './user-posts/user-posts.component';
 import { SharedModule } from '../shared/shared.module';
+import { FavoritesComponent } from './favorites/favorites.component';
 
   const routes: Routes =[
     // My Profile
@@ -18,6 +19,9 @@ import { SharedModule } from '../shared/shared.module';
     {path:"profile/edit",component:EditeUserComponent,canActivate:[authUserGuard]},
     {path:"profile/posts",component:UserPostsComponent},
     {path:"profile/change-password",component:ChangePasswordComponent,canActivate:[authUserGuard]},
+    
+    // Favorites
+    {path:"favorites",component:FavoritesComponent,canActivate:[authUserGuard]},
 
     // Other Users
     {path:":id",component:ViewUserComponent},
@@ -33,7 +37,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ProfileComponent,
     EditeUserComponent
-    ,ViewUserComponent, ChangePasswordComponent, UserPostsComponent
+    ,ViewUserComponent, ChangePasswordComponent, UserPostsComponent, FavoritesComponent
   ],
   imports: [
     CommonModule,

@@ -1,238 +1,221 @@
 <div class="container">
   <div class="row">
-    <nav aria-label="breadcrumb">
+    <!-- <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Home</a></li>
         <li class="breadcrumb-item">
           <a [routerLink]="'/categories'">Categories</a>
         </li>
-        <!-- <li class="breadcrumb-item active" aria-current="page">{{categoryDetials.label}}</li> -->
       </ol>
-    </nav>
+    </nav> -->
     <div class="bg-white p-3 p-md-5 rounded-4">
       <div class="row">  
-            <h3 class="mb-4 text-center">POST YOUR AD </h3>
+        <!-- <pre>{{categoryDetials | json}}</pre> -->
+          <h4 class="text-center">Create new post</h4>
+          <h2 class="mb-4 fw-bold text-center text-primary">{{categoryDetials.label}}</h2>
       </div>
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-12">
-              <h5 class="fw-semibold mb-4" >INCLUDE SOME DETAILS</h5>
-            <form
-              class="row g-3 needs-validation"
-              [formGroup]="addForm"
-              (ngSubmit)="formOperation($event)"
-              novalidate
-            >
-              <div class="col-md-12">
-                <label for="name" class="form-label">Ad Title</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="Title"
-                  id="Title"
-                  formControlName="Title"
-                  [ngClass]="{
-                    'form-control': true,
-                    'is-invalid':
-                    Title?.invalid && (Title?.dirty || Title?.touched),
-                    'is-valid': !Title?.invalid
-                  }">
-           
-                <div class="invalid-feedback">
-                  {{ getErrorMsg("Title") }}
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <form
+            class="row g-3 needs-validation"
+            [formGroup]="addForm"
+            (ngSubmit)="formOperation($event)"
+            novalidate
+          >
+            <div class="col-md-12">
+              <label for="name" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                name="Title"
+                id="Title"
+                formControlName="Title"
+                [ngClass]="{
+                  'form-control': true,
+                  'is-invalid':
+                  Title?.invalid && (Title?.dirty || Title?.touched),
+                  'is-valid': !Title?.invalid
+                }">
+                <span style="font-size: 11px;color: #444;">List the most important features of your product (eg brand, model, age and type)</span>
+              <div class="invalid-feedback">
+                {{ getErrorMsg("Title") }}
 
-                </div>
               </div>
-              <div class="col-md-12">
-           
-                  <div formArrayName="arrySelectBox">
-                    <div *ngFor="let field of ArrySelectBox.controls; let i=index" [formGroupName]="i"> 
-                      <label for="label" class="form-label">{{ field.get('label')?.value }}</label>
-                      <div                          formArrayName="choices" 
-                        >
-                      <select class="form-select" aria-label="Default select example" (change)="onChoiceSelect($event,field,i)" >
-                                            <option selected  disabled >choice ...</option>
+            </div>
+            <div class="col-md-12">
+         
+                <div formArrayName="arrySelectBox">
+                  <div *ngFor="let field of ArrySelectBox.controls; let i=index" [formGroupName]="i"> 
+                    <label for="label" class="form-label">{{ field.get('label')?.value }}</label>
+                    <div                          formArrayName="choices" 
+                      >
+                    <select class="form-select" aria-label="Default select example" (change)="onChoiceSelect($event,field,i)" >
+                                          <option selected  disabled >choice ...</option>
 
-                        <ng-container *ngFor="let choice of getChoicesArrySelect(i,ArrySelectBox).controls; let j=index" [formGroupName]="j">
-                          <option [value]="choice.get('label')?.value">
-                            {{ choice.get('label')?.value }}
-                          </option>
-                          <!-- <div class="invalid-feedback">
-                            {{ getErrorMsg("label") }}
-    
-                          </div> -->
-                        </ng-container>
-                      </select>
-                      
-                    </div>
-
-                    </div>
-                  </div>
-                  
+                      <ng-container *ngFor="let choice of getChoicesArrySelect(i,ArrySelectBox).controls; let j=index" [formGroupName]="j">
+                        <option [value]="choice.get('label')?.value">
+                          {{ choice.get('label')?.value }}
+                        </option>
+                        <!-- <div class="invalid-feedback">
+                          {{ getErrorMsg("label") }}
   
-               
+                        </div> -->
+                      </ng-container>
+                    </select>
+                    
+                  </div>
+
+                  </div>
+                </div>
+                
+
+             
 
 <!-- For the radio button part -->
 <div formArrayName="arryRadio">
-  <div *ngFor="let field of ArryRadio.controls; let i = index" [formGroupName]="i">
-    <label class="form-label">{{ field.get('label')?.value }}</label>
-    <div formArrayName="choices">
-      <div class="row">
+<div *ngFor="let field of ArryRadio.controls; let i = index" [formGroupName]="i">
+  <label class="form-label">{{ field.get('label')?.value }}</label>
+  <div formArrayName="choices">
+    <div class="row">
 
-      <div class="mb-3 ms-4 col-2" *ngFor="let choice of getChoicesArrySelect(i,ArryRadio).controls; let j = index" [formGroupName]="j">
-          <!-- <div class="col-3"> -->
-            <div class="form-check col-3">
-              <input 
-                class="form-check-input border-3 border-primary"
-                type="radio"
-                [attr.name]="'radioGroup' + i"
-                [value]="choice.get('label')?.value" (click)="onChoiceSelect($event,field,i)" 
-              >
-              <label class="form-check-label" [attr.for]="'radioGroup' + i">
-                {{ choice.get('label')?.value }}
-              </label>
-              
-            <!-- </div> -->
-          </div>
-       
+    <div class="mb-3 ms-4 col-2" *ngFor="let choice of getChoicesArrySelect(i,ArryRadio).controls; let j = index" [formGroupName]="j">
+        <!-- <div class="col-3"> -->
+          <div class="form-check col-3">
+            <input 
+              class="form-check-input border-3 border-primary"
+              type="radio"
+              [attr.name]="'radioGroup' + i"
+              [value]="choice.get('label')?.value" (click)="onChoiceSelect($event,field,i)" 
+            >
+            <label class="form-check-label" [attr.for]="'radioGroup' + i">
+              {{ choice.get('label')?.value }}
+            </label>
+            
+          <!-- </div> -->
         </div>
+     
       </div>
     </div>
   </div>
+</div>
 </div></div>
-               <div class="col-md-12">
-                  <div formArrayName="arryChexkBox">
-                      <div  *ngFor="let field of ArryChexkBox.controls; let i = index" [formGroupName]="i">
-                   
-                  <label for="label" class="form-label" >{{ field.get('label')?.value }}</label>
-                  <div formArrayName="choices">
-                    <div class="row">
-
-                      <div class="mb-3 ms-4 col-2"*ngFor="let choice of getChoicesArrySelect(i,ArryChexkBox).controls; let i=index" [formGroupName]="i">
-                      <div class="form-check">
-                          <input class="form-check-input border-3 border-primary" type="checkbox" [value]="choice.get('label')?.value"(click)="onChoiceSelect($event,field,i)"  >
-                          <label class="form-check-label" for="flexCheckDefault">
-                            {{ choice.get('label')?.value }}
-                          </label>
-                        </div>
-              
-                  <!-- </div> -->
-  
-            
-                  <div class="invalid-feedback">
-                  </div>
-                </div>                </div>
-
-              </div>
-          </div></div>
-      </div> 
-              <div class="col-md-12">
-                  <label for="description" class="form-label">Description</label>
-                  <textarea
-                    class="form-control"
-                    id="Description"
-                    rows="4"
-                    name="Description"
-                    formControlName="Description"
-                    [ngClass]="{
-                      'form-control': true,
-                      'is-invalid': Description?.invalid && (Description?.dirty || Description?.touched),
-                      'is-valid': !Description?.invalid
-                    }"
+             <div class="col-md-12">
+                <div formArrayName="arryChexkBox">
+                    <div  *ngFor="let field of ArryChexkBox.controls; let i = index" [formGroupName]="i">
                  
-                  ></textarea>
-                  <div class="invalid-feedback">
-                    {{ getErrorMsg("Description") }}
+                <label for="label" class="form-label" >{{ field.get('label')?.value }}</label>
+                <div formArrayName="choices">
+                  <div class="row">
+
+                    <div class="mb-1 ms-4 col-2"*ngFor="let choice of getChoicesArrySelect(i,ArryChexkBox).controls; let i=index" [formGroupName]="i">
+                    <div class="form-check">
+                        <input class="form-check-input border-3 border-primary" type="checkbox" [value]="choice.get('label')?.value"(click)="onChoiceSelect($event,field,i)"  >
+                        <label class="form-check-label" for="flexCheckDefault">
+                          {{ choice.get('label')?.value }}
+                        </label>
+                      </div>
+            
+                <!-- </div> -->
+
+          
+                <div class="invalid-feedback">
+                </div>
+              </div>                </div>
+
+            </div>
+        </div></div>
+    </div> 
+            <div class="col-md-12 mt-0">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                  class="form-control"
+                  id="Description"
+                  rows="4"
+                  name="Description"
+                  formControlName="Description"
+                  [ngClass]="{
+                    'form-control': true,
+                    'is-invalid': Description?.invalid && (Description?.dirty || Description?.touched),
+                    'is-valid': !Description?.invalid
+                  }"
+               
+                ></textarea>
+                <div class="invalid-feedback">
+                  {{ getErrorMsg("Description") }}
+
+                </div>
+              </div> 
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12" *ngIf="isFree == false">
+                      <label class="form-label">Price</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text bg-transparent" id="addon-wrapping">EGP</span>
+                      <input type="number" class="form-control rounded-end-3" aria-label="Text input with dropdown button"  name="Price" formControlName="Price"
+                      [ngClass]="{
+                        'form-control': true,
+                        'is-invalid': Price?.invalid && (Price?.dirty || Price?.touched),
+                        'is-valid': !Price?.invalid
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      {{ getErrorMsg("Price") }}
+                    </div>
+                     
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+
+                    <label for="Location" class="form-label">Deal Option</label>
+                    <div class="row">
+
+                      <ng-container  *ngFor="let typeP of PriceType;let i= index">
+
+                        <div class="col-12 mb-2"> 
+                          <div class="form-radio">
+                            <input class="form-check-input me-1 border-2" id="Price_Type_{{i}}" type="radio" name="Price_Type" value="{{i+1}}" formControlName="Price_Type" />
+                            <label class="btn-sm" for="Price_Type_{{i}}">{{typeP}}</label>                        
+                          </div>
+                      </div> 
+
+                      </ng-container>
+                    </div>
+            
+                    </div>
 
                   </div>
-                </div> 
   
-                  <div class="col-md-12">
-                    <div class="row">
-                      <div class="col-md-6">
+                  </div>
+            
+            <div class="col-md-12">
 
-                      <h5 class="fw-semibold mb-4">SET A PRICE</h5>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="addon-wrapping">EGP</span>
-                        <input type="number" class="form-control" aria-label="Text input with dropdown button"  name="Price" formControlName="Price"
-                        [ngClass]="{
-                          'form-control': true,
-                          'is-invalid': Price?.invalid && (Price?.dirty || Price?.touched),
-                          'is-valid': !Price?.invalid
-                        }"
-                      />
-                      <div class="invalid-feedback">
-                        {{ getErrorMsg("Price") }}
-                      </div>
-                       
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-
-                      <h5 class="fw-semibold mb-4">DEAL </h5>
-                      <div class="row">
-
-                        <ng-container  *ngFor="let typeP of PriceType;let i= index">
-
-                          <div class="col-4"> <div class="form-radio">
-                            <input class="form-check-input me-1 border-3 border-primary" type="radio" name="Price_Type" value="{{i+1}}" formControlName="Price_Type" 
-                            
-                           
-                          />
-                          <!-- <div class="invalid-feedback">
-                            {{ getErrorMsg("Price_Type") }}
-                          </div -->
-                            
-                            <label class=" btn-sm" for="success-outlined">{{typeP}}</label>
-                          </div></div> 
-
-                        </ng-container>
-                      </div>
-              
-                      </div>
-
-                    </div>
-    
-                    </div>
-               
-                                          <!-- </div> -->
-  
-                  <!-- </div> -->
-              <div class="col-md-12">
-  
-              <div class="row">  
-                  <h5 class="fw-semibold mb-4" >UPLOAD PHOTOS</h5>
-              </div>
-             
-  <div class="input-group">
-  
-      <input type="file" multiple formControlName="Post_Images"name="Post_Images" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" (change)="onFileChange($event)"
-      
-  
-    />
-
-      <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
-    </div>
-          </div>
-          <div class="col-md-12">
-  
-              <div class="row">  
-                  <h5 class="fw-semibold mb-4" >YOUR AD'S LOCATION</h5>
-                  <label for="Location" class="form-label">Loction</label>
-                  <select class="form-select" aria-label="Default select example" name="Location" formControlName="Location"  [ngClass]="{
-                    'form-control': true,
-                    'is-invalid': Location?.invalid && (Location?.value.dirty || Location?.touched),
-                    'is-valid': !Location?.invalid
-                  }">
-                <div class="invalid-feedback">
-                  {{ getErrorMsg("Location") }}
-                </div > 
+            <label class="mb-2">Product Images</label>             
+            <div class="input-group">
+                <input type="file" multiple formControlName="Post_Images"name="Post_Images" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" (change)="onFileChange($event)"/>
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
+            </div>
+            <span style="font-size: 11px;color: #444;margin-top: 5px;">Use the landscape mode on your camera for better cover photos</span>
+        </div>
+        <div class="col-md-12">
+            <div class="row">  
+               <div class="col-md-12">
+                <label for="Location" class="form-label">Loction</label>
+                <select class="form-select" aria-label="Default select example" name="Location" formControlName="Location"  [ngClass]="{
+                  'form-control': true,
+                  'is-invalid': Location?.invalid && (Location?.value.dirty || Location?.touched),
+                  'is-valid': !Location?.invalid
+                }">                
                     <option selected  disabled >Select Location</option>
                     <ng-container *ngFor="let gov of governorate">
                     <option value={{gov.id}}> {{gov.governorate_Name_En}} </option>
                   </ng-container>
-                  </select>
-                  <div *ngIf="hasCity">
+                </select>
+                <div class="invalid-feedback">
+                  {{ getErrorMsg("Location") }}
+                </div> 
+               </div>
+               <div class="col-md-12 mt-3">
+                <div *ngIf="hasCity">
                   <label for="parent_Id" class="form-label">City</label>
                   <select class="form-select" aria-label="Default select example" name="Post_Location" formControlName="Post_Location"
                   
@@ -243,7 +226,7 @@
                     'is-valid': !Post_Location?.invalid
                   }">
                
-                    <option selected  disabled >Select Location</option>
+                    <option selected  disabled >Select City</option>
                     <ng-container *ngFor="let c of city">
                     <option value={{c.id}}> {{c.city_Name_En}} </option>
                   </ng-container>
@@ -251,44 +234,47 @@
                   <div class="invalid-feedback">
                     {{ getErrorMsg("Post_Location") }}
                   </div> 
-                </div></div>
-              </div>
-              <div class="col-md-12">
-  
-                  <div class="row">  
-                      <h5 class="fw-semibold mb-4" >Contact Method</h5>
-                      <div class="col-3">   <div class="form-check form-switch">
-                          <input class="form-check-input" type="radio" role="switch" value="1" id="flexSwitchCheckDefault" name="Contact_Method"formControlName="Contact_Method" checked>
-                          <label class="form-check-label" for="flexSwitchCheckDefault">Phone Number</label>
-                        </div></div>
+                </div>
+               </div>
+            </div>
+            </div>
+            <div class="col-md-12 mt-0">
+
+                <div class="row">  
+                  <label for="contact" class="form-label">Contact Method</label>
+                    <div class="col-3">   <div class="form-check form-switch">
+                        <input class="form-check-input" type="radio" role="switch" value="1" id="flexSwitchCheckDefault" name="Contact_Method" formControlName="Contact_Method">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Phone Number</label>
+                      </div></div>
+                 
+                      <div class="col-3"><div class="form-check form-switch">
+                        <input class="form-check-input" type="radio"  name="Contact_Method" value="2" role="switch" id="flexSwitchCheckChecked" formControlName="Contact_Method">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">OLX Chat</label>
+                      </div></div>
+
+                      
+                      <div class="col-3"><div class="form-check form-switch">
+                        <input class="form-check-input" type="radio"  name="Contact_Method" value="3" role="switch" id="flexSwitchCheckBoth" formControlName="Contact_Method" checked>
+                        <label class="form-check-label" for="flexSwitchCheckBoth">Phone & Chat</label>
+                      </div></div>
                    
-                        <div class="col-3"><div class="form-check form-switch">
-                          <input class="form-check-input" type="radio"  name="Contact_Method" value="2" role="switch" id="flexSwitchCheckChecked" formControlName="Contact_Method">
-                          <label class="form-check-label" for="flexSwitchCheckChecked">OLX Chat</label>
-                        </div></div>
-  
-                        
-                        <div class="col-3"><div class="form-check form-switch">
-                          <input class="form-check-input" type="radio"  name="Contact_Method" value="3" role="switch" id="flexSwitchCheckChecked" formControlName="Contact_Method">
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Both</label>
-                        </div></div>
-                     
-                      <div class="invalid-feedback">
-                      </div>
+                    <div class="invalid-feedback">
                     </div>
                   </div>
-              <div class="row d-flex mt-5 ">
-                  <div class="col"> 
-                       <button
-                      type="submit"
-                      class="btn btn-primary  btn-lg py-2 d-flex align-items-center gap-2"
-                    >
-                      <i class="isax isax-add "></i>Post Now
-                    </button></div>
-               
-              </div>
-            </form>
-          </div>
+                </div>
+            <div class="col-md-12">
+              <div class="row d-flex mt-4">
+                <div class="col"> 
+                     <button
+                    type="submit"
+                    class="btn btn-primary btn-lg py-2 d-flex align-items-center gap-2"
+                  >
+                    <i class="isax isax-add  fs-3"></i>Post Now
+                  </button></div>
+             
+            </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>    </div>

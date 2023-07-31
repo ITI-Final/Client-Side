@@ -17,6 +17,7 @@ import { PostViewComponent } from './post-view/post-view.component';
 import { ChatComponent } from './chat/chat.component';
 import { CategoryViewComponent } from './category-view/category-view.component';
 import { SharedModule } from './shared/shared.module';
+import { authUserGuard } from 'src/app/Guards/UserSite/auth-user.guard';
 
 
 
@@ -31,8 +32,8 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'Logout', component: LoginComponent },
       { path: 'categories', component: CategoriesComponent },
-      { path: 'chat', component: ChatComponent },
-      { path: 'chat/:id', component: ChatComponent },
+      { path: 'chat', component: ChatComponent,canActivate:[authUserGuard] },
+      { path: 'chat/:id', component: ChatComponent,canActivate:[authUserGuard] },
       //{ path: ':slug', component: HomeComponent },
       {
         path: 'user',

@@ -256,4 +256,6 @@ export class NavbarComponent {
     this.activeMenu = menuNumber;
     this.areaExpanded = !this.areaExpanded;
   }
+
+
 }

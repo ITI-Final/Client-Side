@@ -18,7 +18,8 @@ export class AddPostComponent {
   city:any=[]
   hasCity=false
   selectedImages: FileList |any;
-userID:any
+  userID:any
+  isFree : boolean = false;
 
   /////////////////
     categoryParentArry: any[]=[]
@@ -37,7 +38,7 @@ userID:any
   Description: ["",[Validators.required,Validators.minLength(3)]],
   Price: ["",[Validators.required]],
   Price_Type: ["",[Validators.required]],
-  Contact_Method: ["",[Validators.required]],
+  Contact_Method: ["3",[Validators.required]],
   Post_Location: ["",[Validators.required]],
   Location: ["",[Validators.required]],
 
@@ -204,7 +205,11 @@ console.log(event.target)
     })  })
     this.addForm.get('Price_Type')?.valueChanges.subscribe(res=>{
 if(res==1){
-  this.Price?.setValue(0.00)
+  this.Price?.setValue(0.00);
+  this.isFree = true;
+} else {
+  this.isFree = false;
+  this.Price?.setValue("");
 }
     })
   }

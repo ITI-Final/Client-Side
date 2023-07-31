@@ -6,6 +6,7 @@ export const environment = {
   Admin: () => environment.endPoint + 'Admins',
   Companies: () => environment.endPoint + 'Companies',
   User: () => environment.endPoint + 'Users',
+  Favourites: () => environment.endPoint + 'Favourites',
   categorywithPost: () => environment.endPoint + 'Categories/withPosts',
   AllCategories: () => environment.endPoint + 'Categories',
   getRandomImages: () => environment.endPoint + 'Images',
