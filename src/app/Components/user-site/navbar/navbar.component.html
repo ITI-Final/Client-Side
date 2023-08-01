@@ -69,7 +69,10 @@
                 type="text"
                 class="form-control shadow-none border-0"
                 style="padding: 12px 10px"
-                placeholder="Find Cars, Mobile Phones and more..."
+                placeholder="Find Cars, Mobile Phones and more..." 
+                [(ngModel)]="name"
+                (ngModelChange)="textAreaEmpty()"
+                (keypress)="onKeyPress($event)"
               />
             </div>
           </li>
@@ -231,6 +234,7 @@
                   class="dropdown-item"
                   (click)="changeslug(menuItem.slug)"
                   [routerLink]="['/',menuItem.slug]"
+
                   >{{ menuItem.label }}</a
                 >
               </li>

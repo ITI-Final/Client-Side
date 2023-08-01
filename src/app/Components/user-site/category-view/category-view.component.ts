@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { CategoryService } from 'src/app/services/UserSite/category.service';
 import { PostService } from 'src/app/services/UserSite/post.service';
+import { CategoryService as catDas} from 'src/app/services/Dashboard/category.service';
 
 @Component({
   selector: 'app-category-view',
@@ -17,17 +18,27 @@ import { PostService } from 'src/app/services/UserSite/post.service';
 export class CategoryViewComponent {
   slug: string | null = '';
   Catposts: any = [];
+  pages= 1;
+pageSize: number = 10;
   post: any = [];
   OutputData: DataTransfer[] = [];
   carsourlview: boolean = true;
   currentRoute = '';
   AllCatigory: any[] = [];
   flag = false;
+  hasCity=false
+  city:any
+selectPrice: boolean = true;
+selectGov: number | null = null;
+selectCity: number | null = null;
+governorate:any
+arryPriceSort=[{"string":"Heigher To Lower",value:false},{"string":"Lower To Heigher",value:true},]
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    private CategoryServicedasboard:catDas
   ) {
     this.slug = activatedRoute.snapshot.paramMap.get('category');
     if (!isNaN(parseInt(this.slug!))){
@@ -36,8 +47,59 @@ export class CategoryViewComponent {
       this.router.navigate(['/404']);
     }
   }
-
+  onSelectChangeGov(event:any){
+    this.hasCity=true
+  
+    this.CategoryServicedasboard.getGovernorateById(event.target.value).subscribe(res=>{
+      console.log(res.data)
+      this.city=res.data.cities
+      
+    }) 
+  this.postService.filterPostsGov(event.target.value).subscribe(val=>{
+  
+    this.Catposts=val.data
+  })
+  this.showAlertIfAllSelected();
+  
+  }
+  
+  onSelectChangeCity(event:any){
+    console.log(event.target.value)
+    this.postService.filterPostsCity(event.target.value).subscribe(val=>{
+  
+      this.Catposts=val.data
+    })
+    this.showAlertIfAllSelected();
+  
+  }
+  onSelectChangePrice(event:any){
+  console.log(event.target.value)
+  this.postService.filterPostsprice(event.target.value).subscribe(val=>{
+  
+    this.Catposts=val.data
+  })
+  this.showAlertIfAllSelected();
+  
+  }
+  
+  showAlertIfAllSelected() {
+    // Check if all three selects have been selected
+    if (this.selectPrice !== null && this.selectGov !== null && this.selectCity !== null) {
+      this.postService.filterPosts(this.selectPrice,this.selectGov,this.selectCity).subscribe(val=>this.Catposts=val.data)
+    }else if(this.selectPrice !== null && this.selectGov !== null){
+      this.postService.filterPostsPriceAndGov(this.selectPrice,this.selectGov).subscribe(val=>this.Catposts=val.data)
+  
+    }
+    else if(this.selectGov !== null && this.selectCity !== null){
+      this.postService.filterPostsGovAndCity(this.selectGov,this.selectCity).subscribe(val=>this.Catposts=val.data)
+  
+    }
+  }
   ngOnInit(): void {
+    this.CategoryServicedasboard.getallGovernorates().subscribe(res=>{
+      console.log(res.data)
+      this.governorate=res.data
+    })
     if (this.slug != null) {
       console.log(this.slug);
       this.categoryService.getAllPosts(this.slug).subscribe({

@@ -100,13 +100,31 @@
               'is-valid': !Parent_Id?.invalid
             }"> 
               <option selected  disabled >Select Parent Category</option>
-              <option [value]=null> Parent </option>
+              <option value="setNull"> Parent </option>
               <option *ngFor="let option of categoryParentArry" [value]="option.id ">{{ option.label }}</option>
 
             </select>
            
             <div class="invalid-feedback">
               {{ getErrorMsg("parent_Id") }}
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="hasIcon">
+            <label for="icon" class="form-label">Icon Catgegory Url</label>
+            <input
+              type="url"
+              class="form-control"
+              name="icon"
+              id="icon"
+              formControlName="icon"
+              [ngClass]="{
+                'form-control': true,
+                'is-invalid':
+                  Icon?.invalid && (Icon?.dirty || Icon?.touched),
+              }"
+            />
+            <div class="invalid-feedback">
+              {{ getErrorMsg("icon") }}
             </div>
           </div>
           <div class="col-md-12">

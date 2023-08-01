@@ -39,8 +39,8 @@ export class AuthService {
     login(entity: any):Observable<any> {
    //test
   
-      localStorage.setItem("UserName", "login");
-      this.isUserSubject.next(true);
+      // localStorage.setItem("UserName", "login");
+      // this.isUserSubject.next(true);
 
       return this.httpclient.post<any>(environment.User() + '/login' ,entity); 
 

@@ -1,6 +1,8 @@
+import { Admin } from './../../../interfaces/Dashboard/admin';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import AdminService from 'src/app/services/Dashboard/admin.service';
 import { AuthService } from 'src/app/services/Dashboard/auth.service';
 
 @Component({
@@ -12,7 +14,7 @@ export class LoginComponent {
   isAdminLogged:boolean|undefined
   usrFormGroup: FormGroup;
   user:object|undefined
-  constructor( private AuthServices:AuthService,private fb: FormBuilder,private router:Router) {
+  constructor( private AuthServices:AuthService,private fb: FormBuilder,private router:Router,private adminService:AdminService) {
     this.usrFormGroup=this.fb.group({
       email:['',[Validators.required,Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/)]],
       password:['',[Validators.required]],
@@ -58,11 +60,16 @@ login(e:any){
   formData.append('password', this.usrFormGroup.value.password);
 
     this.AuthServices.login(formData).subscribe((response: any) => {
-      console.log(response.response.token);
-      console.log(response);
-
+      console.log(response.response);
+      this.AuthServices.AdminToken=response.response.token
+      this.adminService.AdminToken=response.response.token
       this.AuthServices.token=response.response.token
       localStorage.setItem("id",response.response.id)
+       this.AuthServices.updateToken(response.response.token)
+      localStorage.setItem("AdminToken",response.response.token)
+      this.AuthServices.isAdminSubject.next(true);
+    localStorage.setItem("AdminName", "login");
+
       this.isAdminLogged=this.AuthServices.isAdminLogged
       this.router.navigate(["/dashboard"])
     },
@@ -70,8 +77,12 @@ login(e:any){
       console.error(error.error?.statusMessage);
       if (error.error.statusMessage == "Password Is Invalid") {
        this.Password?.setErrors({ InvaildPassword: error.error.statusMessage });
-      }
-    })
+      }else if(error.error.statusMessage == "Not Found.")
+{   
+  this.Email?.setErrors({ InvaildInvaildEmailPassword: error.error.statusMessage });
+
+} 
+   })
   }else{
    this.usrFormGroup.markAllAsTouched();
      
@@ -106,6 +117,9 @@ login(e:any){
                 return 'At least 6 characters mixed with numbers and symbols.';
               } else if (control.errors && control.errors['InvaildPassword'] != undefined) {            
                 return control.errors['InvaildPassword'];
+              }
+              else if (control.errors && control.errors['InvaildEmail'] != undefined) {            
+                return control.errors['InvaildEmail'];
               }
              
             }

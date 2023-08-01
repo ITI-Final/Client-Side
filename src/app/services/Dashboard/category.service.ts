@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { AuthService } from './auth.service';
+import { AdminTokenService } from './admin-token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,12 @@ import { environment } from 'src/environments/environment.development';
 export class CategoryService {
 
   private httpoptions
-
-  constructor(private httpclient: HttpClient) {
+  headers:any
+  constructor(private httpclient: HttpClient, private AuthServices:AuthService,private  header:AdminTokenService ) { 
+    this.AuthServices.getToken().subscribe(val=>{
+      this.headers =this.header.setheader(val)
+    }) 
+  
     this.httpoptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -23,10 +29,10 @@ export class CategoryService {
     return this.httpclient.get<any>(`${environment.endPoint}Categories`);
   }
   addMainCategory(category: any): Observable<any> {
-    return this.httpclient.post<any>(`${environment.endPoint}Categories/main`, category, this.httpoptions);
+    return this.httpclient.post<any>(`${environment.endPoint}Categories/main`, category, {'headers':this.headers});
   }
   addCategory(category: any): Observable<any> {
-    return this.httpclient.post<any>(`${environment.endPoint}Categories`, category, this.httpoptions);
+    return this.httpclient.post<any>(`${environment.endPoint}Categories`, category, {'headers':this.headers});
   }
   deleteGategory(id: number): Observable<any> {
     return this.httpclient.delete<any>(`${environment.endPoint}Categories/${id}`);

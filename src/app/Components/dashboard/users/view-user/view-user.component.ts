@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/Dashboard/user';
 import { UserService } from 'src/app/services/Dashboard/user.service';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-view-user',
@@ -20,7 +21,7 @@ export class ViewUserComponent {
 
   ngOnInit(): void {
   
-  
+
     this.activatedRoute.paramMap.subscribe(
       paramMap => {
     this.currentidCat = Number(paramMap.get('id'));

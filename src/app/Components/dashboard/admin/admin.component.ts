@@ -16,10 +16,12 @@ export class AdminComponent implements OnInit {
   defaultIMG = environment.DefaultIMG
   buttonRemove : number = 0;
   searchTerm: string='';
-
+  defaultAvatar:any
   constructor(private adminService:AdminService) {}
 
   ngOnInit(): void {
+    this.defaultAvatar=environment.DefaultIMG
+
     this.adminService.getAll().subscribe((res:any) => {
       this.adminArry = res.data;
        this.allAdmins=this.adminArry

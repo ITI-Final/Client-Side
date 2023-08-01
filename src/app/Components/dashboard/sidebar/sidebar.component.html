@@ -12,13 +12,13 @@
         aria-expanded="false"
       >
         <img
-          src={{adminDetials.avatar}}
+          [src]="adminDetials?.avatar||defaultAvatar"
           class="object-fit-cover rounded-circle"
           height="40"
           width="40"
         />
         <div class="text-start">
-          <span class="fw-semibold p-0">{{adminDetials.name}}</span>
+          <span class="fw-semibold p-0">{{adminDetials?.name}}</span>
           <div style="font-size: 11px; font-weight: 500">Personal Page</div>
         </div>
       </a>
@@ -71,7 +71,7 @@
           </ul>
         </div>
       </li>
-      <li>
+      <li *ngIf="canViewUsers">
         <a
           data-bs-toggle="collapse"
           href="#users-collapse"
@@ -84,19 +84,19 @@
         ></a>
         <div class="collapse" id="users-collapse">
           <ul class="list-unstyled fw-normal ps-2 small">
-            <li>
+            <li *ngIf="canViewUsers" (click)="addpremission()">
               <a href="#" class="gap-1"  [routerLink]="'/dashboard/user'">
                 <i class="isax isax-minus"></i>All Users</a>
             </li>
-            <li>
-              <a href="#" class="gap-1"  [routerLink]="'/dashboard/user/add'"
+            <li *ngIf=" canAddUsers " (click)="addpremission()">
+              <a  href="#" class="gap-1"  [routerLink]="'/dashboard/user/add'"
                 ><i class="isax isax-minus"></i>Add New User</a
               >
             </li>
           </ul>
         </div>
       </li>
-      <li
+      <li *ngIf="canViewCategory"
         [routerLinkActive]="'active'"
         [routerLinkActiveOptions]="{ exact: true }"
       >
@@ -112,7 +112,7 @@
         ></a>
         <div class="collapse" id="category-collapse">
           <ul class="list-unstyled fw-normal ps-2 small">
-            <li>
+            <li *ngIf="canViewCategory" (click)="addpremission()" >
               <a
                 [routerLink]="'/dashboard/category'"
                 [routerLinkActive]="'text-primary'"
@@ -121,7 +121,7 @@
                 ><i class="isax isax-minus"></i>All Category</a
               >
             </li>
-            <li>
+            <li *ngIf="canAddCategory" (click)="addpremission()">
               <a
                 [routerLink]="'/dashboard/category/add'"
                 [routerLinkActive]="'text-primary'"
@@ -133,7 +133,7 @@
           </ul>
         </div>
       </li>
-      <li>
+      <li *ngIf="canViewPost">
         <a
           data-bs-toggle="collapse"
           href="#posts-collapse"
@@ -149,23 +149,24 @@
         <div class="collapse" id="posts-collapse">
           <ul class="list-unstyled fw-normal ps-2 small">
             <li>
-              <a href="#" class="gap-1"
+              <a                 [routerLink]="'/dashboard/posts'"
+              class="gap-1"
                 ><i class="isax isax-minus"></i>All Posts</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="#" class="gap-1"
                 ><i class="isax isax-minus"></i>Reported Posts</a
               >
-            </li>
+            </li> -->
           </ul>
         </div>
       </li>
-      <li>
+      <!-- <li>
         <a href="#">
           <i class="isax isax-warning-2"></i><span>Reports</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="#">
           <i class="isax isax-setting-3"></i><span>Site Settings</span>

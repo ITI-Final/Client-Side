@@ -2,6 +2,7 @@ import { User } from 'src/app/interfaces/Dashboard/user';
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/Dashboard/user.service';
 import { environment } from 'src/environments/environment.development';
+import { PermissionService } from 'src/app/services/Dashboard/permission.service';
 
 @Component({
   selector: 'app-users',
@@ -16,8 +17,12 @@ export class UsersComponent {
   // defaultIMG = environment.DefaultIMG
   buttonRemove : number = 0;
   searchTerm: string='';
+  canEdite:boolean=false
+  canDelete:boolean=false
+  canAdd:boolean=false
+  canView:boolean=false
 
-  constructor(private userService:UserService) {}
+  constructor(private userService:UserService,private permissionService:PermissionService) {}
 
   ngOnInit(): void {
     this.userService.getAll().subscribe((res:any) => {
@@ -25,6 +30,13 @@ export class UsersComponent {
        this.allUsers=this.userArry
 console.log(res.data)
     });
+
+    this.permissionService.getSectionPermission("users","can_Edit").subscribe(val=>this.canEdite=val)
+    this.permissionService.getSectionPermission("users","can_Delete").subscribe(val=>this.canDelete=val)
+    this.permissionService.getSectionPermission("users","can_Add").subscribe(val=>this.canAdd=val)
+    this.permissionService.getSectionPermission("users","can_View").subscribe(val=>this.canView=val)
+
+    
   }
 
 

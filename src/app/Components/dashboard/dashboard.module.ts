@@ -24,6 +24,8 @@ import { UsersComponent } from './users/users/users.component';
 import { EditeUserComponent } from './users/edite-user/edite-user.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 import { ViewUserComponent } from './users/view-user/view-user.component';
+import { adminPermissionGuard } from 'src/app/Guards/Dashboard/admin-permission.guard';
+import { PostsComponent } from './posts/posts.component';
 
 const routes: Routes =[
   {path:"",component:MainlayoutComponent,
@@ -36,15 +38,17 @@ const routes: Routes =[
     {path:"admin/:id",component:ViewAdminComponent,canActivate:[authAdminGuard]},
     {path:"admin/:id/edit",component:EditAdminComponent,canActivate:[authAdminGuard]},
     // Users
-    {path:"user",component:UsersComponent,canActivate:[authAdminGuard]},
-    {path:"user/add",component:AddUserComponent,canActivate:[authAdminGuard]},
-    {path:"user/:id",component:ViewUserComponent,canActivate:[authAdminGuard]},
-    {path:"user/:id/edit",component:EditeUserComponent,canActivate:[authAdminGuard]},
+    {path:"user",component:UsersComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    {path:"user/add",component:AddUserComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    {path:"user/:id",component:ViewUserComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    {path:"user/:id/edit",component:EditeUserComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
     // Category
-    {path:"category",component:CategoryComponent,canActivate:[authAdminGuard]},
-    {path:"category/add",component:AddCategoryComponent,canActivate:[authAdminGuard]},
-    {path:"category/edite/:Cid",component:EditCategoryComponent,canActivate:[authAdminGuard]},
-    
+    {path:"category",component:CategoryComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    {path:"category/add",component:AddCategoryComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    {path:"category/edite/:Cid",component:EditCategoryComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+    //posts
+    {path:"posts",component:PostsComponent,canActivate:[authAdminGuard,adminPermissionGuard]},
+
   ]},
   {path:'Logout', component:LoginComponent},
   {path:'Login', component:LoginComponent},
@@ -71,7 +75,8 @@ const routes: Routes =[
     UsersComponent,
     EditeUserComponent,
     AddUserComponent,
-ViewUserComponent
+ViewUserComponent,
+PostsComponent
   ],
   imports: [
     CommonModule,

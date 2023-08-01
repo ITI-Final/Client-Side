@@ -15,12 +15,14 @@ export class ViewAdminComponent implements OnInit {
   adminID : number = 0;
   defaultIMG = environment.DefaultIMG
   buttonRemove : number = 0;
-
+  defaultAvatar:any
   constructor(private router: Router,public activatedRoute: ActivatedRoute,private adminService: AdminService) {
     
   }
 
   ngOnInit(): void {
+    this.defaultAvatar=environment.DefaultIMG
+
     this.activatedRoute.params.pipe().subscribe(params => {
       this.adminID = +params['id'];
     });

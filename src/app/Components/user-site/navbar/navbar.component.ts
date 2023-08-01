@@ -2,6 +2,7 @@ import { CategoryService } from './../../../services/UserSite/category.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/UserSite/auth.service';
+import { SearchService } from 'src/app/services/UserSite/search.service';
 
 interface Category {
   id: number;
@@ -19,6 +20,7 @@ interface Category {
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  public name: string = '';
   isUserLogged: boolean | undefined;
   areaExpanded: boolean = false;
   activeMenu: number = 0;
@@ -219,6 +221,7 @@ export class NavbarComponent {
     private AuthServices: AuthService,
     private categoryService: CategoryService,
     private router:Router,
+    private searchService:SearchService
   ) {
     // this.isUserLogged=AuthServices.isUserLogged
   }
@@ -257,5 +260,41 @@ export class NavbarComponent {
     this.areaExpanded = !this.areaExpanded;
   }
 
+  onKeyPress(event: KeyboardEvent) {
+    const userInput = (event.target as HTMLInputElement).value;
 
+    // Check if the user has typed any text
+    if (userInput.trim() !== '') {
+      this.searchService.updateSearchText(userInput)
+      // alert("hi")
+      this.router.navigate(['search'])
+
+      // Add your logic for handling the user's input here
+    }
+    else{
+      this.searchService.updateSearchText(userInput)
+      // alert("hi")
+      this.router.navigate(['search'])
+
+
+    }
+  
+  }
+  textAreaEmpty() {
+    console.log(this.name);
+    if (this.name == '') {
+      // alert("11")
+      this.searchService.updateSearchText(this.name)
+      // alert("hi")
+      this.router.navigate(['search'])
+
+
+    }
+    else{
+      this.searchService.updateSearchText(this.name)
+      // alert("hi")
+      this.router.navigate(['search'])
+
+    }
+  }
 }

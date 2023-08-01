@@ -61,7 +61,9 @@ export class LoginComponent {
             // Parse the decoded payload as JSON to access its properties
             const payloadObj = JSON.parse(decodedPayload);
 
-
+          
+      localStorage.setItem("UserName", "login");
+      this.AuthServices.isUserSubject.next(true);
 
 
 //////

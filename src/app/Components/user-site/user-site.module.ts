@@ -18,6 +18,9 @@ import { ChatComponent } from './chat/chat.component';
 import { CategoryViewComponent } from './category-view/category-view.component';
 import { SharedModule } from './shared/shared.module';
 import { authUserGuard } from 'src/app/Guards/UserSite/auth-user.guard';
+import { SearchComponent } from './search/search.component';
+import { SearchUserPipe } from 'src/app/pipes/search-user.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -51,10 +54,13 @@ const routes: Routes = [
           ),
       },
       // Main Not Found => Must be before Category
+      { path: 'search', component: SearchComponent },
+
       { path: '404', component: NotFoundComponent},
       // Category Routes
       { path: ':category', component: CategoryViewComponent },
       { path: ':category/:id', component: PostViewComponent },
+
       //////// must be last  Path/////////////
       { path: '**', component: NotFoundComponent },
       /////////////////////////////////////////
@@ -77,6 +83,8 @@ const routes: Routes = [
     PostViewComponent,
     ChatComponent,
     CategoryViewComponent,
+    SearchComponent,
+    SearchUserPipe
   ],
   imports: [
     CommonModule,
@@ -84,7 +92,9 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule
+
   ],
 })
 export class UserSiteModule {}

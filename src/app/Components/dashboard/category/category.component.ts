@@ -1,8 +1,13 @@
+import { Sections } from './../../../enums/Sections';
+import { UserService } from 'src/app/services/Dashboard/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/interfaces/Dashboard/category';
 import { CategoryService } from 'src/app/services/Dashboard/category.service';
+import AdminService from 'src/app/services/Dashboard/admin.service';
+import { Observable } from 'rxjs';
+import { PermissionService } from 'src/app/services/Dashboard/permission.service';
 // interface Category {
 //   label: string;
 //   slug: number;
@@ -21,8 +26,12 @@ export class CategoryComponent implements OnInit{
   pageSize: number = 10; // Number of items to display per page
   allCategory:Category[]=[]
   buttonRemove : number = 0;
-
-  constructor(private router:Router,private categoryService:CategoryService) {
+Section:any
+canEdite:boolean=false
+canDelete:boolean=false
+canAdd:boolean=false
+  constructor(private router:Router,private categoryService:CategoryService,
+    private adminService:AdminService,private permissionService:PermissionService) {
 
 }
   ngOnInit(): void {
@@ -33,7 +42,16 @@ export class CategoryComponent implements OnInit{
        this.allCategory = this.categoryArry;
        console.log(result)
 
-    });  }
+    });  
+  // set Permissions edite and delete
+  this.permissionService.getSectionPermission("category","can_Edit").subscribe(val=>this.canEdite=val)
+  this.permissionService.getSectionPermission("category","can_Delete").subscribe(val=>this.canDelete=val)
+  this.permissionService.getSectionPermission("category","can_Add").subscribe(val=>this.canAdd=val)
+
+  
+
+
+}
 
       
         search(event:any): void {
@@ -52,14 +70,17 @@ export class CategoryComponent implements OnInit{
         deleteCategory(id:number){
   
           this.categoryService.deleteCategory(id).subscribe(val=>{console.log(val)
-            this.categoryService.getallGategory().subscribe(result=>{
+
+            this.allCategory = this.categoryArry.filter(a => a.id !== id);
+
+          //   this.categoryService.getallGategory().subscribe(result=>{
     
       
-              this.categoryArry=result.data
-              this.allCategory = this.categoryArry;
-              console.log(result)
+          //     this.categoryArry=result.data
+          //     this.allCategory = this.categoryArry;
+          //     console.log(result)
        
-           });
+          //  });
           
           
           
@@ -70,5 +91,13 @@ export class CategoryComponent implements OnInit{
         remove(id:number) {
             this.buttonRemove = id;
           }
-        }
 
+
+
+      
+         
+
+
+
+
+}

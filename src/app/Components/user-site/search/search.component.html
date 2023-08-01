@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="row mt-3">
+      <div class="col-md-12 mt-4">
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'/'">Home</a>
+            </li>
+          
+          </ol>
+        </div>
+      </div>
+      <div class="col-md-9 d-flex my-3 align-items-center justify-content-between">
+      </div>
+  
+      <div class="col-md-12">
+        <div class="row mb-3">
+          <!-- <div class="col-md-4">
+            <label class="mb-2">Price</label>
+            <select name="price" class="form-select" (change)="changeSelect($event)">
+              <option value="asc">Heigher To Lower</option>
+              <option value="desc">Lower To Heigher</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2">Governorate</label>
+            <select class="form-select">
+              <option>Heigher To Lower</option>
+              <option>Lower To Heigher</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2">City</label>
+            <select class="form-select">
+              <option>Heigher To Lower</option>
+              <option>Lower To Heigher</option>
+            </select>
+          </div>s
+        </div>
+      </div> -->
+      <div class="col-md-12">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="mb-2">Price</label>
+            <select name="price" [(ngModel)]="selectPrice" class="form-select" (change)="onSelectChangePrice($event)">
+              <option selected  disabled >Select </option>
+
+              <ng-container *ngFor="let bool of arryPriceSort">
+                <option value={{bool.value}}> {{bool.string}} </option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2">Governorate</label>
+            <select class="form-select"  [(ngModel)]="selectGov" (change)="onSelectChangeGov($event)">
+              <option selected  disabled >Select Location</option>
+                    <ng-container *ngFor="let gov of governorate">
+                    <option value={{gov.id}}> {{gov.governorate_Name_En}} </option>
+                  </ng-container>
+            </select>
+          </div>
+          <div class="col-md-4" *ngIf="hasCity" >
+            <label class="mb-2">City</label>
+            <select class="form-select" [(ngModel)]="selectCity" (change)="onSelectChangeCity($event)">
+              <option selected  disabled >Select City</option>
+              <ng-container *ngFor="let c of city">
+              <option value={{c.id}}> {{c.city_Name_En}} </option>
+            </ng-container>
+            </select>
+          </div>
+          <!-- <select [(ngModel)]="selectedOption" (ngModelChange)="onSelectChange()">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select> -->
+          <!-- <select [(ngModel)]="selectedOption2" (ngModelChange)="onSelectChange2()">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select> -->
+        </div>
+      </div>
+   
+      <div class="col-md-12">
+        <div class="row" *ngIf="allPosts.length > 0">
+          <div class="col-md-6 col-lg-3" *ngFor="let post of allPosts | searchUser: searchTerm|paginate: { itemsPerPage: pageSize, currentPage: pages };let i=index">
+            <div class="card border-0">
+         
+                <!-- <button class="btn-fav" [class.active]="isFavorite" (click)="toggleFavorite()"><i class="isax isax-heart"></i></button> -->
+                <img
+                src="{{ domain }}{{ post.post_Images[0].image }}"
+                class="d-block w-100 rounded-4"
+                  alt="..."
+                />
+                <div class="card-body px-0" >
+                  <p class="location">
+                    <i class="isax isax-location"></i>
+                    {{ post.post_LocationNavigation?.city_Name_En }} ,
+                    {{ post.post_LocationNavigation?.governorate?.governorate_Name_En }}
+                  </p>
+                  <div class="d-flex align-items-center justify-content-between mb-1">
+                    <h5 class="card-title fw-bold mb-0 text-primary">
+                      {{ currenyFormat(post?.price) }}
+                    </h5>
+                    <span class="post-time">{{ post?.date }}</span>
+                  </div>
+                  <p class="card-text">
+                    {{ post?.title }}
+                  </p>
+                </div>
+              </div>
+                        </div>
+                         <!--Bottom Table UI-->
+                         <div class="d-flex justify-content-center">
+                          <nav class="my-4 pt-2">
+                              <pagination-controls
+                                  (pageChange)="pages = $event"></pagination-controls>
+
+                          </nav>
+                          <!--/Pagination -->
+                      </div>
+                        
+        </div>
+        <div class="row my-5 text-center" *ngIf="allPosts.length == 0">
+          <div class="col-md-12">
+            <h3 class="text-muted">No Posts In This Section</h3>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+   </div>
+   

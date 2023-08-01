@@ -7,14 +7,18 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class AuthService {
+  private isAdminToken:BehaviorSubject<string>
 
   public isAdminSubject: BehaviorSubject<boolean>;
   private httpoptions
   user: any;
   token: string = ''
   adminId: number = 0
+  AdminToken:any
+
   constructor(private httpclient: HttpClient) {
     this.isAdminSubject = new BehaviorSubject<boolean>(this.isAdminLogged);
+    this.isAdminToken=new BehaviorSubject<string>("");
 
     this.httpoptions = {
       headers: new HttpHeaders({
@@ -22,6 +26,7 @@ export class AuthService {
         'Content-Type': 'application/json'
       })
     }
+
   }
   getallAdmin(): Observable<any> {
     return this.httpclient.get<any>(`${environment.APIURL}/admin`);
@@ -35,13 +40,16 @@ export class AuthService {
 
   //  }
   login(entity: any): Observable<any> {
-    localStorage.setItem("AdminName", "login");
+    // localStorage.setItem("AdminName", "login");
     //  this.isAdminSubject.next(true);
+     
     return this.httpclient.post<any>(environment.Admin() + '/login', entity);
   }
   logout() {
     localStorage.removeItem("AdminName")
     localStorage.removeItem("id")
+    localStorage.removeItem("Adminpremissiom")
+    localStorage.removeItem("AdminToken")
 
     this.isAdminSubject.next(false);
 
@@ -51,7 +59,17 @@ export class AuthService {
   get isAdminLogged(): boolean {
     return (localStorage.getItem('AdminName')) ? true : false
   }
+  getToken():Observable<string> {
 
+    return this.isAdminToken.asObservable()
+}
+
+updateToken(items: string) {
+
+    this.isAdminToken.next(items);
+
+
+};
   getAdminloggedStatus(): Observable<boolean> {
     return this.isAdminSubject.asObservable();
   }
@@ -60,6 +78,7 @@ export class AuthService {
     return this.httpclient.get<any>(`${environment.APIURL}/admin/${id}`);
 
   }
+
   addNewAdmin(newUser: any): Observable<any> {
 
     return this.httpclient.post<any>(`${environment.APIURL}/admin`
@@ -83,5 +102,6 @@ export class AuthService {
       )
 
   }
+
 
 }

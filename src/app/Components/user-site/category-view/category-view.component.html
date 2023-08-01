@@ -20,33 +20,50 @@
       <div class="row mb-3">
         <div class="col-md-4">
           <label class="mb-2">Price</label>
-          <select name="price" class="form-select" (change)="changeSelect($event)">
-            <option value="asc">Heigher To Lower</option>
-            <option value="desc">Lower To Heigher</option>
+          <select name="price" [(ngModel)]="selectPrice" class="form-select" (change)="onSelectChangePrice($event)">
+            <option selected  disabled >Select </option>
+
+            <ng-container *ngFor="let bool of arryPriceSort">
+              <option value={{bool.value}}> {{bool.string}} </option>
+            </ng-container>
           </select>
         </div>
         <div class="col-md-4">
           <label class="mb-2">Governorate</label>
-          <select class="form-select">
-            <option>Heigher To Lower</option>
-            <option>Lower To Heigher</option>
+          <select class="form-select"  [(ngModel)]="selectGov" (change)="onSelectChangeGov($event)">
+            <option selected  disabled >Select Location</option>
+                  <ng-container *ngFor="let gov of governorate">
+                  <option value={{gov.id}}> {{gov.governorate_Name_En}} </option>
+                </ng-container>
           </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="hasCity" >
           <label class="mb-2">City</label>
-          <select class="form-select">
-            <option>Heigher To Lower</option>
-            <option>Lower To Heigher</option>
+          <select class="form-select" [(ngModel)]="selectCity" (change)="onSelectChangeCity($event)">
+            <option selected  disabled >Select City</option>
+            <ng-container *ngFor="let c of city">
+            <option value={{c.id}}> {{c.city_Name_En}} </option>
+          </ng-container>
           </select>
         </div>
+     
       </div>
     </div>
  
     <div class="col-md-12">
       <div class="row" *ngIf="Catposts.length > 0">
-        <div class="col-md-6 col-lg-3" *ngFor="let post of Catposts.reverse(); let i = index">
+        <div class="col-md-6 col-lg-3" *ngFor="let post of Catposts.reverse() |paginate: { itemsPerPage: pageSize, currentPage: pages };let i=index">
           <app-post-item [post]="post" [category]="section.url"></app-post-item>
         </div>
+        <div class="d-flex justify-content-center">
+          <nav class="my-4 pt-2">
+              <pagination-controls
+                  (pageChange)="pages = $event"></pagination-controls>
+
+          </nav>
+          <!--/Pagination -->
+      </div>
+        
       </div>
       <div class="row my-5 text-center" *ngIf="Catposts.length == 0">
         <div class="col-md-12">

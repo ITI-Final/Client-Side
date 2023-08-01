@@ -12,7 +12,7 @@
       <div class="row">  
         <!-- <pre>{{categoryDetials | json}}</pre> -->
           <h4 class="text-center">Create new post</h4>
-          <h2 class="mb-4 fw-bold text-center text-primary">{{categoryDetials.label}}</h2>
+          <h2 class="mb-4 fw-bold text-center text-primary">{{categoryDetials?.label}}</h2>
       </div>
       <div class="row justify-content-center">
         <div class="col-12">
@@ -82,7 +82,7 @@
         <!-- <div class="col-3"> -->
           <div class="form-check col-3">
             <input 
-              class="form-check-input border-3 border-primary"
+              class="form-check-input border-2 "
               type="radio"
               [attr.name]="'radioGroup' + i"
               [value]="choice.get('label')?.value" (click)="onChoiceSelect($event,field,i)" 
@@ -109,7 +109,7 @@
 
                     <div class="mb-1 ms-4 col-2"*ngFor="let choice of getChoicesArrySelect(i,ArryChexkBox).controls; let i=index" [formGroupName]="i">
                     <div class="form-check">
-                        <input class="form-check-input border-3 border-primary" type="checkbox" [value]="choice.get('label')?.value"(click)="onChoiceSelect($event,field,i)"  >
+                        <input class="form-check-input border-2 " type="checkbox" [value]="choice.get('label')?.value"(click)="onChoiceSelect($event,field,i)"  >
                         <label class="form-check-label" for="flexCheckDefault">
                           {{ choice.get('label')?.value }}
                         </label>

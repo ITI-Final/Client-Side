@@ -8,7 +8,14 @@
     </ol>
   </nav>
   <div class="bg-white p-3 p-md-5 rounded-4">
-    <h1 class="mb-4"> Category</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="mb-4">All Category</h1>
+
+      <a *ngIf="canAdd" class="btn btn-warning" [routerLink]="'/dashboard/category/add'"
+        ><i class="isax isax-user-add"></i> Add Category</a
+      >
+    </div>
+    <!-- <h1 class="mb-4"> Category</h1> -->
     <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-12">
@@ -56,10 +63,14 @@
                                                 <th class="th-lg" class="text-primary">Slug</th>
                                                 <!-- <th class="th-lg" class="text-primary">Has Field</th> -->
                                                 <th class="th-lg" class="text-primary">Has Subcategory</th>
-                                                <th class="th-lg" class="text-primary">Has Fields</th>
+                                             
+                                               <th class="th-lg" class="text-primary">Has Fields</th>
 
-                                                <th class="th-lg" class="text-primary">Edite</th>
-                                                <th class="th-lg" class="text-primary">Delete</th>
+                                               <div *ngIf="canEdite">
+  <th class="th-lg" class="text-primary">Edite</th>
+
+</div>
+                                                <th *ngIf="canDelete" class="th-lg" class="text-primary">Delete</th>
                                             </tr>
                                         </thead>
                                         <!--Table head-->
@@ -82,7 +93,9 @@ Parent                                                             </td>
                                                     <td *ngIf="category.fields.length>0">Yes</td>
                                                     <td *ngIf="category.fields.length<=0">No</td>
                                                     <!-- <td>{{category.label}}</td> -->
-                                                    <td>
+                                                    
+                                                    
+                                                    <td  *ngIf="canEdite">
                                                         
                                                     <a
                                                     href="#"
@@ -92,7 +105,7 @@ Parent                                                             </td>
                                                     <td>
                                                       
                                                       
-                                                      <a   data-bs-toggle="modal"
+                                                      <a *ngIf="canDelete"  data-bs-toggle="modal"
                                                       data-bs-target="#exampleModal"  class="btn bg-body-tertiary rounded-circle border border-1"  
                                                        (click)="deleteCategory(category.id)"><i class="isax isax-trash fw-bold text-danger"></i></a>
                                                     
