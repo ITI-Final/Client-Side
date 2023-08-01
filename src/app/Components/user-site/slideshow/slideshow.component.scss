@@ -1,10 +1,43 @@
 .slideshow {
    height: 400px;
+   // background-color: #EEE;
+   background-image: linear-gradient(-135deg, rgba(var(--bs-primary-rgb),0.15),var(--primary-color-light));
+
 }
 
+.slideshow > div{
+   display: flex;
+   align-items: center;
+}
 .slideshow img{
-   object-fit: cover;
-   height: 100%;
+   // object-fit: cover;
+   height: 400px;
+}
+
+.slideshow h2 {
+   color: #000;
+}
+.slideshow p {
+   line-height: 2;
+   color: #444;
+   // padding: 5px 50px 0 0;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+   position: absolute;
+   top: 85%;
+   left: 95%;
+   width: 50px;
+}
+.carousel-control-prev{
+   left: 91%;
+}
+
+.carousel-control-next-icon ,
+.carousel-control-prev-icon {
+   filter: brightness(0.0);
+   width: 50px;
 }
 
 .carousel-indicators {
